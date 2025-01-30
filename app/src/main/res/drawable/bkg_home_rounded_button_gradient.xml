@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="-90" android:centerColor="@color/themeHomeButtonGradientCenterColor" android:endColor="@color/themeHomeButtonGradientEndColor" android:startColor="@color/themeHomeButtonGradientStartColor" android:type="linear" />
+            <stroke android:width="1dp" android:color="@color/themeHomeButtonGradientStrokeColor" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+</selector>
