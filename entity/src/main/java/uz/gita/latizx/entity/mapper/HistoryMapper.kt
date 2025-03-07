@@ -1,9 +1,9 @@
 package uz.gita.latizx.entity.mapper
 
-import uz.gita.latizx.comman.model.HistoryItems
+import uz.gita.latizx.comman.model.HistoryItemsData
 import uz.gita.latizx.entity.local.room.entity.HistoryItemsEntity
 
-fun HistoryItemsEntity.toHistoryItems(): HistoryItems = HistoryItems(
+fun HistoryItemsEntity.toHistoryItems(): HistoryItemsData = HistoryItemsData(
     amount = amount,
     from = from,
     time = time,
@@ -12,7 +12,7 @@ fun HistoryItemsEntity.toHistoryItems(): HistoryItems = HistoryItems(
 )
 
 
-fun HistoryItems.toHistoryItemsEntity(): HistoryItemsEntity = HistoryItemsEntity(
+fun HistoryItemsData.toHistoryItemsEntity(): HistoryItemsEntity = HistoryItemsEntity(
     amount = amount,
     from = from,
     time = time,

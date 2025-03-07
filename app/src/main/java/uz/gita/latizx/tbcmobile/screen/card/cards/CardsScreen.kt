@@ -28,10 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
-import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.presenter.card.cards.CardsContract
 import uz.gita.latizx.presenter.card.cards.CardsViewModelImpl
+import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 class CardsScreen : Screen {
     @Composable
@@ -49,7 +50,9 @@ private fun CardsScreenContent(
     uiState: State<CardsContract.UIState> = remember { mutableStateOf(CardsContract.UIState) },
     eventDispatcher: (CardsContract.UIIntent) -> Unit = {},
 ) {
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    Scaffold(
+        containerColor = AppTheme.colorScheme.backgroundPrimary,
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             AppTopBar(
                 text = R.string.cards_cards,

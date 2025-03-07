@@ -1,5 +1,6 @@
 package uz.gita.latizx.tbcmobile.screen.main.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,27 +26,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
-import uz.gita.latizx.tbcmobile.utils.getSectionHeight
-import uz.gita.latizx.tbcmobile.utils.parallaxLayoutModifier
 import uz.gita.latizx.presenter.home.HomeContract
 import uz.gita.latizx.presenter.home.HomeViewModelImpl
 import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.button.IconWithNotificationBadge
-import uz.gita.latizx.tbcmobile.screen.components.button.SPHomeButton
-import uz.gita.latizx.tbcmobile.screen.components.items.ItemCardInfo
-import uz.gita.latizx.tbcmobile.screen.components.items.ItemHomeVertical
-import uz.gita.latizx.tbcmobile.screen.components.other.DotBox
+import uz.gita.latizx.tbcmobile.screen.main.home.components.ItemCurrency
+import uz.gita.latizx.tbcmobile.screen.main.home.components.ItemSupport
+import uz.gita.latizx.tbcmobile.ui.components.button.IconWithNotificationBadge
+import uz.gita.latizx.tbcmobile.ui.components.button.SPHomeButton
+import uz.gita.latizx.tbcmobile.ui.components.items.ItemCardInfo
+import uz.gita.latizx.tbcmobile.ui.components.items.ItemHomeVertical
+import uz.gita.latizx.tbcmobile.ui.components.other.DotBox
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
+import uz.gita.latizx.tbcmobile.utils.getSectionHeight
+import uz.gita.latizx.tbcmobile.utils.parallaxLayoutModifier
 
 class HomeScreen : Screen {
     @Composable
@@ -76,12 +79,13 @@ private fun HomeScreenContent(
                 eventDispatcher = eventDispatcher
             )
         },
-        sheetContainerColor = Color(0xFFf6faff),
+        sheetContainerColor = AppTheme.colorScheme.backgroundPrimary,
         scaffoldState = bottomSheetScaffoldState,
         sheetPeekHeight = sectionHeight / 2 //BottomSheetDefaults.SheetPeekHeight
     ) {
         Column(
             modifier = Modifier
+                .background(brush = Brush.linearGradient(AppTheme.colorScheme.themeBottomSheetHeaderGradient))
                 .padding(it)
                 .fillMaxWidth()
                 .height(sectionHeight * 0.5f)
@@ -103,8 +107,8 @@ private fun HomeScreenContent(
                     text = stringResource(R.string.home_welcome_text),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    fontWeight = FontWeight.Medium
+                    style = AppTheme.typography.titleSmall,
+                    color = AppTheme.colorScheme.textPrimary
                 )
             }
             // Ikkinchi qator
@@ -135,15 +139,13 @@ private fun HomeScreenContent(
                             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 Text(
                                     text = uiState.value.balance,
-                                    color = MaterialTheme.colorScheme.onTertiary,
-                                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                                    fontWeight = FontWeight.Bold
+                                    color = AppTheme.colorScheme.textPrimary,
+                                    style = AppTheme.typography.titleLarge
                                 )
                                 Text(
                                     text = stringResource(R.string.rates_my_space_currency_symbol),
-                                    color = MaterialTheme.colorScheme.onTertiary,
-                                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                                    fontWeight = FontWeight.Bold
+                                    color = AppTheme.colorScheme.textPrimary,
+                                    style = AppTheme.typography.titleLarge
                                 )
                             }
                         } else {
@@ -166,7 +168,8 @@ private fun HomeScreenContent(
                                     if (uiState.value.isBalanceDisplayed) R.drawable.ic_eye_off
                                     else R.drawable.ic_eye
                                 ),
-                                contentDescription = "ic eye"
+                                contentDescription = "ic eye",
+                                tint = AppTheme.colorScheme.backgroundAccentCoolGraySecondary
                             )
                         }
                     }
@@ -216,6 +219,9 @@ private fun BottomSheetContent(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        uiState.value.homeItems.forEachIndexed { index, data ->
+
+        }
         ItemHomeVertical(
             title = uiState.value.homeItems[0].title,
             text = uiState.value.homeItems[0].text,
@@ -234,10 +240,7 @@ private fun BottomSheetContent(
         } else {
             ItemCardInfo(
                 cards = uiState.value.cards,
-//                cardName = uiState.value.cards[index].name,
-//                sum = uiState.value.cards[index].amount.toString(),
                 balanceText = R.string.cards_balance_label,
-//                pan = uiState.value.cards[index].pan,
                 onClickCard = { eventDispatcher(HomeContract.UiIntent.OpenHomeCardsInfo) },
                 onClickAddCard = { eventDispatcher(HomeContract.UiIntent.OpenHomeCards) }
             )
@@ -249,6 +252,11 @@ private fun BottomSheetContent(
             cardColor = uiState.value.homeItems[2].cardColor,
             onClick = {}
         )
+        ItemCurrency(){}
+        ItemSupport {
+
+        }
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 

@@ -5,7 +5,7 @@ import uz.gita.latizx.tbcmobile.screen.card.info.CardsInfoScreen
 import uz.gita.latizx.presenter.home.HomeContract
 import uz.gita.latizx.tbcmobile.screen.card.cards.CardsScreen
 import uz.gita.latizx.tbcmobile.screen.main.payment.PaymentsScreen
-import uz.gita.latizx.tbcmobile.screen.transaction.TransactionScreen
+import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionScreen
 import uz.gita.latizx.tbcmobile.screen.transfers.recipient.RecipientScreen
 import javax.inject.Inject
 

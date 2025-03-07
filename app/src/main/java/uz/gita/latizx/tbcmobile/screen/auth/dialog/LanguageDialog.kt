@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +34,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 @Parcelize
 data class LanguageDialog(val lang: String) : Screen, Parcelable {
@@ -65,7 +65,7 @@ private fun LanguageBottomSheet(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(MaterialTheme.colorScheme.surface)
+            .background(AppTheme.colorScheme.backgroundTertiary)
             .padding(vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -129,7 +129,7 @@ private fun ContainerLang(
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(
-                if (check == lang) colorResource(R.color.palette_cyan_90).copy(alpha = 20f)
+                if (check == lang) AppTheme.colorScheme.backgroundBrand
                 else Color.Transparent
             )
             .clickable {
@@ -142,8 +142,8 @@ private fun ContainerLang(
         RadioButton(
             selected = lang == check,
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.primary,
-                unselectedColor = MaterialTheme.colorScheme.primary
+                selectedColor = AppTheme.colorScheme.backgroundBrandTertiary,
+                unselectedColor = AppTheme.colorScheme.backgroundBrandTertiary
             ),
             onClick = {}
         )

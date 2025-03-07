@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,8 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,15 +30,16 @@ import cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import kotlinx.coroutines.launch
-import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.animation.LoadingDialog
-import uz.gita.latizx.tbcmobile.screen.components.button.NextButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.CustomDialog
-import uz.gita.latizx.tbcmobile.screen.components.textfield.PasswordInputField
-import uz.gita.latizx.tbcmobile.screen.components.textfield.PhoneInputField
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.presenter.auth.sign_in.SignInContract
 import uz.gita.latizx.presenter.auth.sign_in.SignInViewModelImpl
+import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
+import uz.gita.latizx.tbcmobile.ui.components.button.NextButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
+import uz.gita.latizx.tbcmobile.ui.components.textfield.PasswordInputField
+import uz.gita.latizx.tbcmobile.ui.components.textfield.PhoneInputField
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 @OptIn(ExperimentalVoyagerApi::class)
 class SignInScreen : Screen {
@@ -80,7 +78,10 @@ private fun SignUpScreenContent(
 ) {
     var password = remember { mutableStateOf("") }
     val phoneNumber = remember { mutableStateOf("") }
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = AppTheme.colorScheme.backgroundPrimary
+    ) {
         Column {
             AppTopBar(
                 text = R.string.intro_begin,
@@ -117,28 +118,30 @@ private fun SignUpScreenContent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(R.string.signing_the_number_is_used_to_contact_with_client),
                     modifier = Modifier.weight(1f),
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     maxLines = 1,
+                    color = AppTheme.colorScheme.textSecondary,
+                    style = AppTheme.typography.captionMedium,
                     overflow = TextOverflow.Ellipsis,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular))
                 )
 
                 Text(
                     text = stringResource(R.string.signing_fully),
                     modifier = Modifier.clickable { },
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontFamily = FontFamily(Font(R.font.roboto_bold))
+                    color = AppTheme.colorScheme.backgroundBrandTertiary,
+                    style = AppTheme.typography.captionMedium
                 )
             }
-            NextButton(text = stringResource(R.string.components_next)) {
+            NextButton(
+                text = stringResource(R.string.components_next),
+            ) {
                 eventDispatcher(
                     SignInContract.UiIntent.OpenVerifyScreen(
                         phone = "+998${phoneNumber.value}", password = password.value

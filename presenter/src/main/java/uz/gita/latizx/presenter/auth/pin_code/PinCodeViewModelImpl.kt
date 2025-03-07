@@ -76,9 +76,8 @@ class PinCodeViewModelImpl @Inject constructor(
                 }
             }
 
-            is PinCodeContract.UIIntent.OpenSignInScreen -> {
-                viewModelScope.launch { directions.navigateToSignIn() }
-            }
+            is PinCodeContract.UIIntent.OpenSignInScreen -> viewModelScope.launch { directions.navigateToSignIn() }
+            is PinCodeContract.UIIntent.BiometricSuccess -> viewModelScope.launch { directions.navigateToHome() }
         }
     }
 

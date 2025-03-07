@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +21,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,25 +29,25 @@ import cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import kotlinx.coroutines.launch
-import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.comman.enums.VerifyEnum
 import uz.gita.latizx.comman.model.RecipientData
 import uz.gita.latizx.comman.model.TransferVerifyData
 import uz.gita.latizx.comman.model.VerifyData
-import uz.gita.latizx.tbcmobile.screen.components.button.NextButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.CustomDialog
-import uz.gita.latizx.tbcmobile.screen.components.textfield.OtpField
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.presenter.auth.verify.VerifyContract
 import uz.gita.latizx.presenter.auth.verify.VerifyViewModelImpl
+import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.button.NextButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
+import uz.gita.latizx.tbcmobile.ui.components.textfield.OtpField
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 class VerifyScreen(
     private val verifyEnum: VerifyEnum,
     private val data: VerifyData? = null,
     private val transferVerifyData: TransferVerifyData? = null,
     private val recipientData: RecipientData?,
-) :
-    Screen {
+) : Screen {
     @OptIn(ExperimentalVoyagerApi::class)
     @SuppressLint("CoroutineCreationDuringComposition")
     @Composable
@@ -96,7 +94,10 @@ private fun VerifyContent(
         }
     }
 
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = AppTheme.colorScheme.backgroundPrimary
+    ) {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -114,11 +115,13 @@ private fun VerifyContent(
             Text(
                 modifier = Modifier.padding(top = 24.dp),
                 text = stringResource(R.string.auth_enter_sms_code),
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                color = AppTheme.colorScheme.textTertiary,
+                style = AppTheme.typography.bodyMedium,
             )
             Text(
                 text = phoneNumber,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                color = AppTheme.colorScheme.textTertiary,
+                style = AppTheme.typography.bodyMedium,
             )
             OtpField(
                 value = code,
@@ -128,9 +131,8 @@ private fun VerifyContent(
             if (uiState.value.timeStarted) {
                 Text(
                     text = uiState.value.time,
-                    color = colorResource(R.color.design_default_color_error),
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Bold
+                    color = AppTheme.colorScheme.backgroundStatusErrorSecondary,
+                    style = AppTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 )
             } else {
                 Text(
@@ -138,16 +140,13 @@ private fun VerifyContent(
                         eventDispatcher(VerifyContract.UiIntent.ResendCode)
                     },
                     text = stringResource(R.string.auth_enter_sms_code),
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Bold
+                    color = AppTheme.colorScheme.backgroundAccentCyanQuaternary,
+                    style = AppTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
 
-            NextButton(
-                text = stringResource(R.string.components_next)
-            ) {
+            NextButton(text = stringResource(R.string.components_next)) {
                 eventDispatcher(VerifyContract.UiIntent.OpenHome(code = code))
             }
         }

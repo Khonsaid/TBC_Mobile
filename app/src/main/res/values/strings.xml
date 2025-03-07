@@ -276,7 +276,6 @@
     <string name="cards_limit_title">Xarajatlar chegarasini belgilash</string>
     <string name="cards_management_credentials_card_expiry_date">Amal qilish muddati</string>
     <string name="cards_management_credentials_card_number">Karta raqami</string>
-    <string name="cards_management_digital_card_title">TBC</string>
     <string name="cards_management_physical_card_type">Plastik karta</string>
     <string name="cards_management_transactions_history">Tranzaksiyalar tarixi</string>
     <string name="cards_menu_benefits">Kartaning afzalliklari</string>
@@ -2277,7 +2276,6 @@
     <string name="signing_sign_up_the_mobile_number_format_is_not_correct">Telefon raqami noto\'g\'ri</string>
     <string name="signing_sign_up_the_password_format_is_not_correct">Parol 8 ta belgidan kam bo\'lmasligi kerak!</string>
     <string name="signing_sign_up_the_first_name_empty">Insimgizni kiriting</string>
-    <string name="signing_sign_up_the_last_name_empty">Familiyangizni kiriting</string>
     <string name="signing_terms_and_conditions_url">https://tbcbank.uz/uploads/Oferta_dlya_mobilnogo_BG_UZ_13579ddecf.pdf</string>
     <string name="signing_the_number_change_terms_and_conditions">\"Keyingisi\" tugmasini bosish orqali men TBC UZ foydalanish shartlariga rozilik beraman hamda aloqa maqsadida shaxsiy ma\'lumotlarimni qayta ishlash va foydalanishga ruxsat beraman.</string>
     <string name="signing_the_number_change_terms_and_conditions_clickable">\"Keyingisi\" tugmasini bosish orqali men TBC UZ [foydalanish shartlariga] rozilik beraman hamda aloqa maqsadida shaxsiy ma\'lumotlarimni qayta ishlash va foydalanishga ruxsat beraman.</string>
@@ -2667,4 +2665,9 @@
     <string name="virtual_card_order_detail_uzcard_title">O‘zbek so‘mida TBC Uzcard virtual kartasidan foydalanish shartlari</string>
     <string name="virtual_card_order_detail_visa_title">AQSh dollarida virtual Visa kartasidan foydalanish shartlari</string>
     <string name="wednesday">Chorshanba</string>
+    <string name="transaction_detail_terminal_id">Terminal ID</string>
+    <string name="transaction_detail_fiscal_sign">Fiskal belgi</string>
+    <string name="transaction_detail_receiver">Qabul qiluvchi</string>
+    <string name="transaction_detail_receiver_bank">Qabul qiluvchi bank nomi</string>
+    <string name="transaction_detail_sender">Yuboruvchi</string>
 </resources>

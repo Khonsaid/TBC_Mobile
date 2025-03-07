@@ -8,6 +8,7 @@ interface PinCodeContract {
     sealed interface UIIntent {
         data object OpenSignInScreen : UIIntent
         data object OpenIntroScreen : UIIntent
+        data object BiometricSuccess : UIIntent
         data class ClickNum(val code: String) : UIIntent
         data object ClickRemove : UIIntent
         data class UpdateCodeArray(val updatedCodeArray: List<Boolean>) : UIIntent

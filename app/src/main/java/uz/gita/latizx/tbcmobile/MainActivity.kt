@@ -5,17 +5,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
+import androidx.fragment.app.FragmentActivity
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.ScaleTransition
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.latizx.comman.LocationHelper
 import uz.gita.latizx.tbcmobile.navigator.AppNavigatorHandler
+import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionScreen
+import uz.gita.latizx.tbcmobile.screen.main.home.HomeScreen
 import uz.gita.latizx.tbcmobile.screen.splash.SplashScreen
 import uz.gita.latizx.tbcmobile.ui.theme.TBCMobileTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     @Inject
     lateinit var navigatorHandler: AppNavigatorHandler
 
@@ -24,7 +27,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
             TBCMobileTheme {
-                Navigator(SplashScreen()) { navigator ->
+                Navigator(HomeScreen()) { navigator ->
                     LaunchedEffect(key1 = navigator) {
                         navigatorHandler.navigation.collect {
                             it.invoke(navigator)

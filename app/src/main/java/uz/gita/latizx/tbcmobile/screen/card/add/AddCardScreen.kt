@@ -37,17 +37,18 @@ import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import kotlinx.coroutines.launch
-import uz.gita.latizx.tbcmobile.screen.card.dialog.DateSelectDialog
-import uz.gita.latizx.tbcmobile.screen.components.animation.LoadingDialog
-import uz.gita.latizx.tbcmobile.screen.components.button.AppFilledButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.TextDialog
-import uz.gita.latizx.tbcmobile.screen.components.textfield.CardInputField
-import uz.gita.latizx.tbcmobile.screen.components.textfield.EmptyDrawField
-import uz.gita.latizx.tbcmobile.screen.components.textfield.InputField
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.presenter.card.add.AddCardContract
 import uz.gita.latizx.presenter.card.add.AddCardViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.screen.card.dialog.DateSelectDialog
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
+import uz.gita.latizx.tbcmobile.ui.components.button.AppFilledButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.TextDialog
+import uz.gita.latizx.tbcmobile.ui.components.textfield.CardInputField
+import uz.gita.latizx.tbcmobile.ui.components.textfield.EmptyDrawField
+import uz.gita.latizx.tbcmobile.ui.components.textfield.InputField
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 class AddCardScreen : Screen {
     @SuppressLint("CoroutineCreationDuringComposition")
@@ -74,7 +75,7 @@ class AddCardScreen : Screen {
                 text = dialogMessage,
             )
         }
-        if(uiState.value.showLoading) LoadingDialog()
+        if (uiState.value.showLoading) LoadingDialog()
     }
 }
 
@@ -88,6 +89,7 @@ private fun AddCardScreenContent(
     var expiredMonth by remember { mutableStateOf("") }
     var nameCard by remember { mutableStateOf("") }
     Scaffold(
+        containerColor = AppTheme.colorScheme.backgroundPrimary,
         modifier = Modifier.fillMaxSize(),
         topBar = {
             AppTopBar(

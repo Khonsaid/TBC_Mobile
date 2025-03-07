@@ -21,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,11 +32,12 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import uz.gita.latizx.comman.model.RecipientData
-import uz.gita.latizx.tbcmobile.utils.formatCard
 import uz.gita.latizx.presenter.other.success.SuccessViewModelImpl
 import uz.gita.latizx.presenter.success.SuccessContract
 import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.button.AppFilledButton
+import uz.gita.latizx.tbcmobile.ui.components.button.AppFilledButton
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
+import uz.gita.latizx.tbcmobile.utils.formatCard
 
 class SuccessScreen(private val recipientData: RecipientData) : Screen {
     @OptIn(ExperimentalVoyagerApi::class)
@@ -63,7 +63,11 @@ private fun SuccessScreenContent(
         LottieCompositionSpec.RawRes(R.raw.ill_status_success)
     )
 
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+        color = AppTheme.colorScheme.backgroundPrimary
+    ) {
         Column {
             Column(
                 modifier = Modifier
@@ -87,7 +91,7 @@ private fun SuccessScreenContent(
             }
             Column(
                 modifier = Modifier
-                    .background(color = colorResource(R.color.palette_green_5))
+                    .background(color = AppTheme.colorScheme.backgroundAccentGreen)
                     .padding(vertical = 24.dp, horizontal = 12.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -111,6 +115,8 @@ private fun SuccessScreenContent(
 
                 AppFilledButton(
                     text = stringResource(R.string.cards_transfer_close),
+                    color = AppTheme.colorScheme.backgroundBrandTertiary,
+                    colorText = AppTheme.colorScheme.borderContrastOnWhite,
                     onClick = { eventDispatcher(SuccessContract.SuccessIntent.OpenMoneyTransfersScreen) }
                 )
             }

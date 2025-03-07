@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
@@ -28,10 +29,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,14 +39,14 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import uz.gita.latizx.presenter.auth.intro.IntroContract
+import uz.gita.latizx.presenter.auth.intro.IntroViewModelImpl
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.screen.auth.dialog.LanguageDialog
 import uz.gita.latizx.tbcmobile.screen.auth.page.OnBoardingPage
-import uz.gita.latizx.presenter.auth.intro.IntroViewModelImpl
-import uz.gita.latizx.tbcmobile.screen.components.button.AppFilledButton
-import uz.gita.latizx.tbcmobile.screen.components.button.AppOutlinedButton
-import uz.gita.latizx.presenter.auth.intro.IntroContract
-
+import uz.gita.latizx.tbcmobile.ui.components.button.AppFilledButton
+import uz.gita.latizx.tbcmobile.ui.components.button.AppOutlinedButton
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 @OptIn(ExperimentalVoyagerApi::class)
 class IntroScreen : Screen {
@@ -70,11 +69,12 @@ private fun IntroScreenContent(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        containerColor = AppTheme.colorScheme.backgroundPrimary
     ) {
         Column(
             modifier = Modifier
                 .padding(it)
-                .padding(12.dp)
+                .padding(16.dp)
                 .fillMaxSize()
         ) {
             Row(
@@ -94,14 +94,15 @@ private fun IntroScreenContent(
                 }
                 Row(
                     modifier = Modifier
-                        .background(
-                            color = MaterialTheme.colorScheme.primary,
-                            shape = RoundedCornerShape(16.dp)
-                        )
-                        .padding(horizontal = 10.dp, vertical = 2.dp)
+                        .height(32.dp)
                         .clickable {/* Language click */
                             eventDispatcher(IntroContract.UiIntent.ShowLanguageBottomSheet)
-                        },
+                        }
+                        .background(
+                            color = AppTheme.colorScheme.backgroundBrandTertiary,
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .padding(horizontal = 10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
@@ -110,13 +111,13 @@ private fun IntroScreenContent(
                             "en" -> "EN"
                             else -> "UZ"
                         },
-                        fontSize = MaterialTheme.typography.labelSmall.fontSize,
-                        color = MaterialTheme.colorScheme.onPrimary
+                        style = AppTheme.typography.captionLarge,
+                        color = AppTheme.colorScheme.textOnPrimary
                     )
                     Icon(
                         painter = painterResource(R.drawable.ic_down_regular),
                         contentDescription = "ic down",
-                        tint = MaterialTheme.colorScheme.onPrimary
+                        tint = AppTheme.colorScheme.textOnPrimary
                     )
                 }
             }
@@ -149,8 +150,8 @@ private fun IntroScreenContent(
                 ) {
                     repeat(pagerState.pageCount) { iteration ->
                         val color =
-                            if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary
-                            else colorResource(R.color.palette_cyan_90)
+                            if (pagerState.currentPage == iteration) AppTheme.colorScheme.backgroundStatusInfoSecondary
+                            else AppTheme.colorScheme.backgroundStatusInfo
                         Box(
                             modifier = Modifier
                                 .padding(6.dp)
@@ -226,8 +227,8 @@ private fun PageContent(onBoardingPage: OnBoardingPage) {
                 .padding(horizontal = 40.dp)
                 .padding(top = 20.dp),
             text = stringResource(onBoardingPage.title),
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            fontWeight = FontWeight.Medium,
+            style = AppTheme.typography.bodyMedium,
+            color = AppTheme.colorScheme.textPrimary,
             textAlign = TextAlign.Center
         )
     }

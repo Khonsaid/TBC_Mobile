@@ -3,7 +3,6 @@ package uz.gita.latizx.entity.repository
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import uz.gita.latizx.comman.model.GetFeeData
-import uz.gita.latizx.comman.model.HistoryItems
 import uz.gita.latizx.comman.model.transfer.GetCardOwnerByPanData
 import uz.gita.latizx.entity.local.room.entity.HistoryItemsEntity
 import uz.gita.latizx.entity.retrofit.request.transfer.GetCardOwnerByPanRequest

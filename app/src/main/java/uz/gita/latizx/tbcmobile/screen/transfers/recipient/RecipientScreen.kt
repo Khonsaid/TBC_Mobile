@@ -23,12 +23,13 @@ import cafe.adriel.voyager.hilt.getViewModel
 import uz.gita.latizx.presenter.transfer.recipient.RecipientContract
 import uz.gita.latizx.presenter.transfer.recipient.RecipientViewModelImpl
 import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.animation.LoadingDialog
-import uz.gita.latizx.tbcmobile.screen.components.button.AppFilledButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.TextDialog
-import uz.gita.latizx.tbcmobile.screen.components.textfield.CardInputField
-import uz.gita.latizx.tbcmobile.screen.components.textfield.InputField
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
+import uz.gita.latizx.tbcmobile.ui.components.button.AppFilledButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.TextDialog
+import uz.gita.latizx.tbcmobile.ui.components.textfield.CardInputField
+import uz.gita.latizx.tbcmobile.ui.components.textfield.InputField
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 class RecipientScreen : Screen {
     @Composable
@@ -62,6 +63,7 @@ private fun RecipientScreenContent(
     eventDispatcher: (RecipientContract.UIIntent) -> Unit = {},
 ) {
     Scaffold(
+        containerColor = AppTheme.colorScheme.backgroundPrimary,
         topBar = {
             AppTopBar(
                 text = R.string.transfer,
@@ -101,6 +103,7 @@ private fun RecipientScreenContent(
             AppFilledButton(
                 modifier = Modifier.padding(bottom = 12.dp),
                 text = stringResource(R.string.components_next),
+                color = AppTheme.colorScheme.backgroundBrandTertiary,
                 onClick = {
                     eventDispatcher(RecipientContract.UIIntent.OpenTransferScreen)
                 }

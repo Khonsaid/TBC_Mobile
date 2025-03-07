@@ -37,15 +37,16 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import kotlinx.coroutines.launch
 import uz.gita.latizx.presenter.auth.sign_up.SignUpContract
-import uz.gita.latizx.tbcmobile.screen.components.button.NextButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.CustomDialog
-import uz.gita.latizx.tbcmobile.screen.components.dialog.DatePickerFieldToModal
-import uz.gita.latizx.tbcmobile.screen.components.textfield.InputField
-import uz.gita.latizx.tbcmobile.screen.components.textfield.PasswordInputField
-import uz.gita.latizx.tbcmobile.screen.components.textfield.PhoneInputField
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.presenter.auth.sign_up.SignUpViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.button.NextButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
+import uz.gita.latizx.tbcmobile.ui.components.dialog.DatePickerFieldToModal
+import uz.gita.latizx.tbcmobile.ui.components.textfield.InputField
+import uz.gita.latizx.tbcmobile.ui.components.textfield.PasswordInputField
+import uz.gita.latizx.tbcmobile.ui.components.textfield.PhoneInputField
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 @OptIn(ExperimentalVoyagerApi::class)
 class SignUpScreen : Screen {
@@ -87,7 +88,10 @@ private fun SignInScreenContext(
     val inputPhone = remember { mutableStateOf("") }
     val inputPassword = remember { mutableStateOf("") }
 
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = AppTheme.colorScheme.backgroundPrimary
+    ) {
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             AppTopBar(
                 text = R.string.intro_registration,
@@ -147,18 +151,17 @@ private fun SignInScreenContext(
                 Text(
                     text = stringResource(R.string.signing_the_number_is_used_to_contact_with_client),
                     modifier = Modifier.weight(1f),
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                    color = AppTheme.colorScheme.textSecondary,
+                    style = AppTheme.typography.captionMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular))
                 )
 
                 Text(
                     text = stringResource(R.string.signing_fully),
                     modifier = Modifier.clickable { },
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontFamily = FontFamily(Font(R.font.roboto_bold))
+                    color = AppTheme.colorScheme.backgroundBrandTertiary,
+                    style = AppTheme.typography.captionMedium,
                 )
             }
             NextButton(text = stringResource(R.string.components_next)) {

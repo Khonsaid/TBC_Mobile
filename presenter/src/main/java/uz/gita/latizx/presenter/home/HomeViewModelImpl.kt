@@ -7,24 +7,29 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import uz.gita.latizx.comman.formatWithSeparator
-import uz.gita.latizx.comman.model.HomeItemVertical
+import uz.gita.latizx.comman.R
 import uz.gita.latizx.comman.enums.HomeItemVerticalEnum
+import uz.gita.latizx.comman.formatWithSeparator
+import uz.gita.latizx.comman.model.CardsData
+import uz.gita.latizx.comman.model.HomeItemVertical
+import uz.gita.latizx.presenter.utils.ResourceManager
 import uz.gita.latizx.usecase.card.GetCardsUseCase
 import uz.gita.latizx.usecase.home.TotalBalanceUseCase
 import javax.inject.Inject
-import uz.gita.latizx.comman.R
+
 @HiltViewModel
 class HomeViewModelImpl @Inject constructor(
     private val directions: HomeContract.Directions,
     private val getTotalBalanceUseCase: TotalBalanceUseCase,
     private val getCardsUseCase: GetCardsUseCase,
+    private val resourceManager: ResourceManager,
 ) : HomeContract.HomeViewModel, ViewModel() {
     override val uiState = MutableStateFlow<HomeContract.UiState>(HomeContract.UiState(homeItems = homeItems()))
 
     init {
         getTotalSum()
         getCards()
+        reduce { it.copy(cards = cards()) }
     }
 
     override fun onEventDispatcher(uiIntent: HomeContract.UiIntent) {
@@ -69,6 +74,43 @@ class HomeViewModelImpl @Inject constructor(
         val new = block(old)
         uiState.value = new
     }
+
+    private fun cards(): List<CardsData> = listOf(
+        CardsData(
+            id = 1,
+            name = "Visa Classic",
+            amount = 500000,
+            expiredMonth = 12,
+            expiredYear = 2026,
+            pan = "3456",
+            owner = "John Doe",
+            themeType = 1,
+            isVisible = true
+        ),
+        CardsData(
+            id = 2,
+            name = "MasterCard Gold",
+            amount = 1250000,
+            expiredMonth = 8,
+            expiredYear = 2025,
+            pan = "7654",
+            owner = "Alice Smith",
+            themeType = 2,
+            isVisible = true
+        ),
+        CardsData(
+            id = 3,
+            name = "UzCard",
+            amount = 300000,
+            expiredMonth = 5,
+            expiredYear = 2027,
+            pan = "9012",
+            owner = "Bob Johnson",
+            themeType = 3,
+            isVisible = false
+        )
+    )
+
 
     private fun homeItems() = listOf(
         HomeItemVertical(

@@ -28,6 +28,7 @@ import kotlinx.coroutines.delay
 import uz.gita.latizx.presenter.splash.SplashContract
 import uz.gita.latizx.presenter.splash.SplashViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 class SplashScreen : Screen {
     @Composable
@@ -56,7 +57,10 @@ private fun SplashScreenContent(
         delay(1500)
         eventDispatcher(SplashContract.UIIntent.OpenNextScreen)
     }
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        color = AppTheme.colorScheme.backgroundPrimary,
+        modifier = Modifier.fillMaxSize()
+    ) {
         Box(contentAlignment = Alignment.Center) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),

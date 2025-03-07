@@ -1,6 +1,8 @@
 package uz.gita.latizx.tbcmobile.screen.auth.pin_code
 
 import android.annotation.SuppressLint
+import android.content.Context
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,18 +35,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentActivity
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import kotlinx.coroutines.launch
-import uz.gita.latizx.tbcmobile.screen.components.button.CircleNumberButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.CustomDialog
-import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.presenter.auth.pin_code.PinCodeContract
 import uz.gita.latizx.presenter.auth.pin_code.PinCodeViewModelImpl
+import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.button.CircleNumberButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
+import uz.gita.latizx.tbcmobile.utils.BiometricAuthenticator
 
 class PinCodeScreen : Screen {
     @SuppressLint("CoroutineCreationDuringComposition")
@@ -79,7 +85,9 @@ private fun PinCodeContent(
     eventDispatcher: (PinCodeContract.UIIntent) -> Unit = {},
 ) {
     val code by remember { mutableStateOf("") }
-    Surface {
+    val context = LocalContext.current
+
+    Surface(color = AppTheme.colorScheme.backgroundPrimary) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -115,10 +123,14 @@ private fun PinCodeContent(
             BoxNumbers(
                 Modifier
                     .fillMaxWidth()
-                    .weight(2.5f)
+                    .weight(3f)
                     .align(Alignment.CenterHorizontally),
                 onClick = {
                     eventDispatcher(PinCodeContract.UIIntent.ClickNum(it))
+                },
+                context = context,
+                biometricSuccess = {
+                    eventDispatcher(PinCodeContract.UIIntent.BiometricSuccess)
                 },
                 onClickRemove = {
                     eventDispatcher(PinCodeContract.UIIntent.ClickRemove)
@@ -136,7 +148,7 @@ private fun PinCodeContent(
                 }) {
                     Text(
                         text = stringResource(R.string.login_change_password),
-                        color = MaterialTheme.colorScheme.primary,
+                        color = AppTheme.colorScheme.borderBrand,
                         fontSize = MaterialTheme.typography.bodySmall.fontSize
                     )
                 }
@@ -145,7 +157,7 @@ private fun PinCodeContent(
                 }) {
                     Text(
                         text = stringResource(R.string.login_log_out),
-                        color = MaterialTheme.colorScheme.primary,
+                        color = AppTheme.colorScheme.borderBrand,
                         fontSize = MaterialTheme.typography.bodySmall.fontSize
                     )
                 }
@@ -163,9 +175,13 @@ private fun Preview() {
 @Composable
 private fun BoxNumbers(
     modifier: Modifier,
+    context: Context,
+    biometricSuccess: () -> Unit,
     onClick: (String) -> Unit,
     onClickRemove: () -> Unit,
 ) {
+    val biometricAuthenticator = BiometricAuthenticator(context)
+    val activity = LocalActivity.current as? FragmentActivity
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -221,11 +237,29 @@ private fun BoxNumbers(
                         .clip(CircleShape)
                         .fillMaxSize()
                         .weight(1f),
-                    onClick = { }) {
+                    onClick = {
+                        if (activity != null) {
+                            biometricAuthenticator.promptBiometricAuth(
+                                title = "Login",
+                                subTitle = "Use your fingerprint",
+                                negativeButtonText = "Cancel",
+                                fragmentActivity = activity,
+                                onSuccess = {
+                                    biometricSuccess()
+                                },
+                                onError = { _, errorString ->
+
+                                },
+                                onFailed = {
+
+                                }
+                            )
+                        }
+                    }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_biometric_24_regular),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = AppTheme.colorScheme.borderBrand,
                     )
                 }
                 CircleNumberButton(modifier = Modifier.weight(1f), text = "0") { onClick("0") }
@@ -238,7 +272,7 @@ private fun BoxNumbers(
                     Icon(
                         painter = painterResource(R.drawable.ic_chevron_left_24_regular),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = AppTheme.colorScheme.borderBrand,
                     )
                 }
             }
@@ -267,12 +301,12 @@ private fun PinIndicator(isFilled: Boolean) {
             .size(16.dp)
             .clip(CircleShape)
             .background(
-                if (isFilled) MaterialTheme.colorScheme.primary
+                if (isFilled) AppTheme.colorScheme.borderBrand
                 else Color.Transparent
             )
             .border(
                 width = 2.dp,
-                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
+                color = AppTheme.colorScheme.borderBrand,
                 shape = CircleShape
             )
     )

@@ -9,7 +9,29 @@
     <color name="white">#FFFFFFFF</color>
 
 
+    <color name="palette_cyan_10">#c3eef0</color>
+    <color name="palette_cyan_20">#88e0e6</color>
+    <color name="palette_cyan_30">#4bd2dc</color>
+    <color name="palette_cyan_40">#00c0c9</color>
+    <color name="palette_cyan_5">#dff5f6</color>
+    <color name="palette_cyan_50">#0a9aa4</color>
+    <color name="palette_cyan_60">#067d8c</color>
+    <color name="palette_cyan_70">#116470</color>
+    <color name="palette_cyan_80">#164b51</color>
+    <color name="palette_cyan_90">#15373c</color>
+    <color name="palette_cyan_100">#0e262a</color>
 
+    <color name="palette_cool_gray_10">#e0e3e8</color>
+    <color name="palette_cool_gray_20">#c5c9d1</color>
+    <color name="palette_cool_gray_30">#a6a9b2</color>
+    <color name="palette_cool_gray_40">#898c96</color>
+    <color name="palette_cool_gray_5">#f5f7f9</color>
+    <color name="palette_cool_gray_50">#6b6e77</color>
+    <color name="palette_cool_gray_60">#55585f</color>
+    <color name="palette_cool_gray_70">#414449</color>
+    <color name="palette_cool_gray_80">#2b2d30</color>
+    <color name="palette_cool_gray_90">#202223</color>
+    <color name="palette_cool_gray_100">#131511</color>
 
 
 
@@ -252,28 +274,8 @@
     <color name="palette_blue_70">#2352bf</color>
     <color name="palette_blue_80">#1f4599</color>
     <color name="palette_blue_90">#16326e</color>
-    <color name="palette_cool_gray_10">#e0e3e8</color>
-    <color name="palette_cool_gray_100">#131511</color>
-    <color name="palette_cool_gray_20">#c5c9d1</color>
-    <color name="palette_cool_gray_30">#a6a9b2</color>
-    <color name="palette_cool_gray_40">#898c96</color>
-    <color name="palette_cool_gray_5">#f5f7f9</color>
-    <color name="palette_cool_gray_50">#6b6e77</color>
-    <color name="palette_cool_gray_60">#55585f</color>
-    <color name="palette_cool_gray_70">#414449</color>
-    <color name="palette_cool_gray_80">#2b2d30</color>
-    <color name="palette_cool_gray_90">#202223</color>
-    <color name="palette_cyan_10">#c3eef0</color>
-    <color name="palette_cyan_100">#0e262a</color>
-    <color name="palette_cyan_20">#88e0e6</color>
-    <color name="palette_cyan_30">#4bd2dc</color>
-    <color name="palette_cyan_40">#00c0c9</color>
-    <color name="palette_cyan_5">#dff5f6</color>
-    <color name="palette_cyan_50">#0a9aa4</color>
-    <color name="palette_cyan_60">#067d8c</color>
-    <color name="palette_cyan_70">#116470</color>
-    <color name="palette_cyan_80">#164b51</color>
-    <color name="palette_cyan_90">#15373c</color>
+
+
     <color name="palette_gray_10">#dfdfdf</color>
     <color name="palette_gray_100">#141414</color>
     <color name="palette_gray_20">#c8c8c8</color>
@@ -285,7 +287,6 @@
     <color name="palette_gray_70">#414141</color>
     <color name="palette_gray_80">#2f2f2f</color>
     <color name="palette_gray_90">#232323</color>
-    <color name="palette_green_10">#c0ead8</color>
     <color name="palette_green_100">#042a1c</color>
     <color name="palette_green_20">#96debf</color>
     <color name="palette_green_30">#66d1a5</color>
@@ -379,7 +380,6 @@
     <color name="palette_yellow_10">#f7e3b4</color>
     <color name="palette_yellow_100">#2f2403</color>
     <color name="palette_yellow_20">#f7d189</color>
-    <color name="palette_yellow_30">#f5bf64</color>
     <color name="palette_yellow_40">#f0ac3f</color>
     <color name="palette_yellow_5">#f7f0de</color>
     <color name="palette_yellow_50">#e09a2c</color>
@@ -402,7 +402,6 @@
     <color name="pfm_dot_selected_color">#191c1b</color>
     <color name="pfm_error_color">#ff3b30</color>
     <color name="pfm_expense_edit_button_color">#00a2b7</color>
-    <color name="pfm_gradient_end_color">#43d7ea</color>
     <color name="pfm_gradient_start_color">#00a2b7</color>
     <color name="pfm_invalid_amount">#ec008c</color>
     <color name="pfm_label_color">#585858</color>

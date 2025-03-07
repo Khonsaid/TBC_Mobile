@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 class PaymentsScreen : Screen {
     @Composable
@@ -45,7 +46,10 @@ class PaymentsScreen : Screen {
 private fun PaymentsScreenContent(
 
 ) {
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        color = AppTheme.colorScheme.backgroundPrimary,
+        modifier = Modifier.fillMaxSize()
+    ) {
         Column {
             Column(
                 modifier = Modifier

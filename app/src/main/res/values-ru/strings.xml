@@ -2754,4 +2754,9 @@
     <string name="zxing_button_ok">OK</string>
     <string name="zxing_msg_camera_framework_bug">К сожалению, возникла ошибка камеры. Может потребоваться перезагрузить устройство.</string>
     <string name="zxing_msg_default_status">Чтобы сканировать штрих-код, поместите его в прямоугольник видоискателя.</string>
+    <string name="transaction_detail_terminal_id">Идентификатор терминала</string>
+    <string name="transaction_detail_fiscal_sign">Фискальный знак</string>
+    <string name="transaction_detail_receiver">Получатель</string>
+    <string name="transaction_detail_receiver_bank">Название банка получателя</string>
+    <string name="transaction_detail_sender">Отправитель</string>
 </resources>

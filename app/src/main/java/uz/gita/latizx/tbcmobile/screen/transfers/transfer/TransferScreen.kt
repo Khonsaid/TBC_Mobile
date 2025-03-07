@@ -40,14 +40,15 @@ import uz.gita.latizx.comman.model.RecipientData
 import uz.gita.latizx.presenter.transfer.transfer.TransferContract
 import uz.gita.latizx.presenter.transfer.transfer.TransferViewModelImpl
 import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.animation.LoadingDialog
-import uz.gita.latizx.tbcmobile.screen.components.button.AppFilledButton
-import uz.gita.latizx.tbcmobile.screen.components.button.CircleNumberButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.TextDialog
-import uz.gita.latizx.tbcmobile.screen.components.text.SuperScriptText
-import uz.gita.latizx.tbcmobile.screen.components.textfield.TransferCardField
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.tbcmobile.screen.main.bottom_sheet.ChooseCardBottomSheet
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
+import uz.gita.latizx.tbcmobile.ui.components.button.AppFilledButton
+import uz.gita.latizx.tbcmobile.ui.components.button.CircleNumberButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.TextDialog
+import uz.gita.latizx.tbcmobile.ui.components.text.SuperScriptText
+import uz.gita.latizx.tbcmobile.ui.components.textfield.TransferCardField
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 data class TransferScreen(private val recipientPan: String, private val recipientName: String) : Screen {
     @OptIn(ExperimentalVoyagerApi::class)
@@ -91,6 +92,7 @@ private fun TransferScreenContent(
     eventDispatcher: (TransferContract.UIIntent) -> Unit = {},
 ) {
     Scaffold(
+        containerColor = AppTheme.colorScheme.backgroundPrimary,
         topBar = {
             AppTopBar(
                 text = R.string.transfer,
@@ -139,6 +141,8 @@ private fun TransferScreenContent(
                 modifier = Modifier
                     .padding(vertical = 12.dp),
                 text = stringResource(R.string.components_next),
+                color = AppTheme.colorScheme.backgroundBrandTertiary,
+                colorText = AppTheme.colorScheme.borderContrastOnWhite,
                 onClick = {
                     eventDispatcher(TransferContract.UIIntent.OpenFeeScreen)
                 }

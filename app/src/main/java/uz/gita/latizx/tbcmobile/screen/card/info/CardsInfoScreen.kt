@@ -48,12 +48,13 @@ import androidx.compose.ui.util.lerp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import uz.gita.latizx.comman.formatWithSeparator
-import uz.gita.latizx.tbcmobile.R
-import uz.gita.latizx.tbcmobile.screen.components.button.CircleImageButton
-import uz.gita.latizx.tbcmobile.screen.components.dialog.TextDialog
-import uz.gita.latizx.tbcmobile.screen.components.topbar.AppTopBar
 import uz.gita.latizx.presenter.card.info.CardsInfoContract
 import uz.gita.latizx.presenter.card.info.CardsInfoViewModelImpl
+import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.button.CircleImageButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.TextDialog
+import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 import kotlin.math.absoluteValue
 
 class CardsInfoScreen : Screen {
@@ -86,6 +87,7 @@ private fun CardsInfoScreenContent(
     eventDispatcher: (CardsInfoContract.UIIntent) -> Unit = {},
 ) {
     Scaffold(
+        containerColor = AppTheme.colorScheme.backgroundPrimary,
         topBar = {
             AppTopBar(
                 text = R.string.cards_cards,
@@ -124,7 +126,7 @@ private fun CardsInfoScreenContent(
                             fraction = 1f - pageOffset.coerceIn(0f, 1f)
                         )
                         scaleY = scaleX
-                    } ,
+                    },
                     cardName = uiState.value.cards[index].name,
                     sum = uiState.value.cards[index].amount.toString().formatWithSeparator(),
                     balanceText = R.string.cards_balance_label,

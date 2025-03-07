@@ -76,7 +76,12 @@ dependencies {
     implementation(libs.androidx.paging.runtime)
 
     //LottieAnimation
-    implementation ("com.airbnb.android:lottie-compose:6.0.0")
+    implementation (libs.lottie.compose)
+
+    //pdf
+    implementation("com.itextpdf:itextg:5.5.10")
+
+    implementation(libs.androidx.biometric)
 
     implementation(project(":common"))
     implementation(project(":presenter"))
