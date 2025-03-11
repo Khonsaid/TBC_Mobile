@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import uz.gita.latizx.entity.BuildConfig
 import uz.gita.latizx.entity.retrofit.api.AuthAPI
 import uz.gita.latizx.entity.retrofit.api.CardAPI
+import uz.gita.latizx.entity.retrofit.api.ExchangeRateApi
 import uz.gita.latizx.entity.retrofit.api.HomeAPI
 import uz.gita.latizx.entity.retrofit.api.TransferAPI
 import uz.gita.latizx.entity.utils.CacheControlInterceptor
@@ -75,7 +76,7 @@ class NetworkModule {
         chuckerInterceptor: ChuckerInterceptor,
         tokenAuthenticator: TokenAuthenticator,
         cache: Cache,
-        ): OkHttpClient = OkHttpClient.Builder()
+    ): OkHttpClient = OkHttpClient.Builder()
         .cache(cache)
         .addInterceptor { chain ->
             var request = chain.request()
@@ -121,11 +122,50 @@ class NetworkModule {
         .authenticator(tokenAuthenticator)
         .build()
 
+    @[Provides Singleton ExchangeRateOkHttp]
+    fun provideOkhttpForExchangeRateOkHttp(
+        @ApplicationContext context: Context,
+        chuckerInterceptor: ChuckerInterceptor,
+        cache: Cache,
+        provideCacheControlInterceptor: CacheControlInterceptor,
+    ): OkHttpClient = OkHttpClient.Builder()
+        .cache(cache)
+        .addInterceptor { chain ->
+            var request = chain.request()
+            request = if (hasNetwork(context)) {
+                request.newBuilder()
+                    .header("Cache-Control", "public, max-age=60") // 1 daqiqa
+                    .build()
+            } else {
+                request.newBuilder()
+                    .header("Cache-Control", "public, only-if-cached, max-stale=86400") // 1 kun
+                    .build()
+            }
+            chain.proceed(request)
+        }
+        .addInterceptor(provideCacheControlInterceptor)
+        .addInterceptor(chuckerInterceptor)
+        .build()
+
     @[Provides Singleton]
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    @[Provides Singleton ExchangeRateRetrofit]
+    fun provideExchangeRateRetrofit(
+        @ExchangeRateOkHttp okHttpClient: OkHttpClient,
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl("https://cbu.uz/oz/arkhiv-kursov-valyut/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
+
+    @[Provides Singleton]
+    fun provideExchangeRateApi(
+        @ExchangeRateRetrofit retrofit: Retrofit,
+    ): ExchangeRateApi = retrofit.create(ExchangeRateApi::class.java);
 
     @[Provides Singleton]
     fun provideAuthApi(
@@ -179,6 +219,14 @@ annotation class HomeOkHttp
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class TransferOkHttp
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ExchangeRateOkHttp
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ExchangeRateRetrofit
 
 
 private fun hasNetwork(context: Context): Boolean {

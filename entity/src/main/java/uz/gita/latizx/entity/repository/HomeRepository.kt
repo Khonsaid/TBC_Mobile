@@ -1,5 +1,7 @@
 package uz.gita.latizx.entity.repository
 
+import kotlinx.coroutines.flow.Flow
+import uz.gita.latizx.comman.model.ExchangeRateModel
 import uz.gita.latizx.comman.model.home.BasicInfoData
 import uz.gita.latizx.comman.model.home.FullInfoData
 import uz.gita.latizx.comman.model.home.LastTransferData
@@ -10,4 +12,5 @@ interface HomeRepository {
     suspend fun getBasicInfo(): Result<BasicInfoData>
     suspend fun getFullInfo(): Result<FullInfoData>
     suspend fun getLastTransfer(): Result<LastTransferData>
+    fun getExchangeRateModel(): Flow<Result<List<ExchangeRateModel>>>
 }

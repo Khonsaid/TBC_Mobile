@@ -5,18 +5,26 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import uz.gita.latizx.usecase.auth.PinCodeUseCase
 import uz.gita.latizx.usecase.auth.SignInResendUseCase
+import uz.gita.latizx.usecase.auth.SignInUseCase
 import uz.gita.latizx.usecase.auth.SignInVerifyUseCase
 import uz.gita.latizx.usecase.auth.SignUpResendUseCase
+import uz.gita.latizx.usecase.auth.SignUpUseCase
 import uz.gita.latizx.usecase.auth.SignUpVerifyUseCase
+import uz.gita.latizx.usecase.auth.impl.PinCodeUseCaseImpl
 import uz.gita.latizx.usecase.auth.impl.SignInResendUCImpl
+import uz.gita.latizx.usecase.auth.impl.SignInUseCaseImpl
 import uz.gita.latizx.usecase.auth.impl.SignInVerifyUseCaseImpl
 import uz.gita.latizx.usecase.auth.impl.SignUpResendUseCaseImpl
+import uz.gita.latizx.usecase.auth.impl.SignUpUseCaseImpl
 import uz.gita.latizx.usecase.auth.impl.SignUpVerifyUseCaseImpl
 import uz.gita.latizx.usecase.card.AddCardUseCase
 import uz.gita.latizx.usecase.card.GetCardsUseCase
 import uz.gita.latizx.usecase.card.impl.AddCardUseCaseImpl
 import uz.gita.latizx.usecase.card.impl.GetCardsUseCaseImpl
+import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCase
+import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCaseImpl
 import uz.gita.latizx.usecase.home.TotalBalanceUseCase
 import uz.gita.latizx.usecase.home.impl.TotalBalanceUseCaseImpl
 import uz.gita.latizx.usecase.transfer.GetCardOwnerByPanUseCase
@@ -31,12 +39,6 @@ import uz.gita.latizx.usecase.transfer.impl.GetHistoryUseCaseImpl
 import uz.gita.latizx.usecase.transfer.impl.TransferResendUseCaseImpl
 import uz.gita.latizx.usecase.transfer.impl.TransferUseCaseImpl
 import uz.gita.latizx.usecase.transfer.impl.TransferVerifyUseCaseImpl
-import uz.gita.latizx.usecase.auth.PinCodeUseCase
-import uz.gita.latizx.usecase.auth.SignInUseCase
-import uz.gita.latizx.usecase.auth.SignUpUseCase
-import uz.gita.latizx.usecase.auth.impl.PinCodeUseCaseImpl
-import uz.gita.latizx.usecase.auth.impl.SignInUseCaseImpl
-import uz.gita.latizx.usecase.auth.impl.SignUpUseCaseImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -94,4 +96,7 @@ interface UseCaseModule {
 
     @[Binds ViewModelScoped]
     fun bindPinCodeUseCase(impl: PinCodeUseCaseImpl): PinCodeUseCase
+
+    @[Binds ViewModelScoped]
+    fun bindExchangeRateUseCase(impl: ExchangeRateUseCaseImpl): ExchangeRateUseCase
 }

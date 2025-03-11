@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import uz.gita.latizx.comman.formatWithSeparator
-import uz.gita.latizx.tbcmobile.utils.formatCard
+import uz.gita.latizx.tbcmobile.utils.toFormatCard
 import uz.gita.latizx.tbcmobile.R
 
 @Composable
@@ -68,7 +68,7 @@ fun TransferCardField(
                     )
                 )
                 Text(
-                    text = if (hasArrowDown) cardData.formatWithSeparator() + " UZS" else cardData.formatCard(),
+                    text = if (hasArrowDown) cardData.formatWithSeparator() + " UZS" else cardData.toFormatCard(),
                     fontWeight = FontWeight.Bold,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     color = if (hasArrowDown) colorResource(R.color.palette_green_70) else MaterialTheme.colorScheme.onTertiary

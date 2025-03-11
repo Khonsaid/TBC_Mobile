@@ -2,6 +2,7 @@ package uz.gita.latizx.presenter.home
 
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.latizx.comman.model.CardsData
+import uz.gita.latizx.comman.model.ExchangeRateModel
 import uz.gita.latizx.comman.model.HomeItemVertical
 
 interface HomeContract {
@@ -13,12 +14,15 @@ interface HomeContract {
         data object OpenRecipient : UiIntent
         data object OpenHomeCards : UiIntent
         data object OpenHomeCardsInfo : UiIntent
+        data object RefreshData: UiIntent
     }
 
     data class UiState(
+        val isRefreshing: Boolean = false,
         val balance: String = "0",
         val homeItems: List<HomeItemVertical> = emptyList(),
         val cards: List<CardsData> = emptyList(),
+        val exchangeRateModel: ExchangeRateModel? = null,
         val isLoading: Boolean = true,
         val isBalanceDisplayed: Boolean = false,
     )

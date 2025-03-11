@@ -14,8 +14,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +34,7 @@ fun ItemSupport(
                 onClickCard()
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
-        colors = CardDefaults.cardColors().copy(containerColor = Color.White),
+        colors = CardDefaults.cardColors().copy(containerColor = AppTheme.colorScheme.backgroundTertiary),
         shape = RoundedCornerShape(16.dp),
     ) {
         Column(
@@ -48,7 +46,7 @@ fun ItemSupport(
             Box(
                 modifier = Modifier
                     .background(
-                        colorResource(R.color.palette_gray_5),
+                        AppTheme.colorScheme.backgroundSecondary,
                         shape = RoundedCornerShape(12.dp)
                     )
                     .padding(vertical = 4.dp, horizontal = 12.dp)
@@ -56,7 +54,8 @@ fun ItemSupport(
                 Text(
                     text = stringResource(R.string.home_support_title),
                     style = AppTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = AppTheme.colorScheme.textPrimary
                 )
             }
         }

@@ -37,7 +37,7 @@ import uz.gita.latizx.presenter.success.SuccessContract
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.ui.components.button.AppFilledButton
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
-import uz.gita.latizx.tbcmobile.utils.formatCard
+import uz.gita.latizx.tbcmobile.utils.toFormatCard
 
 class SuccessScreen(private val recipientData: RecipientData) : Screen {
     @OptIn(ExperimentalVoyagerApi::class)
@@ -105,7 +105,7 @@ private fun SuccessScreenContent(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = uiState.value.recipientPan.formatCard(),
+                    text = uiState.value.recipientPan.toFormatCard(),
                     color = MaterialTheme.colorScheme.onTertiary,
                     fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     fontWeight = FontWeight.Normal

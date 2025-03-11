@@ -34,8 +34,12 @@ fun Configuration.getSectionHeight(): Dp {
     return screenHeight
 }
 
-fun String.formatCard(): String {
+fun String.toFormatCard(): String {
     return this.reversed().chunked(4).joinToString(" ").reversed()
+}
+
+fun String.toFormatMoney(): String {
+    return this.reversed().chunked(3).joinToString(" ").reversed()
 }
 
 @SuppressLint("NewApi")

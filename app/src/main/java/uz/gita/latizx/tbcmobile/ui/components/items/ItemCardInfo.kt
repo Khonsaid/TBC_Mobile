@@ -43,6 +43,7 @@ import uz.gita.latizx.comman.model.CardsData
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.ui.components.other.DotBox
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
+import uz.gita.latizx.tbcmobile.utils.toFormatMoney
 
 
 @Composable
@@ -64,7 +65,7 @@ fun ItemCardInfo(
                 onClickCard()
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
-        colors = CardDefaults.cardColors().copy(containerColor = Color.White),
+        colors = CardDefaults.cardColors().copy(containerColor = AppTheme.colorScheme.backgroundTertiary),
         shape = RoundedCornerShape(16.dp),
     ) {
         Column(
@@ -81,7 +82,7 @@ fun ItemCardInfo(
                 Box(
                     modifier = Modifier
                         .background(
-                            colorResource(R.color.palette_gray_5),
+                            AppTheme.colorScheme.backgroundSecondary,
                             shape = RoundedCornerShape(12.dp)
                         )
                         .padding(vertical = 4.dp, horizontal = 12.dp)
@@ -89,7 +90,8 @@ fun ItemCardInfo(
                     Text(
                         text = stringResource(R.string.cards_cards),
                         style = AppTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        color = AppTheme.colorScheme.textPrimary
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -98,7 +100,7 @@ fun ItemCardInfo(
                     text = stringResource(balanceText),
                     color = AppTheme.colorScheme.borderAccentGreen,
                     style = AppTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
                 IconButton(
                     onClick = { showBalance = !showBalance }
@@ -137,16 +139,17 @@ fun ItemCardInfo(
                             text = cards[index].name,
                             fontSize = MaterialTheme.typography.titleSmall.fontSize,
                             fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            color = AppTheme.colorScheme.textPrimary
                         )
                         Box(modifier = Modifier.height(height = 24.dp), contentAlignment = Alignment.Center) {
                             if (showBalance) {
                                 Text(
-                                    text = "${cards[index].amount} UZS",
+                                    text = "${cards[index].amount.toString().toFormatMoney()} UZS",
                                     color = colorResource(R.color.palette_green_70),
                                     fontSize = MaterialTheme.typography.titleSmall.fontSize,
                                     fontWeight = FontWeight.Medium,
-                                    textAlign = TextAlign.Center
+                                    textAlign = TextAlign.Center,
                                 )
                             } else {
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -160,7 +163,8 @@ fun ItemCardInfo(
                         text = "*${cards[index].pan}",
                         fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         fontWeight = FontWeight.Medium,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        color = AppTheme.colorScheme.textPrimary
                     )
                 }
             }

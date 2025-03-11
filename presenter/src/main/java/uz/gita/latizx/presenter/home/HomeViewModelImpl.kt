@@ -3,6 +3,7 @@ package uz.gita.latizx.presenter.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,6 +15,7 @@ import uz.gita.latizx.comman.model.CardsData
 import uz.gita.latizx.comman.model.HomeItemVertical
 import uz.gita.latizx.presenter.utils.ResourceManager
 import uz.gita.latizx.usecase.card.GetCardsUseCase
+import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCase
 import uz.gita.latizx.usecase.home.TotalBalanceUseCase
 import javax.inject.Inject
 
@@ -22,13 +24,19 @@ class HomeViewModelImpl @Inject constructor(
     private val directions: HomeContract.Directions,
     private val getTotalBalanceUseCase: TotalBalanceUseCase,
     private val getCardsUseCase: GetCardsUseCase,
+    private val exchangeRateUseCase: ExchangeRateUseCase,
     private val resourceManager: ResourceManager,
 ) : HomeContract.HomeViewModel, ViewModel() {
     override val uiState = MutableStateFlow<HomeContract.UiState>(HomeContract.UiState(homeItems = homeItems()))
 
     init {
+        initData()
+    }
+
+    private fun initData() {
         getTotalSum()
         getCards()
+        getExchangeRate()
         reduce { it.copy(cards = cards()) }
     }
 
@@ -42,6 +50,13 @@ class HomeViewModelImpl @Inject constructor(
             is HomeContract.UiIntent.BalanceDisplayed -> {
                 reduce { uiState.value.copy(isBalanceDisplayed = !uiState.value.isBalanceDisplayed) }
             }
+
+            is HomeContract.UiIntent.RefreshData -> viewModelScope.launch {
+                reduce { it.copy(isRefreshing = true) }
+                delay(1000)
+                initData()
+                reduce { it.copy(isRefreshing = false) }
+            }
         }
     }
 
@@ -49,8 +64,7 @@ class HomeViewModelImpl @Inject constructor(
         reduce { it.copy(isLoading = true) }
         getTotalBalanceUseCase.invoke().onEach { result ->
             result.onSuccess { data ->
-                reduce { it.copy(isLoading = false) }
-                reduce { it.copy(balance = data.totalBalance.toString().formatWithSeparator()) }
+                reduce { it.copy(isLoading = false, balance = data.totalBalance.toString().formatWithSeparator()) }
             }
             result.onFailure {
                 reduce { it.copy(isLoading = false) }
@@ -65,6 +79,16 @@ class HomeViewModelImpl @Inject constructor(
             }
             result.onFailure {
 
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getExchangeRate() {
+        exchangeRateUseCase.invoke().onEach { result ->
+            result.onSuccess { data ->
+                reduce { it.copy(exchangeRateModel = data[0]) }
+            }
+            result.onFailure {
             }
         }.launchIn(viewModelScope)
     }

@@ -19,6 +19,7 @@ import uz.gita.latizx.entity.repository.impl.HomeRepositoryImpl
 import uz.gita.latizx.entity.repository.impl.TransferRepositoryImpl
 import uz.gita.latizx.entity.retrofit.api.AuthAPI
 import uz.gita.latizx.entity.retrofit.api.CardAPI
+import uz.gita.latizx.entity.retrofit.api.ExchangeRateApi
 import uz.gita.latizx.entity.retrofit.api.HomeAPI
 import uz.gita.latizx.entity.retrofit.api.TransferAPI
 import javax.inject.Singleton
@@ -57,9 +58,11 @@ class RepositoryModule {
     @Singleton
     fun provideHomeRepository(
         homeAPI: HomeAPI,
+        exchangeRateApi: ExchangeRateApi
     ): HomeRepository {
         return HomeRepositoryImpl(
-            homeAPI = homeAPI
+            homeAPI = homeAPI,
+            exchangeRateApi = exchangeRateApi
         )
     }
 

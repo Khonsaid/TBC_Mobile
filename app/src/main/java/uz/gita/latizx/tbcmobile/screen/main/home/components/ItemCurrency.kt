@@ -1,6 +1,5 @@
 package uz.gita.latizx.tbcmobile.screen.main.home.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,12 +19,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import uz.gita.latizx.comman.model.CardsData
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
@@ -54,7 +50,7 @@ fun ItemCurrency(
                 onClickCard()
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
-        colors = CardDefaults.cardColors().copy(containerColor = Color.White),
+        colors = CardDefaults.cardColors().copy(containerColor = AppTheme.colorScheme.backgroundTertiary),
         shape = RoundedCornerShape(16.dp),
     ) {
         Column(
@@ -71,7 +67,7 @@ fun ItemCurrency(
                 Box(
                     modifier = Modifier
                         .background(
-                            colorResource(R.color.palette_gray_5),
+                            AppTheme.colorScheme.backgroundSecondary,
                             shape = RoundedCornerShape(12.dp)
                         )
                         .padding(vertical = 4.dp, horizontal = 12.dp)
@@ -79,43 +75,106 @@ fun ItemCurrency(
                     Text(
                         text = stringResource(R.string.my_space_rates_title),
                         style = AppTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        color = AppTheme.colorScheme.textPrimary
                     )
                 }
 
             }
             repeat(1) { index ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
+                Column {
+                    Row(
                         modifier = Modifier
-                            .background(colorResource(R.color.palette_gray_5), shape = AppTheme.shape.small)
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Image(
-                            painter = painterResource(R.drawable.ag_flag_us),
-                            contentDescription = null
+                        Text(
+                            modifier = Modifier.weight(5f),
+                            text = stringResource(R.string.rates_exchange_rate),
+                            style = AppTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Start,
+                            color = AppTheme.colorScheme.textPrimary
+                        )
+                        Text(
+                            modifier = Modifier.weight(2.5f),
+                            text = stringResource(R.string.rates_exchange_buy),
+                            style = AppTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Start,
+                            color = AppTheme.colorScheme.textPrimary
+                        )
+                        Text(
+                            modifier = Modifier.weight(2.5f),
+                            text = stringResource(R.string.rates_exchange_sell),
+                            style = AppTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Start,
+                            color = AppTheme.colorScheme.textPrimary
                         )
                     }
-                    Column(modifier = Modifier.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text(
-                            text = "USD",
-                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Center
-                        )
+                    Row {
+                        Row(
+                            modifier = Modifier.weight(5f),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .background(colorResource(R.color.palette_gray_5), shape = AppTheme.shape.small)
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.ag_flag_us),
+                                    contentDescription = null
+                                )
+                            }
+                            Column(modifier = Modifier.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                Text(
+                                    text = "USD",
+                                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                                    fontWeight = FontWeight.Medium,
+                                    textAlign = TextAlign.Start,
+                                    color = AppTheme.colorScheme.textPrimary
+                                )
 
-                        Text(
-                            text = "1 ${stringResource(R.string.deposit_chooser_usd)}",
-                            color = colorResource(R.color.palette_green_70),
-                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Center
-                        )
+                                Text(
+                                    text = "1 ${stringResource(R.string.deposit_chooser_usd)}",
+                                    color = AppTheme.colorScheme.textPrimary,
+                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                    fontWeight = FontWeight.Medium,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                        }
+                        Column(modifier = Modifier.padding(vertical = 4.dp).weight(2.5f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(
+                                text = "12 990.00",
+                                color = AppTheme.colorScheme.textPrimary,
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                textAlign = TextAlign.Start
+                            )
+                            Text(
+                                text = "USD",
+                                fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                                textAlign = TextAlign.Start,
+                                color = AppTheme.colorScheme.textPrimary
+                            )
+                        }
+                        Column(modifier = Modifier.padding(vertical = 4.dp).weight(2.5f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(
+                                text = "12 990.00",
+                                color = AppTheme.colorScheme.textPrimary,
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                textAlign = TextAlign.Start
+                            )
+                            Text(
+                                text = "USD",
+                                fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                                textAlign = TextAlign.Start,
+                                color = AppTheme.colorScheme.textPrimary
+                            )
+                        }
                     }
                 }
             }
@@ -123,23 +182,23 @@ fun ItemCurrency(
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)
+                .padding(vertical = 16.dp, horizontal = 12.dp)
                 .height(52.dp),
-            colors = ButtonDefaults.buttonColors().copy(containerColor = colorResource(R.color.palette_green_70)),
+            colors = ButtonDefaults.buttonColors().copy(containerColor = colorResource(R.color.palette_cyan_80)),
             shape = ShapeDefaults.Medium,
             onClick = { onClickCard() }
         ) {
-                Text(
-                    text = stringResource(R.string.rates_my_space_button_title),
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center
-                )
+            Text(
+                text = stringResource(R.string.rates_my_space_button_title),
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center
+            )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 modifier = Modifier.size(24.dp),
                 painter = painterResource(R.drawable.ic_chevron_right_24_regular),
-                contentDescription = "ic eye",
+                contentDescription = null,
                 tint = Color.White
             )
         }
@@ -151,5 +210,5 @@ fun ItemCurrency(
 private fun Preview() {
     ItemCurrency(
 
-    ){}
+    ) {}
 }
