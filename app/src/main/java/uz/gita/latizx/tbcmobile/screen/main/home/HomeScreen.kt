@@ -16,16 +16,18 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -41,6 +43,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
+import kotlinx.coroutines.delay
 import uz.gita.latizx.presenter.home.HomeContract
 import uz.gita.latizx.presenter.home.HomeViewModelImpl
 import uz.gita.latizx.tbcmobile.R
@@ -53,7 +56,7 @@ import uz.gita.latizx.tbcmobile.ui.components.items.ItemHomeVertical
 import uz.gita.latizx.tbcmobile.ui.components.other.DotBox
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 import uz.gita.latizx.tbcmobile.utils.getSectionHeight
-import uz.gita.latizx.tbcmobile.utils.parallaxLayoutModifier
+import uz.gita.latizx.tbcmobile.utils.toFormatMoney
 
 class HomeScreen : Screen {
     @Composable
@@ -73,6 +76,18 @@ private fun HomeScreenContent(
     uiState: State<HomeContract.UiState> = remember { mutableStateOf(HomeContract.UiState()) },
     eventDispatcher: (HomeContract.UiIntent) -> Unit = { },
 ) {
+    var animatedBalance by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(uiState.value.balance) {
+        val targetBalance = uiState.value.balance.toIntOrNull() ?: 0
+        val step = (targetBalance - animatedBalance) / 20  // Animatsiya qadamlar soni
+        (0..20).forEach { i ->
+            delay(50)
+            animatedBalance += step
+        }
+        animatedBalance = targetBalance
+    }
+
     val sectionHeight: Dp = LocalConfiguration.current.getSectionHeight()
     val scrollState = rememberScrollState()
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
@@ -126,7 +141,6 @@ private fun HomeScreenContent(
                     ) {
                         IconWithNotificationBadge(
                             iconRes = R.drawable.ic_home_user,
-                            badgeContent = "1"
                         )
 
                         Text(
@@ -146,8 +160,8 @@ private fun HomeScreenContent(
                     ) {
                         Text(
                             text = stringResource(R.string.home_balance_total_title),
-                            color = MaterialTheme.colorScheme.onTertiary,
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize
+                            color = AppTheme.colorScheme.textPrimary,
+                            style = AppTheme.typography.bodyLarge
                         )
 
                         Row(
@@ -164,7 +178,7 @@ private fun HomeScreenContent(
                                 if (uiState.value.isBalanceDisplayed) {
                                     Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text(
-                                            text = uiState.value.balance,
+                                            text = animatedBalance.toString().toFormatMoney(),
                                             color = AppTheme.colorScheme.textPrimary,
                                             style = AppTheme.typography.titleLarge
                                         )
@@ -281,7 +295,9 @@ private fun BottomSheetContent(
             cardColor = uiState.value.homeItems[2].cardColor,
             onClick = {}
         )
-        ItemCurrency() {}
+        ItemCurrency(exchangeRateModel = uiState.value.exchangeRateModel) {
+            eventDispatcher.invoke(HomeContract.UiIntent.OpenCurrency)
+        }
         ItemSupport {
 
         }

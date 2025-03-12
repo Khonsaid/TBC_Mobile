@@ -81,6 +81,10 @@ dependencies {
     //pdf
     implementation("com.itextpdf:itextg:5.5.10")
 
+    //coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
     implementation(libs.androidx.biometric)
 
     implementation(project(":common"))

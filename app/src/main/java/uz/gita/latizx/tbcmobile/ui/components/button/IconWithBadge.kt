@@ -2,12 +2,14 @@ package uz.gita.latizx.tbcmobile.ui.components.button
 
 import android.graphics.Color.parseColor
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -26,40 +28,27 @@ import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 @Composable
 fun IconWithNotificationBadge(
     @DrawableRes iconRes: Int,
-    badgeContent: String?,
-    badgeColor: Color = Color(parseColor("#ff3b30")),
 ) {
-    ElevatedCard(
+    Card(
         modifier = Modifier
-            .size(40.dp)
-            .clip(ShapeDefaults.Small),
+            .size(40.dp),
+        shape = ShapeDefaults.Medium,
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colorScheme.themeBottomSheetHeaderIconColor,
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.5.dp
-        ),
+        )
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .clip(ShapeDefaults.Small)
+                .background(color = AppTheme.colorScheme.themeBottomSheetHeaderIconColor)
+                .clip(ShapeDefaults.Small),
         ) {
-            Icon(
+            Image(
                 painter = painterResource(id = iconRes),
                 contentDescription = null,
                 modifier = Modifier
-                    .align(Alignment.Center)
+                    .align(Alignment.Center),
             )
-
-            if (badgeContent == null) {
-                Spacer(
-                    modifier = Modifier
-                        .size(12.dp)
-                        .background(color = badgeColor, shape = CircleShape)
-                        .align(Alignment.TopEnd)
-                )
-            }
         }
     }
 }
@@ -69,6 +58,5 @@ fun IconWithNotificationBadge(
 private fun Preview() {
     IconWithNotificationBadge(
         iconRes = R.drawable.ic_home_user,
-        "1"
     )
 }

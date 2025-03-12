@@ -2,7 +2,6 @@ package uz.gita.latizx.tbcmobile.screen.main.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,26 +32,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import uz.gita.latizx.comman.model.ExchangeRateModel
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.items.CurrencyTBC
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
-
+import uz.gita.latizx.tbcmobile.utils.toFormatMoney
 
 @Composable
 fun ItemCurrency(
+    exchangeRateModel: ExchangeRateModel?,
     onClickCard: () -> Unit,
 ) {
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = 16.dp)
-            .clickable {
-                onClickCard()
-            },
+            .padding(horizontal = 16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
         colors = CardDefaults.cardColors().copy(containerColor = AppTheme.colorScheme.backgroundTertiary),
         shape = RoundedCornerShape(16.dp),
     ) {
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,126 +81,31 @@ fun ItemCurrency(
                 }
 
             }
-            repeat(1) { index ->
-                Column {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(5f),
-                            text = stringResource(R.string.rates_exchange_rate),
-                            style = AppTheme.typography.bodySmall,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Start,
-                            color = AppTheme.colorScheme.textPrimary
-                        )
-                        Text(
-                            modifier = Modifier.weight(2.5f),
-                            text = stringResource(R.string.rates_exchange_buy),
-                            style = AppTheme.typography.bodySmall,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Start,
-                            color = AppTheme.colorScheme.textPrimary
-                        )
-                        Text(
-                            modifier = Modifier.weight(2.5f),
-                            text = stringResource(R.string.rates_exchange_sell),
-                            style = AppTheme.typography.bodySmall,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.Start,
-                            color = AppTheme.colorScheme.textPrimary
-                        )
-                    }
-                    Row {
-                        Row(
-                            modifier = Modifier.weight(5f),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .background(colorResource(R.color.palette_gray_5), shape = AppTheme.shape.small)
-                            ) {
-                                Image(
-                                    painter = painterResource(R.drawable.ag_flag_us),
-                                    contentDescription = null
-                                )
-                            }
-                            Column(modifier = Modifier.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                Text(
-                                    text = "USD",
-                                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                                    fontWeight = FontWeight.Medium,
-                                    textAlign = TextAlign.Start,
-                                    color = AppTheme.colorScheme.textPrimary
-                                )
+            CurrencyTBC(exchangeRateModel = exchangeRateModel)
 
-                                Text(
-                                    text = "1 ${stringResource(R.string.deposit_chooser_usd)}",
-                                    color = AppTheme.colorScheme.textPrimary,
-                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                    fontWeight = FontWeight.Medium,
-                                    textAlign = TextAlign.Start
-                                )
-                            }
-                        }
-                        Column(modifier = Modifier.padding(vertical = 4.dp).weight(2.5f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(
-                                text = "12 990.00",
-                                color = AppTheme.colorScheme.textPrimary,
-                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                textAlign = TextAlign.Start
-                            )
-                            Text(
-                                text = "USD",
-                                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                                textAlign = TextAlign.Start,
-                                color = AppTheme.colorScheme.textPrimary
-                            )
-                        }
-                        Column(modifier = Modifier.padding(vertical = 4.dp).weight(2.5f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(
-                                text = "12 990.00",
-                                color = AppTheme.colorScheme.textPrimary,
-                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                textAlign = TextAlign.Start
-                            )
-                            Text(
-                                text = "USD",
-                                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                                textAlign = TextAlign.Start,
-                                color = AppTheme.colorScheme.textPrimary
-                            )
-                        }
-                    }
-                }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp)
+                    .height(52.dp),
+                colors = ButtonDefaults.buttonColors().copy(containerColor = colorResource(R.color.palette_cyan_80)),
+                shape = ShapeDefaults.Medium,
+                onClick = { onClickCard() }
+            ) {
+                Text(
+                    text = stringResource(R.string.rates_my_space_button_title),
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Normal,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    modifier = Modifier.size(24.dp),
+                    painter = painterResource(R.drawable.ic_chevron_right_24_regular),
+                    contentDescription = null,
+                    tint = Color.White
+                )
             }
-        }
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp, horizontal = 12.dp)
-                .height(52.dp),
-            colors = ButtonDefaults.buttonColors().copy(containerColor = colorResource(R.color.palette_cyan_80)),
-            shape = ShapeDefaults.Medium,
-            onClick = { onClickCard() }
-        ) {
-            Text(
-                text = stringResource(R.string.rates_my_space_button_title),
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Normal,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                modifier = Modifier.size(24.dp),
-                painter = painterResource(R.drawable.ic_chevron_right_24_regular),
-                contentDescription = null,
-                tint = Color.White
-            )
         }
     }
 }
@@ -209,6 +114,18 @@ fun ItemCurrency(
 @Composable
 private fun Preview() {
     ItemCurrency(
-
+        ExchangeRateModel(
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            0
+        )
     ) {}
 }

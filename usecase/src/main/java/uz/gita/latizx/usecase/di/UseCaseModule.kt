@@ -27,6 +27,8 @@ import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCase
 import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCaseImpl
 import uz.gita.latizx.usecase.home.TotalBalanceUseCase
 import uz.gita.latizx.usecase.home.impl.TotalBalanceUseCaseImpl
+import uz.gita.latizx.usecase.settings.SettingsUseCase
+import uz.gita.latizx.usecase.settings.impl.SettingsUseCaseImpl
 import uz.gita.latizx.usecase.transfer.GetCardOwnerByPanUseCase
 import uz.gita.latizx.usecase.transfer.GetFreeUseCase
 import uz.gita.latizx.usecase.transfer.GetHistoryUseCase
@@ -99,4 +101,7 @@ interface UseCaseModule {
 
     @[Binds ViewModelScoped]
     fun bindExchangeRateUseCase(impl: ExchangeRateUseCaseImpl): ExchangeRateUseCase
+
+    @[Binds ViewModelScoped]
+    fun bindSettingsUseCase(impl: SettingsUseCaseImpl): SettingsUseCase
 }

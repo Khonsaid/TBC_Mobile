@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.latizx.comman.LocationHelper
 import uz.gita.latizx.tbcmobile.navigator.AppNavigatorHandler
 import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionScreen
+import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyScreen
 import uz.gita.latizx.tbcmobile.screen.main.home.HomeScreen
 import uz.gita.latizx.tbcmobile.screen.splash.SplashScreen
 import uz.gita.latizx.tbcmobile.ui.theme.TBCMobileTheme
@@ -27,7 +28,7 @@ class MainActivity : FragmentActivity() {
 //        enableEdgeToEdge()
         setContent {
             TBCMobileTheme {
-                Navigator(HomeScreen()) { navigator ->
+                Navigator(CurrencyScreen()) { navigator ->
                     LaunchedEffect(key1 = navigator) {
                         navigatorHandler.navigation.collect {
                             it.invoke(navigator)

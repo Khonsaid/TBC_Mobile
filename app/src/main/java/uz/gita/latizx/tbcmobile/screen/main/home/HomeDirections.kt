@@ -1,11 +1,12 @@
 package uz.gita.latizx.tbcmobile.screen.main.home
 
-import uz.gita.latizx.tbcmobile.navigator.AppNavigator
-import uz.gita.latizx.tbcmobile.screen.card.info.CardsInfoScreen
 import uz.gita.latizx.presenter.home.HomeContract
+import uz.gita.latizx.tbcmobile.navigator.AppNavigator
 import uz.gita.latizx.tbcmobile.screen.card.cards.CardsScreen
-import uz.gita.latizx.tbcmobile.screen.main.payment.PaymentsScreen
+import uz.gita.latizx.tbcmobile.screen.card.info.CardsInfoScreen
 import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionScreen
+import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyScreen
+import uz.gita.latizx.tbcmobile.screen.main.payment.PaymentsScreen
 import uz.gita.latizx.tbcmobile.screen.transfers.recipient.RecipientScreen
 import javax.inject.Inject
 
@@ -31,5 +32,9 @@ class HomeDirections @Inject constructor(
 
     override suspend fun navigateToCards() {
         appNavigator.navigateTo(CardsScreen())
+    }
+
+    override suspend fun navigateToCurrency() {
+        appNavigator.navigateTo(CurrencyScreen())
     }
 }

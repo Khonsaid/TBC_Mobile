@@ -17,6 +17,7 @@ import uz.gita.latizx.presenter.utils.ResourceManager
 import uz.gita.latizx.usecase.card.GetCardsUseCase
 import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCase
 import uz.gita.latizx.usecase.home.TotalBalanceUseCase
+import uz.gita.latizx.usecase.settings.SettingsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +26,7 @@ class HomeViewModelImpl @Inject constructor(
     private val getTotalBalanceUseCase: TotalBalanceUseCase,
     private val getCardsUseCase: GetCardsUseCase,
     private val exchangeRateUseCase: ExchangeRateUseCase,
+    private val settingsUseCase: SettingsUseCase,
     private val resourceManager: ResourceManager,
 ) : HomeContract.HomeViewModel, ViewModel() {
     override val uiState = MutableStateFlow<HomeContract.UiState>(HomeContract.UiState(homeItems = homeItems()))
@@ -37,7 +39,7 @@ class HomeViewModelImpl @Inject constructor(
         getTotalSum()
         getCards()
         getExchangeRate()
-        reduce { it.copy(cards = cards()) }
+        reduce { it.copy(cards = cards(), isBalanceDisplayed = settingsUseCase.isBalanceDisplayed()) }
     }
 
     override fun onEventDispatcher(uiIntent: HomeContract.UiIntent) {
@@ -47,13 +49,15 @@ class HomeViewModelImpl @Inject constructor(
             is HomeContract.UiIntent.OpenRecipient -> viewModelScope.launch { directions.navigateToHomeRecipient() }
             is HomeContract.UiIntent.OpenHomeCards -> viewModelScope.launch { directions.navigateToCards() }
             is HomeContract.UiIntent.OpenHomeCardsInfo -> viewModelScope.launch { directions.navigateToCardsInfo() }
+            is HomeContract.UiIntent.OpenCurrency -> viewModelScope.launch { directions.navigateToCurrency() }
             is HomeContract.UiIntent.BalanceDisplayed -> {
-                reduce { uiState.value.copy(isBalanceDisplayed = !uiState.value.isBalanceDisplayed) }
+                reduce { uiState.value.copy(isBalanceDisplayed = settingsUseCase.changeBalanceDisplayed()) }
             }
 
             is HomeContract.UiIntent.RefreshData -> viewModelScope.launch {
                 reduce { it.copy(isRefreshing = true) }
                 delay(1000)
+                reduce { it.copy(balance = "12000000") }
                 initData()
                 reduce { it.copy(isRefreshing = false) }
             }

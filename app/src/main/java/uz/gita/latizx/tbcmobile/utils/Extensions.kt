@@ -38,9 +38,22 @@ fun String.toFormatCard(): String {
     return this.reversed().chunked(4).joinToString(" ").reversed()
 }
 
-fun String.toFormatMoney(): String {
-    return this.reversed().chunked(3).joinToString(" ").reversed()
+
+fun String.toFormatMoney(hasTail: Boolean = false): String {
+    val parts = this.split(".") // **Bo‘laklarga ajratish**
+    val mainPart = parts[0].reversed().chunked(3).joinToString(" ").reversed() // **Raqamlarni formatlash**
+    val decimalPart = when {
+        parts.size > 1 -> {
+            val part1 = if (parts[1].length > 4) parts[1].substring(0, 2) else parts[1]
+            ".$part1"
+        } // **Agar vergulli qism bo‘lsa, uni qo‘shish**
+        hasTail -> ".00" // **hasTail = true bo‘lsa, .00 qo‘shish**
+        else -> ""
+    }
+
+    return mainPart + decimalPart
 }
+
 
 @SuppressLint("NewApi")
 fun Long.formatToHour(): String {
@@ -80,6 +93,34 @@ fun Modifier.parallaxLayoutModifier(scrollState: ScrollState, rate: Int) =
             placeable.place(0, height)
         }
     }
+
+fun String.getCountryCodeByCurrency(): String? {
+    val currencyToCountry = mapOf(
+        "USD" to "US", "EUR" to "EU", "RUB" to "RU", "KZT" to "KZ", "GBP" to "GB",
+        "JPY" to "JP", "AUD" to "AU", "UZS" to "UZ", "CNY" to "CN", "AED" to "AE",
+        "AFN" to "AF", "ARS" to "AR", "AMD" to "AM", "AZN" to "AZ", "BGN" to "BG",
+        "BRL" to "BR", "BYN" to "BY", "CAD" to "CA", "CHF" to "CH", "CZK" to "CZ",
+        "DKK" to "DK", "EGP" to "EG", "GEL" to "GE", "HKD" to "HK", "HUF" to "HU",
+        "INR" to "IN", "IDR" to "ID", "ILS" to "IL", "IRR" to "IR", "IQD" to "IQ",
+        "ISK" to "IS", "JOD" to "JO", "KRW" to "KR", "KWD" to "KW", "LAK" to "LA",
+        "LBP" to "LB", "LYD" to "LY", "MDL" to "MD", "MXN" to "MX", "MYR" to "MY",
+        "NOK" to "NO", "NZD" to "NZ", "OMR" to "OM", "PKR" to "PK", "PLN" to "PL",
+        "QAR" to "QA", "RON" to "RO", "RSD" to "RS", "SAR" to "SA", "SDG" to "SD",
+        "SEK" to "SE", "SGD" to "SG", "SYP" to "SY", "THB" to "TH", "TJS" to "TJ",
+        "TMT" to "TM", "TRY" to "TR", "UAH" to "UA", "UYU" to "UY", "VES" to "VE",
+        "VND" to "VN", "ZAR" to "ZA", "TND" to "TN", "YER" to "YE", "BDT" to "BD",
+        "BHD" to "BH", "BND" to "BN",
+        "KGS" to "KG",  // 🇰🇬 Qirg‘iziston
+        "KHR" to "KH",  // 🇰🇭 Kambodja
+        "XDR" to "IMF", // 🌍 Xalqaro Valyuta Fondi (IMF)
+        "PHP" to "PH",  // 🇵🇭 Filippin
+        "MNT" to "MN",  // 🇲🇳 Mo‘g‘uliston
+        "MAD" to "MA",  // 🇲🇦 Marokash
+        "DZD" to "DZ",  // 🇩🇿 Jazoir
+        "CUP" to "CU"   // 🇨🇺 Kuba
+    )
+    return currencyToCountry[this]?.lowercase() // Valyuta kodiga mos davlat kodini qaytaradi
+}
 
 fun Context.generateAndSharePdf(history: HistoryItemsData?) {
     val pdfDocument = PdfDocument()

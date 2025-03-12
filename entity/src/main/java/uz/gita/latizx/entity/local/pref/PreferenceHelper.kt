@@ -13,4 +13,5 @@ class PreferenceHelper @Inject constructor(@ApplicationContext context: Context)
     var refreshToken: String by strings()
     var accessToken: String by strings()
     var pinCode: String by strings()
+    var isBalanceDisplayed: Boolean by booleans()
 }
