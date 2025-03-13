@@ -1,5 +1,6 @@
 package uz.gita.latizx.presenter.currency
 
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.latizx.comman.model.ExchangeRateModel
 
@@ -24,10 +25,13 @@ interface CurrencyContract {
 
     interface CurrencyViewModel {
         val uiState: StateFlow<UIState>
+        val sideEffect: Channel<SideEffect>
         fun onEventDispatcher(uiIntent: UIIntent)
     }
 
     interface Directions {
         suspend fun navigateToPrev()
     }
+
+    data class SideEffect(val showLoading: Boolean = false)
 }

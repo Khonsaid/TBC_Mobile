@@ -1,10 +1,8 @@
 package uz.gita.latizx.tbcmobile.ui.components.items
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -54,17 +51,12 @@ fun ItemCalculate(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
+            Image(
+                painter = painterResource(if (fromUZS) R.drawable.ag_flag_uz else R.drawable.ag_flag_us), contentDescription = null,
                 modifier = Modifier
-                    .background(colorResource(R.color.palette_gray_5), shape = AppTheme.shape.small)
-            ) {
-                Image(
-                    painter = painterResource(if (fromUZS) R.drawable.ag_flag_uz else R.drawable.ag_flag_us), contentDescription = null,
-                    modifier = Modifier
-                        .size(width = 44.dp, height = 32.dp)
-                        .clip(shape = RoundedCornerShape(3.dp)),
-                )
-            }
+                    .size(width = 44.dp, height = 36.dp)
+                    .clip(shape = RoundedCornerShape(6.dp)),
+            )
             Text(
                 text = if (fromUZS) "UZS" else "USD",
                 fontSize = MaterialTheme.typography.titleSmall.fontSize,
@@ -92,16 +84,16 @@ fun ItemCalculate(
                 value = value,
                 onValueChange = { newValue ->
 //                    if (newValue.isEmpty() || newValue.matches(Regex("\\d+"))) {
-                        if (newValue.length <= 8 || (newValue.length > 8 && value.length > 8)) {
-                            onValueChange(newValue)
-                        }
+                    if (newValue.length <= 8 || (newValue.length > 8 && value.length > 8)) {
+                        onValueChange(newValue)
+                    }
 //                    }
                 },
-                textStyle = AppTheme.typography.bodySmall,
+                textStyle = AppTheme.typography.bodySmall.copy(color = AppTheme.colorScheme.textPrimary),
                 suffix = {
                     Text(
                         text = if (fromUZS) "UZS" else "$",
-                        style = AppTheme.typography.bodyMedium,
+                        style = AppTheme.typography.bodyMedium.copy(color = AppTheme.colorScheme.textPrimary),
                         textAlign = TextAlign.Center
                     )
                 },
@@ -110,7 +102,7 @@ fun ItemCalculate(
                     focusedContainerColor = AppTheme.colorScheme.backgroundPrimary,
                     unfocusedContainerColor = AppTheme.colorScheme.backgroundPrimary,
                     focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
+                    unfocusedIndicatorColor = Color.Transparent,
                 )
             )
         }

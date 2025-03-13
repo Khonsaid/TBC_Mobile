@@ -1,9 +1,11 @@
 package uz.gita.latizx.presenter.auth.intro
 
 import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import uz.gita.latizx.comman.LocationHelper
 import javax.inject.Inject
@@ -12,10 +14,10 @@ import javax.inject.Inject
 class IntroViewModelImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val directions: IntroContract.Directions,
-) : IntroContract.ViewModel, androidx.lifecycle.ViewModel() {
+) : IntroContract.ViewModel, ViewModel() {
 
     override val uiState =
-        kotlinx.coroutines.flow.MutableStateFlow<IntroContract.UiState>(IntroContract.UiState(LocationHelper.getLang()))
+        MutableStateFlow<IntroContract.UiState>(IntroContract.UiState(LocationHelper.getLang()))
 
     override fun onEventDispatcher(uiIntent: IntroContract.UiIntent) {
         when (uiIntent) {
@@ -29,11 +31,14 @@ class IntroViewModelImpl @Inject constructor(
             is IntroContract.UiIntent.HideLanguageBottomSheet -> reduce {
                 it.copy(isBottomSheetVisible = false)
             }
+            is IntroContract.UiIntent.ResetRecreateFlag -> reduce {
+                it.copy(shouldRecreateActivity = false)
+            }
 
             is IntroContract.UiIntent.SaveLanguage -> {
+                val shouldRecreateActivity = LocationHelper.getLang() != uiIntent.lang
                 LocationHelper.setLocation(context, uiIntent.lang)
-                reduce { it.copy(lang = LocationHelper.getLang()) }
-                reduce { it.copy(isBottomSheetVisible = false) }
+                reduce { it.copy(lang = LocationHelper.getLang(), isBottomSheetVisible = false, shouldRecreateActivity = shouldRecreateActivity) }
             }
         }
     }

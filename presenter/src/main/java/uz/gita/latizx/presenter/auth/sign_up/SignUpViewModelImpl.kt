@@ -34,41 +34,42 @@ class SignUpViewModelImpl @Inject constructor(
                 when {
                     !uiIntent.firstName.isValidName() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignUpContract.SideEffect(R.string.signing_sign_up_the_first_name_empty))
+                            sideEffect.send(SignUpContract.SideEffect(1, showErrorDialog = true))
                         }
                     }
 
                     !uiIntent.lastName.isValidName() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignUpContract.SideEffect(R.string.signing_sign_up_the_last_name_empty))
+                            sideEffect.send(SignUpContract.SideEffect(2, showErrorDialog = true))
                         }
                     }
 
                     !uiIntent.bornDate.isValidDate() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignUpContract.SideEffect(uiIntent.bornDate.isValidDate().second))
+                            sideEffect.send(SignUpContract.SideEffect(3, showErrorDialog = true))
                         }
                     }
 
                     !uiIntent.phone.isValidPhoneNumber() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignUpContract.SideEffect(uiIntent.phone.isValidPhoneNumber().second))
+                            sideEffect.send(SignUpContract.SideEffect(4, showErrorDialog = true))
                         }
                     }
 
                     !uiIntent.password.isValidPassword() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignUpContract.SideEffect(uiIntent.password.isValidPassword().second))
+                            sideEffect.send(SignUpContract.SideEffect(5, showErrorDialog = true))
                         }
                     }
 
                     else -> {
-
+                        reduce { it.copy(showLoading = true) }
                         signUpUseCase.invoke(
                             phone = uiIntent.phone, password = uiIntent.password, firstName = uiIntent.firstName,
                             lastName = uiIntent.lastName, bornDate = uiIntent.bornDate.toString(), gender = "0"
                         ).onEach { result ->
                             result.onSuccess {
+                                reduce { it.copy(showLoading = false) }
                                 viewModelScope.launch {
                                     directions.navigateToVerify(
                                         phoneNumber = uiIntent.phone,
@@ -77,16 +78,18 @@ class SignUpViewModelImpl @Inject constructor(
                                 }
                             }
                             result.onFailure {
-//                                viewModelScope.launch { sideEffect.send(SignUpContract.SideEffect(msg = R.string.components_server_error)) }
+                                reduce { it.copy(showLoading = false) }
+                                viewModelScope.launch { sideEffect.send(SignUpContract.SideEffect(0)) }
                             }
                         }.launchIn(viewModelScope)
                     }
                 }
             }
 
-            is SignUpContract.UIIntent.OpenPrev -> {
-                viewModelScope.launch { directions.navigateToBack() }
-            }
+            is SignUpContract.UIIntent.ShowModeInfoDialog -> viewModelScope.launch { sideEffect.send(SignUpContract.SideEffect(showMoreInfo = true)) }
+            is SignUpContract.UIIntent.DismissErrorDialog -> viewModelScope.launch { sideEffect.send(SignUpContract.SideEffect(showErrorDialog = false)) }
+            is SignUpContract.UIIntent.DismissMoreInfoDialog -> viewModelScope.launch { sideEffect.send(SignUpContract.SideEffect(showMoreInfo = false)) }
+            is SignUpContract.UIIntent.OpenPrev -> viewModelScope.launch { directions.navigateToBack() }
         }
     }
 

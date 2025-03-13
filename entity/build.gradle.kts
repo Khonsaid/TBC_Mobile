@@ -21,10 +21,10 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String","BASE_URL","\"http://185.193.17.169:8080/mobile-bank/v1/\"")
+            buildConfigField("String","BASE_URL","\"http://173.212.232.116/mobile-bank/v1/\"")
         }
         debug{
-            buildConfigField("String","BASE_URL","\"http://185.193.17.169:8080/mobile-bank/v1/\"")
+            buildConfigField("String","BASE_URL","\"http://173.212.232.116/mobile-bank/v1/\"")
         }
     }
     compileOptions {

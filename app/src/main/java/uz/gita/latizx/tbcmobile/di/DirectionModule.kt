@@ -19,6 +19,7 @@ import uz.gita.latizx.presenter.history.transaction_detail.TransactionDetailCont
 import uz.gita.latizx.presenter.home.HomeContract
 import uz.gita.latizx.presenter.splash.SplashContract
 import uz.gita.latizx.presenter.success.SuccessContract
+import uz.gita.latizx.presenter.support.support.SupportContract
 import uz.gita.latizx.presenter.transfer.fee.FeeContract
 import uz.gita.latizx.presenter.transfer.recipient.RecipientContract
 import uz.gita.latizx.presenter.transfer.transfer.TransferContract
@@ -35,6 +36,7 @@ import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.main.home.HomeDirections
 import uz.gita.latizx.tbcmobile.screen.splash.SplashDirections
 import uz.gita.latizx.tbcmobile.screen.succes.SuccessDirections
+import uz.gita.latizx.tbcmobile.screen.support.support.SupportDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.transfers.fee.FeeDirections
 import uz.gita.latizx.tbcmobile.screen.transfers.recipient.RecipientDirections
 import uz.gita.latizx.tbcmobile.screen.transfers.transfer.TransferDirections
@@ -98,4 +100,7 @@ interface DirectionModule {
 
     @Binds
     fun bindCurrencyDirections(impl: CurrencyDirectionsImpl): CurrencyContract.Directions
+
+    @Binds
+    fun bindSupportDirections(impl: SupportDirectionsImpl): SupportContract.Directions
 }

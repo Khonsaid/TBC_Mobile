@@ -3,9 +3,11 @@ package uz.gita.latizx.presenter.currency
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCase
 import java.util.Locale
@@ -17,8 +19,11 @@ class CurrencyViewModelImpl @Inject constructor(
     private val exchangeRateUseCase: ExchangeRateUseCase,
 ) : CurrencyContract.CurrencyViewModel, ViewModel() {
     override val uiState = MutableStateFlow<CurrencyContract.UIState>(CurrencyContract.UIState())
+    override val sideEffect = Channel<CurrencyContract.SideEffect>()
+    val _sideEffect = sideEffect.receiveAsFlow()
 
     init {
+        viewModelScope.launch { sideEffect.send(CurrencyContract.SideEffect(showLoading = true)) }
         getExchangeRate()
     }
 
@@ -80,6 +85,7 @@ class CurrencyViewModelImpl @Inject constructor(
                 rateUZS = rateUZS.toString()
             )
         }
+        viewModelScope.launch { sideEffect.send(CurrencyContract.SideEffect(showLoading = false)) }
     }
 }
 

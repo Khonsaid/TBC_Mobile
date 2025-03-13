@@ -11,15 +11,18 @@ interface PinCodeContract {
         data object BiometricSuccess : UIIntent
         data class ClickNum(val code: String) : UIIntent
         data object ClickRemove : UIIntent
+        data object DismissErrorDialog : UIIntent
         data class UpdateCodeArray(val updatedCodeArray: List<Boolean>) : UIIntent
     }
 
-    data class SideEffect(val message: Int)
+    data class SideEffect(
+        val showErrorDialog: Boolean = false,
+        val showLoading: Boolean = false,
+    )
 
     data class UiState(
         val message: String = "",
         val codeArray: List<Boolean> = listOf(false, false, false, false),
-        val showLoading: Boolean = false,
     )
 
     interface PinCodeViewModel {

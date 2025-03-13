@@ -3,6 +3,7 @@ package uz.gita.latizx.tbcmobile.screen.auth.intro
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,10 +19,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -58,6 +61,19 @@ class IntroScreen : Screen {
             sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         ) {
             IntroScreenContent(uiState, viewModel::onEventDispatcher)
+        }
+        val context = LocalContext.current
+        LaunchedEffect(uiState.value.shouldRecreateActivity) {
+            if (uiState.value.shouldRecreateActivity) {
+                if (uiState.value.isBottomSheetVisible) {
+                    viewModel.onEventDispatcher(IntroContract.UiIntent.HideLanguageBottomSheet)
+                }
+                // Joriy activity ni oling va qayta yarating
+                val activity = context as? android.app.Activity
+                activity?.recreate()
+
+                viewModel.onEventDispatcher(IntroContract.UiIntent.ResetRecreateFlag)
+            }
         }
     }
 }
@@ -95,7 +111,9 @@ private fun IntroScreenContent(
                 Row(
                     modifier = Modifier
                         .height(32.dp)
-                        .clickable {/* Language click */
+                        .clickable(
+                            indication = ripple(radius = 16.dp, color = AppTheme.colorScheme.backgroundBrandTertiary.copy(alpha = 0.2f)),
+                            interactionSource = remember { MutableInteractionSource() }) {/* Language click */
                             eventDispatcher(IntroContract.UiIntent.ShowLanguageBottomSheet)
                         }
                         .background(
@@ -184,19 +202,22 @@ private fun IntroScreenContent(
             }
 
             val bottomSheetNavigator = LocalBottomSheetNavigator.current
-            if (uiState.value.isBottomSheetVisible) {
-                val dialog = LanguageDialog(uiState.value.lang)
-                bottomSheetNavigator.show(dialog)
-                dialog.onClickLang = {
-                    eventDispatcher(IntroContract.UiIntent.SaveLanguage(it))
-                    bottomSheetNavigator.hide()
-                }
-                dialog.onDismissRequest = {
-                    bottomSheetNavigator.hide()
-                    eventDispatcher(IntroContract.UiIntent.HideLanguageBottomSheet)
+            LaunchedEffect(uiState.value.isBottomSheetVisible) {
+                if (uiState.value.isBottomSheetVisible) {
+                    val dialog = LanguageDialog(uiState.value.lang)
+                    dialog.onClickLang = {
+                        eventDispatcher(IntroContract.UiIntent.SaveLanguage(it))
+                        bottomSheetNavigator.hide()
+                    }
+                    dialog.onDismissRequest = {
+                        bottomSheetNavigator.hide()
+                        eventDispatcher(IntroContract.UiIntent.HideLanguageBottomSheet)
+                    }
+                    bottomSheetNavigator.show(dialog)
+                } else {
+                    if (bottomSheetNavigator.isVisible) bottomSheetNavigator.hide()
                 }
             }
-            if (bottomSheetNavigator.isVisible) eventDispatcher(IntroContract.UiIntent.HideLanguageBottomSheet)
         }
     }
 }

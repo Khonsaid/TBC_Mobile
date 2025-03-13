@@ -1,11 +1,10 @@
 package uz.gita.latizx.tbcmobile.screen.auth.pin_code
 
 import android.annotation.SuppressLint
-import android.content.Context
-import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,15 +20,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,10 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
-import kotlinx.coroutines.launch
 import uz.gita.latizx.presenter.auth.pin_code.PinCodeContract
 import uz.gita.latizx.presenter.auth.pin_code.PinCodeViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
 import uz.gita.latizx.tbcmobile.ui.components.button.CircleNumberButton
 import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
@@ -59,21 +56,24 @@ class PinCodeScreen : Screen {
         val viewModel = getViewModel<PinCodeViewModelImpl>()
         val uiState = viewModel.uiState.collectAsState()
         PinCodeContent(uiState, viewModel::onEventDispatcher)
-        val scope = rememberCoroutineScope()
+
         var showDialog by remember { mutableStateOf(false) }
-        var dialogMessage by remember { mutableIntStateOf(0) }
-        scope.launch {
+        var showLoading by remember { mutableStateOf(false) }
+        LaunchedEffect(Unit) {
             viewModel._sideEffect.collect {
-                dialogMessage = it.message
-                showDialog = true
+                showLoading = it.showLoading
+                showDialog = it.showErrorDialog
             }
         }
+        if (showLoading) LoadingDialog()
         if (showDialog) {
             CustomDialog(
-                text = dialogMessage,
+                text = R.string.signing_change_password_dialog_title,
                 image = R.drawable.fingerprint_dialog_error,
                 textButton = R.string.signing_close,
-                onDismissRequest = { showDialog = false }
+                onDismissRequest = {
+                    viewModel.onEventDispatcher(PinCodeContract.UIIntent.DismissErrorDialog)
+                }
             )
         }
     }
@@ -84,8 +84,6 @@ private fun PinCodeContent(
     uiState: State<PinCodeContract.UiState> = remember { mutableStateOf(PinCodeContract.UiState()) },
     eventDispatcher: (PinCodeContract.UIIntent) -> Unit = {},
 ) {
-    val code by remember { mutableStateOf("") }
-    val context = LocalContext.current
 
     Surface(color = AppTheme.colorScheme.backgroundPrimary) {
         Column(
@@ -128,7 +126,6 @@ private fun PinCodeContent(
                 onClick = {
                     eventDispatcher(PinCodeContract.UIIntent.ClickNum(it))
                 },
-                context = context,
                 biometricSuccess = {
                     eventDispatcher(PinCodeContract.UIIntent.BiometricSuccess)
                 },
@@ -139,28 +136,28 @@ private fun PinCodeContent(
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                TextButton(onClick = {
-                    eventDispatcher(PinCodeContract.UIIntent.OpenSignInScreen)
-                }) {
-                    Text(
-                        text = stringResource(R.string.login_change_password),
-                        color = AppTheme.colorScheme.borderBrand,
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize
-                    )
-                }
-                TextButton(onClick = {
-                    eventDispatcher(PinCodeContract.UIIntent.OpenIntroScreen)
-                }) {
-                    Text(
-                        text = stringResource(R.string.login_log_out),
-                        color = AppTheme.colorScheme.borderBrand,
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize
-                    )
-                }
+                Text(
+                    modifier = Modifier.clickable(indication = null, interactionSource = null) {
+                        eventDispatcher(PinCodeContract.UIIntent.OpenSignInScreen)
+                    },
+                    text = stringResource(R.string.login_change_password),
+                    color = AppTheme.colorScheme.borderBrand,
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize
+                )
+
+                Text(
+                    modifier = Modifier.clickable(indication = null, interactionSource = null) {
+                        eventDispatcher(PinCodeContract.UIIntent.OpenIntroScreen)
+                    },
+                    text = stringResource(R.string.login_log_out),
+                    color = AppTheme.colorScheme.borderBrand,
+                    fontSize = MaterialTheme.typography.bodySmall.fontSize
+                )
             }
         }
     }
@@ -175,13 +172,13 @@ private fun Preview() {
 @Composable
 private fun BoxNumbers(
     modifier: Modifier,
-    context: Context,
     biometricSuccess: () -> Unit,
     onClick: (String) -> Unit,
     onClickRemove: () -> Unit,
 ) {
+    val context = LocalContext.current
     val biometricAuthenticator = BiometricAuthenticator(context)
-    val activity = LocalActivity.current as? FragmentActivity
+    val activity = context as? FragmentActivity
     Box(
         modifier = modifier
             .fillMaxSize()

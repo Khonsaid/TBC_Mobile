@@ -1,10 +1,9 @@
 package uz.gita.latizx.presenter.auth.pin_code
 
-import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -14,7 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PinCodeViewModelImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val directions: PinCodeContract.Directions,
     private val pinCodeUseCase: PinCodeUseCase,
 ) : PinCodeContract.PinCodeViewModel, ViewModel() {
@@ -39,23 +37,33 @@ class PinCodeViewModelImpl @Inject constructor(
 
                     if (emptyIndex == 3) {
                         viewModelScope.launch {
+                            viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLoading = true)) }
                             val pinCodeResult = pinCodeUseCase.getPinCode()
                             pinCodeResult.onSuccess { savedPinCode ->
-                                if (savedPinCode.isNotEmpty()) {
-                                    if (uiIntent.code == savedPinCode) viewModelScope.launch { directions.navigateToHome() }
-                                    else viewModelScope.launch {
-//                                        sideEffect.send(PinCodeContract.SideEffect(R.string.signing_change_password_dialog_title))
-                                    }
+                                viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLoading = false)) }
 
+                                if (savedPinCode.isNotEmpty()) {
+                                    if (codeArray.joinToString() == savedPinCode) viewModelScope.launch { directions.navigateToHome() }
+                                    else viewModelScope.launch {
+                                        sideEffect.send(PinCodeContract.SideEffect(showErrorDialog = true))
+//                                        sideEffect.send(PinCodeContract.SideEffect())
+                                    }
                                 } else if (savedPinCode.isEmpty()) {
-                                    pinCodeUseCase.setPinCode(uiIntent.code)
+                                    pinCodeUseCase.setPinCode(codeArray.joinToString())
                                     viewModelScope.launch { directions.navigateToHome() }
                                 }
+
                             }.onFailure {
 //                                sideEffect.send(PinCodeContract.SideEffect(R.string.signing_change_password_dialog_title))
                             }
                         }
                     }
+                }
+            }
+
+            is PinCodeContract.UIIntent.DismissErrorDialog -> {
+                viewModelScope.launch {
+                    sideEffect.send(PinCodeContract.SideEffect(showErrorDialog = false))
                 }
             }
 

@@ -1,6 +1,5 @@
 package uz.gita.latizx.presenter.auth.sign_in
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,13 +29,13 @@ class SignInViewModelImpl @Inject constructor(
                 when {
                     !uiIntent.phone.isValidPhoneNumber() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignInContract.SideEffect(uiIntent.phone.isValidPhoneNumber().second))
+                            sideEffect.send(SignInContract.SideEffect(1, showErrorDialog = true))
                         }
                     }
 
                     !uiIntent.password.isValidPassword() -> {
                         viewModelScope.launch {
-//                            sideEffect.send(SignInContract.SideEffect(uiIntent.password.isValidPassword().second))
+                            sideEffect.send(SignInContract.SideEffect(2, showErrorDialog = true))
                         }
                     }
 
@@ -55,8 +54,7 @@ class SignInViewModelImpl @Inject constructor(
                             result.onFailure {
                                 it.message?.let {
                                     reduce { it.copy(showLoading = false) }
-                                    Log.d("TTT", "onEventDispatcher: $it")
-//                                    viewModelScope.launch { sideEffect.send(SignInContract.SideEffect(R.string.story_nothing_found)) }
+                                    viewModelScope.launch { sideEffect.send(SignInContract.SideEffect(3, showErrorDialog = true)) }
                                 }
                             }
                         }.launchIn(viewModelScope)
@@ -64,6 +62,9 @@ class SignInViewModelImpl @Inject constructor(
                 }
             }
 
+            is SignInContract.UiIntent.ShowModeInfoDialog -> viewModelScope.launch { sideEffect.send(SignInContract.SideEffect(showMoreInfo = true)) }
+            is SignInContract.UiIntent.DismissErrorDialog -> viewModelScope.launch { sideEffect.send(SignInContract.SideEffect(showErrorDialog = false)) }
+            is SignInContract.UiIntent.DismissMoreInfoDialog -> viewModelScope.launch { sideEffect.send(SignInContract.SideEffect(showMoreInfo = false)) }
             is SignInContract.UiIntent.OpenPrevScreen -> viewModelScope.launch { directions.navigateToBAck() }
         }
     }

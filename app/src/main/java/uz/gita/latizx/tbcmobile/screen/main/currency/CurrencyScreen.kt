@@ -1,7 +1,6 @@
 package uz.gita.latizx.tbcmobile.screen.main.currency
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,10 +17,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -36,6 +38,7 @@ import cafe.adriel.voyager.hilt.getViewModel
 import uz.gita.latizx.presenter.currency.CurrencyContract
 import uz.gita.latizx.presenter.currency.CurrencyViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
 import uz.gita.latizx.tbcmobile.ui.components.button.CalculatorTab
 import uz.gita.latizx.tbcmobile.ui.components.items.CurrencyTBC
 import uz.gita.latizx.tbcmobile.ui.components.items.ItemCalculate
@@ -46,9 +49,20 @@ import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 class CurrencyScreen : Screen {
     @Composable
     override fun Content() {
-        val viewModel: CurrencyContract.CurrencyViewModel = getViewModel<CurrencyViewModelImpl>()
+        val viewModel = getViewModel<CurrencyViewModelImpl>()
         val uiState = viewModel.uiState.collectAsState()
         CurrencyScreenContent(uiState = uiState, viewModel::onEventDispatcher)
+
+        var showDialog by remember { mutableStateOf(false) }
+
+        LaunchedEffect(Unit) {
+            viewModel._sideEffect.collect { effect ->
+                showDialog = effect.showLoading
+            }
+        }
+        if (showDialog) {
+            LoadingDialog()
+        }
     }
 }
 
@@ -82,13 +96,16 @@ private fun CurrencyScreenContent(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(vertical = 12.dp)
+                    .padding(top = 12.dp)
                     .fillMaxWidth()
                     .background(color = if (uiState.value.isCurrency) AppTheme.colorScheme.backgroundAccentCoolGray else Color.Transparent)
-                    .padding(horizontal = 12.dp)
+
             ) {
                 if (uiState.value.isCurrency) {
-                    LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    LazyColumn(
+                        modifier = Modifier.padding(horizontal = 12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
                         item {
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
@@ -105,13 +122,16 @@ private fun CurrencyScreenContent(
                         }
                     }
                 } else {
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp)
+                    ) {
                         Column {
                             ItemCalculate(fromUZS = uiState.value.fromUZS,
                                 rate = if (uiState.value.fromUZS) uiState.value.rateUZS else uiState.value.rateUSD,
                                 value = if (uiState.value.fromUZS) uiState.value.valueUZS else uiState.value.valueUSD,
                                 onValueChange = {
-                                    Log.d("TTT", "CurrencyScreenContent: $it")
                                     eventDispatcher.invoke(CurrencyContract.UIIntent.InputSum(it))
                                 })
                             Spacer(modifier = Modifier.height(8.dp))
@@ -136,9 +156,10 @@ private fun CurrencyScreenContent(
                                     .size(32.dp)  // width va height o'rniga size ishlatish mumkin
                                     .padding(6.dp)
                             ) {
-                                Image(
+                                Icon(
                                     painterResource(R.drawable.ic_arrow_swap_horizontal_24_regular),
                                     contentDescription = null,
+                                    tint = AppTheme.colorScheme.backgroundAccentCoolGraySecondary,
                                     modifier = Modifier.rotate(90f)
                                 )
                             }
@@ -152,11 +173,16 @@ private fun CurrencyScreenContent(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Icon(painterResource(R.drawable.ic_info_circle_24_regular), contentDescription = null, Modifier.size(32.dp))
+                        Icon(
+                            painter = painterResource(R.drawable.ic_info_circle_24_regular),
+                            contentDescription = null, Modifier.size(32.dp),
+                            tint = AppTheme.colorScheme.backgroundAccentCoolGraySecondary
+                        )
                         Spacer(Modifier.height(8.dp))
                         Text(
                             stringResource(R.string.rates_exchange_calculator_warning_text),
                             style = AppTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = AppTheme.colorScheme.textPrimary,
                             textAlign = TextAlign.Center
                         )
                     }

@@ -13,7 +13,7 @@ fun String.isValidPhoneNumber(): Boolean {
         sanitizedPhone.isEmpty() -> false
         !sanitizedPhone.matches(".*[0-9].*".toRegex()) -> false
 //        !sanitizedPhone.startsWith("+998") -> false to "Telefon raqami 998 bilan boshlanishi kerak"
-        sanitizedPhone.length < 9 -> false
+        sanitizedPhone.length < 13 -> false
         else -> true
     }
 }
@@ -37,10 +37,10 @@ fun String.isValidName(): Boolean {
 }
 
 fun Long.isValidDate(): Boolean {
+    if (this == 0L) return false
     val millisecondsInOneYear: Long = 365L * 24 * 60 * 60 * 1000    // 1 yil=365×24×60×60×1000=31,536,000,000 millisekund
     val sixteenYearsInMilliseconds: Long = 16L * millisecondsInOneYear //16×31,536,000,000=504,576,000,000 millisekund
-    if (System.currentTimeMillis() - this >= sixteenYearsInMilliseconds) return true
-    return false
+    return System.currentTimeMillis() - this >= sixteenYearsInMilliseconds
 }
 
 fun Int.formatTime(): String {

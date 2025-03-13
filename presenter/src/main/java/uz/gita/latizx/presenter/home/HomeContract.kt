@@ -15,12 +15,13 @@ interface HomeContract {
         data object OpenHomeCards : UiIntent
         data object OpenHomeCardsInfo : UiIntent
         data object OpenCurrency : UiIntent
+        data object OpenSupport : UiIntent
         data object RefreshData: UiIntent
     }
 
     data class UiState(
         val isRefreshing: Boolean = false,
-        val balance: String = "1200000",
+        val balance: String = "",
         val homeItems: List<HomeItemVertical> = emptyList(),
         val cards: List<CardsData> = emptyList(),
         val exchangeRateModel: ExchangeRateModel? = null,
@@ -39,6 +40,7 @@ interface HomeContract {
         suspend fun navigateToHomeRecipient()
         suspend fun navigateToCardsInfo()
         suspend fun navigateToCards()
+        suspend fun navigateToSupport()
         suspend fun navigateToCurrency()
     }
 }

@@ -39,22 +39,21 @@ class HomeViewModelImpl @Inject constructor(
         getTotalSum()
         getCards()
         getExchangeRate()
-        reduce { it.copy(cards = cards(), isBalanceDisplayed = settingsUseCase.isBalanceDisplayed()) }
+        reduce { it.copy(isBalanceDisplayed = settingsUseCase.isBalanceDisplayed()) }
     }
 
     override fun onEventDispatcher(uiIntent: HomeContract.UiIntent) {
         when (uiIntent) {
-            is HomeContract.UiIntent.OpenHomeTransactions -> viewModelScope.launch { directions.navigateToHomeTransaction() }
-            is HomeContract.UiIntent.OpenHomePayments -> viewModelScope.launch { directions.navigateToHomePayment() }
-            is HomeContract.UiIntent.OpenRecipient -> viewModelScope.launch { directions.navigateToHomeRecipient() }
-            is HomeContract.UiIntent.OpenHomeCards -> viewModelScope.launch { directions.navigateToCards() }
-            is HomeContract.UiIntent.OpenHomeCardsInfo -> viewModelScope.launch { directions.navigateToCardsInfo() }
-            is HomeContract.UiIntent.OpenCurrency -> viewModelScope.launch { directions.navigateToCurrency() }
-            is HomeContract.UiIntent.BalanceDisplayed -> {
-                reduce { uiState.value.copy(isBalanceDisplayed = settingsUseCase.changeBalanceDisplayed()) }
-            }
+            HomeContract.UiIntent.OpenHomeTransactions -> viewModelScope.launch { directions.navigateToHomeTransaction() }
+            HomeContract.UiIntent.OpenHomePayments -> viewModelScope.launch { directions.navigateToHomePayment() }
+            HomeContract.UiIntent.OpenRecipient -> viewModelScope.launch { directions.navigateToHomeRecipient() }
+            HomeContract.UiIntent.OpenHomeCards -> viewModelScope.launch { directions.navigateToCards() }
+            HomeContract.UiIntent.OpenHomeCardsInfo -> viewModelScope.launch { directions.navigateToCardsInfo() }
+            HomeContract.UiIntent.OpenCurrency -> viewModelScope.launch { directions.navigateToCurrency() }
+            HomeContract.UiIntent.OpenSupport -> viewModelScope.launch { directions.navigateToSupport() }
+            HomeContract.UiIntent.BalanceDisplayed -> reduce { uiState.value.copy(isBalanceDisplayed = settingsUseCase.changeBalanceDisplayed()) }
 
-            is HomeContract.UiIntent.RefreshData -> viewModelScope.launch {
+            HomeContract.UiIntent.RefreshData -> viewModelScope.launch {
                 reduce { it.copy(isRefreshing = true) }
                 delay(1000)
                 reduce { it.copy(balance = "12000000") }
@@ -68,7 +67,7 @@ class HomeViewModelImpl @Inject constructor(
         reduce { it.copy(isLoading = true) }
         getTotalBalanceUseCase.invoke().onEach { result ->
             result.onSuccess { data ->
-                reduce { it.copy(isLoading = false, balance = data.totalBalance.toString().formatWithSeparator()) }
+                reduce { it.copy(isLoading = false, balance = data.totalBalance.toString()) }
             }
             result.onFailure {
                 reduce { it.copy(isLoading = false) }
@@ -103,6 +102,29 @@ class HomeViewModelImpl @Inject constructor(
         uiState.value = new
     }
 
+    private fun homeItems() = listOf(
+        HomeItemVertical(
+            R.string.cards_management_digital_card_title,
+            R.string.signing_sign_up_the_last_name_empty,
+            R.drawable.ill_credit_card_lg,
+            R.color.pfm_gradient_end_color,
+            HomeItemVerticalEnum.CARDS
+        ),
+        HomeItemVertical(
+            R.string.cards_management_digital_card_title,
+            R.string.signing_sign_up_the_last_name_empty,
+            R.drawable.ill_credit_card_lg,
+            R.color.palette_yellow_30,
+            HomeItemVerticalEnum.CREDITS
+        ),
+        HomeItemVertical(
+            R.string.cards_management_digital_card_title,
+            R.string.signing_sign_up_the_last_name_empty,
+            R.drawable.ill_credit_card_lg,
+            R.color.palette_green_10,
+            HomeItemVerticalEnum.CREDIT_CARDS
+        )
+    )
     private fun cards(): List<CardsData> = listOf(
         CardsData(
             id = 1,
@@ -136,31 +158,6 @@ class HomeViewModelImpl @Inject constructor(
             owner = "Bob Johnson",
             themeType = 3,
             isVisible = false
-        )
-    )
-
-
-    private fun homeItems() = listOf(
-        HomeItemVertical(
-            R.string.cards_management_digital_card_title,
-            R.string.signing_sign_up_the_last_name_empty,
-            R.drawable.ill_credit_card_lg,
-            R.color.pfm_gradient_end_color,
-            HomeItemVerticalEnum.CARDS
-        ),
-        HomeItemVertical(
-            R.string.cards_management_digital_card_title,
-            R.string.signing_sign_up_the_last_name_empty,
-            R.drawable.ill_credit_card_lg,
-            R.color.palette_yellow_30,
-            HomeItemVerticalEnum.CREDITS
-        ),
-        HomeItemVertical(
-            R.string.cards_management_digital_card_title,
-            R.string.signing_sign_up_the_last_name_empty,
-            R.drawable.ill_credit_card_lg,
-            R.color.palette_green_10,
-            HomeItemVerticalEnum.CREDIT_CARDS
         )
     )
 }

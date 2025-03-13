@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TBC UZ</string>
+    <string name="phone">+998 (78) 777–27–27</string>
+    <string name="email">contact@tbcbank.uz</string>
 
     <string name="abc_action_bar_home_description">Перейти на главный экран</string>
     <string name="abc_action_bar_up_description">Перейти вверх</string>
@@ -9,6 +11,8 @@
     <string name="abc_activity_chooser_view_see_all">Показать все</string>
     <string name="abc_activitychooserview_choose_application">Выберите приложение</string>
     <string name="abc_capital_off">ВЫКЛ</string>
+    <string name="signing_sign_up_the_first_name_empty">Введите свое имя</string>
+    <string name="signing_sign_up_the_last_name_empty">Введите свою фамилию</string>
     <string name="abc_capital_on">ВКЛ</string>
     <string name="abc_menu_alt_shortcut_label">Alt +</string>
     <string name="abc_menu_ctrl_shortcut_label">Ctrl +</string>

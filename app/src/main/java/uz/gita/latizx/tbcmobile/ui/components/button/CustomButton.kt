@@ -3,6 +3,7 @@ package uz.gita.latizx.tbcmobile.ui.components.button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -71,6 +74,7 @@ fun AppOutlinedButton(
     OutlinedButton(
         modifier = modifier,
         shape = shape,
+        colors = ButtonDefaults.buttonColors().copy(containerColor = Color.Transparent, contentColor = Color.Transparent ),
         border = BorderStroke(1.dp, borderColor),
         onClick = onClick,
     ) {
@@ -99,13 +103,13 @@ fun NextButton(
     ) {
         Row(
             modifier = Modifier
-                .clickable {
+                .clip(RoundedCornerShape(12.dp))
+                .background(colorBtn)
+                .clickable(indication = ripple(bounded = true), interactionSource = remember { MutableInteractionSource() }) {
                     onClickButton()
                 }
-                .clip(RoundedCornerShape(12.dp))
                 .fillMaxWidth()
-                .height(56.dp)
-                .background(colorBtn),
+                .height(56.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {

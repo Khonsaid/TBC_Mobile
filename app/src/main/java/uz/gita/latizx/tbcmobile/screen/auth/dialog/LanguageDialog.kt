@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +21,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -102,14 +105,14 @@ private fun LanguageBottomSheet(
             onClickLang = onClickLang,
             onDismissRequest = onDismissRequest
         )
-        ContainerLang(
-            text = "English",
-            R.drawable.ag_flag_us,
-            lang = lang,
-            check = "en",
-            onClickLang = onClickLang,
-            onDismissRequest = onDismissRequest
-        )
+//        ContainerLang(
+//            text = "English",
+//            R.drawable.ag_flag_us,
+//            lang = lang,
+//            check = "en",
+//            onClickLang = onClickLang,
+//            onDismissRequest = onDismissRequest
+//        )
     }
 }
 
@@ -132,10 +135,10 @@ private fun ContainerLang(
                 if (check == lang) AppTheme.colorScheme.backgroundBrand
                 else Color.Transparent
             )
-            .clickable {
+            .clickable(indication = ripple(color = AppTheme.colorScheme.backgroundBrand, radius = 16.dp), interactionSource = remember { MutableInteractionSource() }) {
                 onClickLang(check)
                 onDismissRequest()
-            },
+            }.padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
@@ -145,7 +148,7 @@ private fun ContainerLang(
                 selectedColor = AppTheme.colorScheme.backgroundBrandTertiary,
                 unselectedColor = AppTheme.colorScheme.backgroundBrandTertiary
             ),
-            onClick = {}
+            onClick = null
         )
         Spacer(modifier = Modifier.width(8.dp))
         Image(
@@ -157,8 +160,8 @@ private fun ContainerLang(
         Text(
             textAlign = TextAlign.Center,
             text = text,
-            color = MaterialTheme.colorScheme.onTertiary,
-            style = MaterialTheme.typography.bodyMedium
+            color = AppTheme.colorScheme.textPrimary,
+            style = AppTheme.typography.bodyMedium
         )
     }
 }

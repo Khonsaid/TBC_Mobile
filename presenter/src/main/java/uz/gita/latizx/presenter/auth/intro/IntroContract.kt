@@ -10,11 +10,13 @@ interface IntroContract {
         data object OpenSupportScreen : UiIntent
         data object ShowLanguageBottomSheet : UiIntent
         data object HideLanguageBottomSheet : UiIntent
+        data object ResetRecreateFlag : UiIntent
         data class SaveLanguage(val lang: String) : UiIntent
     }
 
     data class UiState(
         val lang: String = "UZ",
+        val shouldRecreateActivity: Boolean = false,
         val isBottomSheetVisible: Boolean = false
     )
 
