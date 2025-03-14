@@ -1,6 +1,5 @@
 package uz.gita.latizx.tbcmobile.screen.main.home
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,8 +44,8 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import kotlinx.coroutines.delay
-import uz.gita.latizx.presenter.home.HomeContract
-import uz.gita.latizx.presenter.home.HomeViewModelImpl
+import uz.gita.latizx.presenter.home.home.HomeContract
+import uz.gita.latizx.presenter.home.home.HomeViewModelImpl
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.screen.main.home.components.ItemCurrency
 import uz.gita.latizx.tbcmobile.screen.main.home.components.ItemSupport

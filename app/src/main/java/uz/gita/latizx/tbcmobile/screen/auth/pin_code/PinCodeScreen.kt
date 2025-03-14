@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
+import cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
 import uz.gita.latizx.presenter.auth.pin_code.PinCodeContract
@@ -49,13 +50,14 @@ import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 import uz.gita.latizx.tbcmobile.utils.BiometricAuthenticator
 
-class PinCodeScreen : Screen {
+class PinCodeScreen(private val setPinCode: Boolean) : Screen {
+    @OptIn(ExperimentalVoyagerApi::class)
     @SuppressLint("CoroutineCreationDuringComposition")
     @Composable
     override fun Content() {
         val viewModel = getViewModel<PinCodeViewModelImpl>()
         val uiState = viewModel.uiState.collectAsState()
-        PinCodeContent(uiState, viewModel::onEventDispatcher)
+        PinCodeContent(uiState, viewModel::onEventDispatcher, setPinCode)
 
         var showDialog by remember { mutableStateOf(false) }
         var showLoading by remember { mutableStateOf(false) }
@@ -83,6 +85,7 @@ class PinCodeScreen : Screen {
 private fun PinCodeContent(
     uiState: State<PinCodeContract.UiState> = remember { mutableStateOf(PinCodeContract.UiState()) },
     eventDispatcher: (PinCodeContract.UIIntent) -> Unit = {},
+    setPinCode: Boolean = false,
 ) {
 
     Surface(color = AppTheme.colorScheme.backgroundPrimary) {
@@ -124,7 +127,7 @@ private fun PinCodeContent(
                     .weight(3f)
                     .align(Alignment.CenterHorizontally),
                 onClick = {
-                    eventDispatcher(PinCodeContract.UIIntent.ClickNum(it))
+                    eventDispatcher(PinCodeContract.UIIntent.ClickNum(it, setPinCode))
                 },
                 biometricSuccess = {
                     eventDispatcher(PinCodeContract.UIIntent.BiometricSuccess)

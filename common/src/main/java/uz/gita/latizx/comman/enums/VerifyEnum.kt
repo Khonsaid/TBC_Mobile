@@ -1,5 +1,9 @@
 package uz.gita.latizx.comman.enums
 
-enum class VerifyEnum {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class VerifyEnum : Parcelable {
     SigIn, SignUp, Transfer
 }

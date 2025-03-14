@@ -1,5 +1,6 @@
 package uz.gita.latizx.presenter.auth.verify
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
@@ -64,44 +65,56 @@ class VerifyViewModelImpl @AssistedInject constructor(
                 if (VerifyEnum.Transfer == verifyEnum) directions.closeTransferVerifyScreen()
                 else directions.closeScreen()
             }
+            is VerifyContract.UiIntent.DismissErrorDialog-> viewModelScope.launch{ sideEffect.send(VerifyContract.SideEffect(showErrorDialog = false)) }
 
             is VerifyContract.UiIntent.OpenPrevScreen -> viewModelScope.launch { directions.navigateToBack() }
             is VerifyContract.UiIntent.OpenHome -> {
                 if (uiIntent.code.isNotEmpty()) {
                     when (verifyEnum) {
                         VerifyEnum.SigIn -> {
+                            viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = true)) }
                             signInVerifyUseCase.invoke(uiIntent.code).onEach { result ->
                                 result.onSuccess {
+                                    Log.d("TTT", "onEventDispatcher: result.onSuccess")
                                     viewModelScope.launch { directions.navigateToPinCode() }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
                                 }
                                 result.onFailure {
-//                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(R.string.default_error_message)) }
+                                    Log.d("TTT", "onEventDispatcher: result.onFailure")
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showErrorDialog = true)) }
                                 }
                             }.launchIn(viewModelScope)
                         }
 
                         VerifyEnum.SignUp -> {
+                            viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = true)) }
                             signUpVerifyUseCase.invoke(uiIntent.code).onEach { result ->
                                 result.onSuccess {
                                     viewModelScope.launch { directions.navigateToPinCode() }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
                                 }
                                 result.onFailure {
-//                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(R.string.default_error_message)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showErrorDialog = true)) }
                                 }
                             }.launchIn(viewModelScope)
                         }
 
                         VerifyEnum.Transfer -> {
+                            viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = true)) }
                             transferVerifyUseCase.invoke(uiIntent.code).onEach { result ->
                                 result.onSuccess {
                                     viewModelScope.launch {
                                         if (recipientData != null) {
                                             directions.navigateToSuccess(recipientData = recipientData)
                                         }
+                                        viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
                                     }
                                 }
                                 result.onFailure {
-//                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(R.string.default_error_message)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showErrorDialog = true)) }
                                 }
                             }.launchIn(viewModelScope)
                         }
@@ -114,40 +127,49 @@ class VerifyViewModelImpl @AssistedInject constructor(
                 when (verifyEnum) {
                     VerifyEnum.SigIn -> {
                         if (data != null) {
+                            viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = true)) }
                             signInResendUseCase.invoke(password = data.password!!, phoneNumber = data.phone).onEach { result ->
                                 result.onSuccess {
                                     viewModelScope.launch { directions.navigateToPinCode() }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
                                 }
                                 result.onFailure {
-                                    //                                viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(R.string.default_error_message)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showErrorDialog = true)) }
                                 }
                             }.launchIn(viewModelScope)
                         }
                     }
 
                     VerifyEnum.SignUp -> {
+                        viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = true)) }
                         signUpResendUseCase.invoke().onEach { result ->
                             result.onSuccess {
                                 viewModelScope.launch { directions.navigateToPinCode() }
+                                viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
                             }
                             result.onFailure {
-//                                viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(R.string.default_error_message)) }
+                                viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
+                                viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showErrorDialog = true)) }
                             }
                         }.launchIn(viewModelScope)
                     }
 
                     VerifyEnum.Transfer -> {
                         if (transferVerifyData != null) {
+                            viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = true)) }
                             transferResendUseCase.invoke(transferVerifyData).onEach { result ->
                                 result.onSuccess {
                                     viewModelScope.launch {
                                         if (recipientData != null) {
                                             directions.navigateToSuccess(recipientData = recipientData)
                                         }
+                                        viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
                                     }
                                 }
                                 result.onFailure {
-                                    //                                viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(R.string.default_error_message)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showLoading = false)) }
+                                    viewModelScope.launch { sideEffect.send(VerifyContract.SideEffect(showErrorDialog = true)) }
                                 }
                             }.launchIn(viewModelScope)
                         }

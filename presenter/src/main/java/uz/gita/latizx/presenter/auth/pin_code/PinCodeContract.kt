@@ -9,7 +9,7 @@ interface PinCodeContract {
         data object OpenSignInScreen : UIIntent
         data object OpenIntroScreen : UIIntent
         data object BiometricSuccess : UIIntent
-        data class ClickNum(val code: String) : UIIntent
+        data class ClickNum(val code: String, val setPinCode: Boolean) : UIIntent
         data object ClickRemove : UIIntent
         data object DismissErrorDialog : UIIntent
         data class UpdateCodeArray(val updatedCodeArray: List<Boolean>) : UIIntent

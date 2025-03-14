@@ -2,7 +2,6 @@ package uz.gita.latizx.tbcmobile
 
 import android.content.Context
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
 import androidx.fragment.app.FragmentActivity
@@ -11,13 +10,7 @@ import cafe.adriel.voyager.transitions.ScaleTransition
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.latizx.comman.LocationHelper
 import uz.gita.latizx.tbcmobile.navigator.AppNavigatorHandler
-import uz.gita.latizx.tbcmobile.screen.auth.pin_code.PinCodeScreen
-import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionScreen
-import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyScreen
-import uz.gita.latizx.tbcmobile.screen.main.home.HomeScreen
-import uz.gita.latizx.tbcmobile.screen.main.settings.SettingsScreen
 import uz.gita.latizx.tbcmobile.screen.splash.SplashScreen
-import uz.gita.latizx.tbcmobile.screen.support.support.SupportScreen
 import uz.gita.latizx.tbcmobile.ui.theme.TBCMobileTheme
 import javax.inject.Inject
 

@@ -3,6 +3,7 @@ package uz.gita.latizx.presenter.auth.verify
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.latizx.comman.model.RecipientData
+import uz.gita.latizx.presenter.auth.pin_code.PinCodeContract.UIIntent
 
 interface VerifyContract {
 
@@ -11,12 +12,12 @@ interface VerifyContract {
         data object OpenPrevScreen : UiIntent
         data object ResendCode : UiIntent
         data object CloseScreen : UiIntent
+        data object DismissErrorDialog : UiIntent
     }
 
     data class UiState(
         val time: String = "00:00",
         val timeStarted: Boolean = false,
-        val showLoading: Boolean = false,
     )
 
     interface VerifyViewModel {
@@ -25,7 +26,10 @@ interface VerifyContract {
         fun onEventDispatcher(uiIntent: UiIntent)
     }
 
-    data class SideEffect(val message: Int)
+    data class SideEffect(
+        val showErrorDialog: Boolean = false,
+        val showLoading: Boolean = false,
+    )
 
     interface Directions {
         suspend fun navigateToBack()

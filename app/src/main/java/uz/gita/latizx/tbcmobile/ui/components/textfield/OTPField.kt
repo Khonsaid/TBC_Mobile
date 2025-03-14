@@ -33,6 +33,7 @@ fun OtpField(
     borderColor: Color = AppTheme.colorScheme.borderBrand,
     value: String = "",
     onValueChange: (String) -> Unit,
+    verifyOtp: () -> Unit,
 ) {
     OutlinedTextField(
         value = value,
@@ -41,6 +42,7 @@ fun OtpField(
                 val filterValue = it.filter { char -> char.isDigit() }
                 onValueChange(filterValue)
             }
+            if (it.length == 6) verifyOtp()
         },
         readOnly = readOnly,
         maxLines = 6,

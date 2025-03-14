@@ -1,5 +1,6 @@
 package uz.gita.latizx.tbcmobile.screen.auth.verify
 
+import android.R.attr.dialogMessage
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +34,11 @@ import uz.gita.latizx.comman.enums.VerifyEnum
 import uz.gita.latizx.comman.model.RecipientData
 import uz.gita.latizx.comman.model.TransferVerifyData
 import uz.gita.latizx.comman.model.VerifyData
+import uz.gita.latizx.presenter.auth.pin_code.PinCodeContract
 import uz.gita.latizx.presenter.auth.verify.VerifyContract
 import uz.gita.latizx.presenter.auth.verify.VerifyViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
 import uz.gita.latizx.tbcmobile.ui.components.button.NextButton
 import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
 import uz.gita.latizx.tbcmobile.ui.components.textfield.OtpField
@@ -60,21 +63,23 @@ class VerifyScreen(
         val uiState = viewModel.uiState.collectAsState()
         VerifyContent(uiState, viewModel::onEventDispatcher, data?.phone ?: "")
 
-        val scope = rememberCoroutineScope()
         var showDialog by remember { mutableStateOf(false) }
-        var dialogMessage by remember { mutableIntStateOf(0) }
-        scope.launch {
+        var showLoading by remember { mutableStateOf(false) }
+        LaunchedEffect(Unit) {
             viewModel._sideEffect.collect {
-                dialogMessage = it.message
-                showDialog = true
+                showLoading = it.showLoading
+                showDialog = it.showErrorDialog
             }
         }
+        if (showLoading) LoadingDialog()
         if (showDialog) {
             CustomDialog(
-                text = dialogMessage,
+                text = R.string.default_error_message,
                 image = R.drawable.fingerprint_dialog_error,
                 textButton = R.string.signing_close,
-                onDismissRequest = { showDialog = false }
+                onDismissRequest = {
+                    viewModel.onEventDispatcher(VerifyContract.UiIntent.DismissErrorDialog)
+                }
             )
         }
     }
@@ -126,7 +131,8 @@ private fun VerifyContent(
             OtpField(
                 value = code,
                 readOnly = !uiState.value.timeStarted,
-                onValueChange = { code = it }
+                onValueChange = { code = it }, 
+                verifyOtp = { eventDispatcher(VerifyContract.UiIntent.OpenHome(code = code)) }
             )
             if (uiState.value.timeStarted) {
                 Text(

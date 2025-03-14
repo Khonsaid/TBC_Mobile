@@ -28,9 +28,8 @@ class SignInResendUCImpl @Inject constructor(
             emit(Result.failure(resendResult.exceptionOrNull()!!))
             return@flow
         }
-
         // 3. Sign-inni qayta amalga oshirish
-        signInUseCase.invoke(phone, password).collect { result ->
+        signInUseCase.invoke(phone = phone, password = password).collect { result ->
             if (result.isSuccess) {
                 emit(Result.success(Unit))
             } else {

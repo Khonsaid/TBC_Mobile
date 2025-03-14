@@ -3,6 +3,9 @@ package uz.gita.latizx.presenter.auth.pin_code
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +19,7 @@ class PinCodeViewModelImpl @Inject constructor(
     private val directions: PinCodeContract.Directions,
     private val pinCodeUseCase: PinCodeUseCase,
 ) : PinCodeContract.PinCodeViewModel, ViewModel() {
+
     override val uiState = MutableStateFlow<PinCodeContract.UiState>(PinCodeContract.UiState())
     override val sideEffect = Channel<PinCodeContract.SideEffect>()
     val _sideEffect = sideEffect.receiveAsFlow()
@@ -41,14 +45,13 @@ class PinCodeViewModelImpl @Inject constructor(
                             val pinCodeResult = pinCodeUseCase.getPinCode()
                             pinCodeResult.onSuccess { savedPinCode ->
                                 viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLoading = false)) }
-
-                                if (savedPinCode.isNotEmpty()) {
+                                if (!uiIntent.setPinCode && savedPinCode.isNotEmpty()) {
                                     if (codeArray.joinToString() == savedPinCode) viewModelScope.launch { directions.navigateToHome() }
                                     else viewModelScope.launch {
                                         sideEffect.send(PinCodeContract.SideEffect(showErrorDialog = true))
 //                                        sideEffect.send(PinCodeContract.SideEffect())
                                     }
-                                } else if (savedPinCode.isEmpty()) {
+                                } else if (uiIntent.setPinCode || savedPinCode.isEmpty()) {
                                     pinCodeUseCase.setPinCode(codeArray.joinToString())
                                     viewModelScope.launch { directions.navigateToHome() }
                                 }

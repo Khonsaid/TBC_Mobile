@@ -1,4 +1,4 @@
-package uz.gita.latizx.presenter.home
+package uz.gita.latizx.presenter.home.home
 
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.latizx.comman.model.CardsData

@@ -14,6 +14,6 @@ class SplashDirections @Inject constructor(
     }
 
     override suspend fun navigateToPinCode() {
-        appNavigator.replace(PinCodeScreen())
+        appNavigator.replace(PinCodeScreen(setPinCode = false))
     }
 }

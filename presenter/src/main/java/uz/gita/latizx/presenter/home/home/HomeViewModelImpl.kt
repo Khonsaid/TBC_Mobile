@@ -1,4 +1,4 @@
-package uz.gita.latizx.presenter.home
+package uz.gita.latizx.presenter.home.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.latizx.comman.R
 import uz.gita.latizx.comman.enums.HomeItemVerticalEnum
-import uz.gita.latizx.comman.formatWithSeparator
 import uz.gita.latizx.comman.model.CardsData
 import uz.gita.latizx.comman.model.HomeItemVertical
 import uz.gita.latizx.presenter.utils.ResourceManager

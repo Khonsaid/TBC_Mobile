@@ -1,6 +1,6 @@
 package uz.gita.latizx.tbcmobile.screen.main.home
 
-import uz.gita.latizx.presenter.home.HomeContract
+import uz.gita.latizx.presenter.home.home.HomeContract
 import uz.gita.latizx.tbcmobile.navigator.AppNavigator
 import uz.gita.latizx.tbcmobile.screen.card.cards.CardsScreen
 import uz.gita.latizx.tbcmobile.screen.card.info.CardsInfoScreen
