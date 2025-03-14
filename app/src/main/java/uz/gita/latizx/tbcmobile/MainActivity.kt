@@ -10,6 +10,7 @@ import cafe.adriel.voyager.transitions.ScaleTransition
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.latizx.comman.LocationHelper
 import uz.gita.latizx.tbcmobile.navigator.AppNavigatorHandler
+import uz.gita.latizx.tbcmobile.screen.main.settings.SettingsScreen
 import uz.gita.latizx.tbcmobile.screen.splash.SplashScreen
 import uz.gita.latizx.tbcmobile.ui.theme.TBCMobileTheme
 import javax.inject.Inject

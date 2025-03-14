@@ -7,17 +7,20 @@ interface PinCodeContract {
 
     sealed interface UIIntent {
         data object OpenSignInScreen : UIIntent
-        data object OpenIntroScreen : UIIntent
+        data object Logout : UIIntent
         data object BiometricSuccess : UIIntent
-        data class ClickNum(val code: String, val setPinCode: Boolean) : UIIntent
         data object ClickRemove : UIIntent
         data object DismissErrorDialog : UIIntent
+        data object ShowLogoutDialog : UIIntent
+        data object DismissDialog : UIIntent
+        data class ClickNum(val code: String, val setPinCode: Boolean) : UIIntent
         data class UpdateCodeArray(val updatedCodeArray: List<Boolean>) : UIIntent
     }
 
     data class SideEffect(
         val showErrorDialog: Boolean = false,
         val showLoading: Boolean = false,
+        val showLogoutDialog: Boolean = false
     )
 
     data class UiState(

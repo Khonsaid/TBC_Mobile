@@ -46,6 +46,7 @@ import uz.gita.latizx.presenter.auth.pin_code.PinCodeViewModelImpl
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
 import uz.gita.latizx.tbcmobile.ui.components.button.CircleNumberButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.ConfirmationDialog
 import uz.gita.latizx.tbcmobile.ui.components.dialog.CustomDialog
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 import uz.gita.latizx.tbcmobile.utils.BiometricAuthenticator
@@ -61,10 +62,12 @@ class PinCodeScreen(private val setPinCode: Boolean) : Screen {
 
         var showDialog by remember { mutableStateOf(false) }
         var showLoading by remember { mutableStateOf(false) }
+        var showLogoutDialog by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             viewModel._sideEffect.collect {
                 showLoading = it.showLoading
                 showDialog = it.showErrorDialog
+                showLogoutDialog = it.showLogoutDialog
             }
         }
         if (showLoading) LoadingDialog()
@@ -76,6 +79,15 @@ class PinCodeScreen(private val setPinCode: Boolean) : Screen {
                 onDismissRequest = {
                     viewModel.onEventDispatcher(PinCodeContract.UIIntent.DismissErrorDialog)
                 }
+            )
+        }
+        if (showLogoutDialog) {
+            ConfirmationDialog(
+                text = R.string.login_log_out_alert_message,
+                textYesButton = R.string.login_yes,
+                textNoButton = R.string.login_no,
+                onClickYes = { viewModel.onEventDispatcher(PinCodeContract.UIIntent.Logout) },
+                onDismissRequest = { viewModel.onEventDispatcher(PinCodeContract.UIIntent.DismissDialog) }
             )
         }
     }
@@ -155,7 +167,7 @@ private fun PinCodeContent(
 
                 Text(
                     modifier = Modifier.clickable(indication = null, interactionSource = null) {
-                        eventDispatcher(PinCodeContract.UIIntent.OpenIntroScreen)
+                        eventDispatcher(PinCodeContract.UIIntent.Logout)
                     },
                     text = stringResource(R.string.login_log_out),
                     color = AppTheme.colorScheme.borderBrand,

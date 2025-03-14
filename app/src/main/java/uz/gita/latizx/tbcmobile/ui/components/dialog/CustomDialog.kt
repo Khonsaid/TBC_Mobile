@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -85,6 +86,86 @@ fun CustomDialog(
                             indication = null, interactionSource = null
                         ) { onDismissRequest() },
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun ConfirmationDialog(
+    text: Int,
+    image: Int? = null,
+    textYesButton: Int,
+    textNoButton: Int,
+    onClickYes: () -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    Dialog(
+        onDismissRequest = { onDismissRequest() }) {
+        Card(
+            modifier = Modifier
+                .wrapContentHeight()
+                .wrapContentWidth(),
+            colors = CardDefaults.cardColors().copy(containerColor = AppTheme.colorScheme.backgroundPrimary),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                if (image != null)
+                    Image(
+                        modifier = Modifier
+                            .size(56.dp)
+                            .padding(top = 24.dp),
+                        painter = painterResource(image),
+                        contentDescription = "image"
+                    )
+
+                Text(
+                    text = stringResource(text),
+                    style = AppTheme.typography.bodyMedium,
+                    color = AppTheme.colorScheme.textPrimary,
+                    modifier = Modifier
+                        .padding(vertical = 24.dp)
+                        .padding(horizontal = 16.dp),
+                    textAlign = TextAlign.Center
+                )
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp)
+                        .height(1.dp)
+                        .background(Color.LightGray.copy(alpha = 0.6f))
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Text(
+                        text = stringResource(textYesButton),
+                        style = AppTheme.typography.bodyMedium,
+                        color = AppTheme.colorScheme.borderBrand,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable(
+                                indication = null, interactionSource = null
+                            ) { onClickYes() },
+                    )
+                    Text(
+                        text = stringResource(textNoButton),
+                        style = AppTheme.typography.bodyMedium,
+                        color = AppTheme.colorScheme.borderBrand,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clickable(
+                                indication = null, interactionSource = null
+                            ) { onDismissRequest() },
+                    )
+                }
             }
         }
     }

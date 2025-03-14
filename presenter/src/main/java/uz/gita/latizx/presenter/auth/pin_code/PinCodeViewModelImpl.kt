@@ -1,11 +1,7 @@
 package uz.gita.latizx.presenter.auth.pin_code
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -80,13 +76,15 @@ class PinCodeViewModelImpl @Inject constructor(
                 }
             }
 
-            is PinCodeContract.UIIntent.OpenIntroScreen -> {
+            is PinCodeContract.UIIntent.Logout -> {
                 viewModelScope.launch {
+                    sideEffect.send(PinCodeContract.SideEffect(showLogoutDialog = false))
                     pinCodeUseCase.setPinCode("")
                     directions.navigateToInto()
                 }
             }
-
+            is PinCodeContract.UIIntent.ShowLogoutDialog -> viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLogoutDialog = true)) }
+            is PinCodeContract.UIIntent.DismissDialog -> viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLogoutDialog = false)) }
             is PinCodeContract.UIIntent.OpenSignInScreen -> viewModelScope.launch { directions.navigateToSignIn() }
             is PinCodeContract.UIIntent.BiometricSuccess -> viewModelScope.launch { directions.navigateToHome() }
         }

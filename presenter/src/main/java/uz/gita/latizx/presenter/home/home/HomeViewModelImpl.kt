@@ -50,6 +50,7 @@ class HomeViewModelImpl @Inject constructor(
             HomeContract.UiIntent.OpenHomeCardsInfo -> viewModelScope.launch { directions.navigateToCardsInfo() }
             HomeContract.UiIntent.OpenCurrency -> viewModelScope.launch { directions.navigateToCurrency() }
             HomeContract.UiIntent.OpenSupport -> viewModelScope.launch { directions.navigateToSupport() }
+            HomeContract.UiIntent.OpenSettings -> viewModelScope.launch { directions.navigateToSettings() }
             HomeContract.UiIntent.BalanceDisplayed -> reduce { uiState.value.copy(isBalanceDisplayed = settingsUseCase.changeBalanceDisplayed()) }
 
             HomeContract.UiIntent.RefreshData -> viewModelScope.launch {
@@ -124,6 +125,7 @@ class HomeViewModelImpl @Inject constructor(
             HomeItemVerticalEnum.CREDIT_CARDS
         )
     )
+
     private fun cards(): List<CardsData> = listOf(
         CardsData(
             id = 1,

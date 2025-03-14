@@ -13,4 +13,8 @@ class SettingsUseCaseImpl @Inject constructor(
         pref.isBalanceDisplayed = !pref.isBalanceDisplayed
         return pref.isBalanceDisplayed
     }
+
+    override fun logOut() {
+        pref.pinCode = ""
+    }
 }

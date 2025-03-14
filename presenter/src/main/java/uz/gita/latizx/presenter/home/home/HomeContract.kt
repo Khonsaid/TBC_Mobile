@@ -16,6 +16,7 @@ interface HomeContract {
         data object OpenHomeCardsInfo : UiIntent
         data object OpenCurrency : UiIntent
         data object OpenSupport : UiIntent
+        data object OpenSettings : UiIntent
         data object RefreshData: UiIntent
     }
 
@@ -42,5 +43,6 @@ interface HomeContract {
         suspend fun navigateToCards()
         suspend fun navigateToSupport()
         suspend fun navigateToCurrency()
+        suspend fun navigateToSettings()
     }
 }

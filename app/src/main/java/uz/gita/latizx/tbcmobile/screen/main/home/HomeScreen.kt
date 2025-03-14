@@ -140,6 +140,7 @@ private fun HomeScreenContent(
                     ) {
                         IconWithNotificationBadge(
                             iconRes = R.drawable.ic_home_user,
+                            onClick = {eventDispatcher(HomeContract.UiIntent.OpenSettings)}
                         )
 
                         Text(
