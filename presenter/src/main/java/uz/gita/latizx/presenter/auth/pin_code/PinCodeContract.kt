@@ -20,10 +20,11 @@ interface PinCodeContract {
     data class SideEffect(
         val showErrorDialog: Boolean = false,
         val showLoading: Boolean = false,
-        val showLogoutDialog: Boolean = false
+        val showLogoutDialog: Boolean = false,
     )
 
     data class UiState(
+        val statusBiometricAuth: Boolean = true,
         val message: String = "",
         val codeArray: List<Boolean> = listOf(false, false, false, false),
     )

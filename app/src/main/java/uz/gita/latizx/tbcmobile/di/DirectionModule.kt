@@ -18,6 +18,7 @@ import uz.gita.latizx.presenter.history.transaction.TransactionContract
 import uz.gita.latizx.presenter.history.transaction_detail.TransactionDetailContract
 import uz.gita.latizx.presenter.home.home.HomeContract
 import uz.gita.latizx.presenter.settings.general.GeneralSettingsContract
+import uz.gita.latizx.presenter.settings.security.SecurityContract
 import uz.gita.latizx.presenter.settings.settings.SettingsContract
 import uz.gita.latizx.presenter.splash.SplashContract
 import uz.gita.latizx.presenter.success.SuccessContract
@@ -37,6 +38,7 @@ import uz.gita.latizx.tbcmobile.screen.history.transaction_detail.TransactionDet
 import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.main.home.HomeDirections
 import uz.gita.latizx.tbcmobile.screen.settings.general.GeneralSettingsDirectionsImpl
+import uz.gita.latizx.tbcmobile.screen.settings.security.SecurityDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.settings.settings.SettingsDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.splash.SplashDirections
 import uz.gita.latizx.tbcmobile.screen.succes.SuccessDirections
@@ -113,4 +115,7 @@ interface DirectionModule {
 
     @Binds
     fun bindGeneralSettingsDirections(impl: GeneralSettingsDirectionsImpl): GeneralSettingsContract.Directions
+
+    @Binds
+    fun bindSecurityDirections(impl: SecurityDirectionsImpl): SecurityContract.Directions
 }

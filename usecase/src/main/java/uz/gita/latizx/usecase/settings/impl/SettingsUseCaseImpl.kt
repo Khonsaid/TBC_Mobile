@@ -21,6 +21,12 @@ class SettingsUseCaseImpl @Inject constructor(
         pref.theme = theme.value
     }
 
+    override fun getBiometricStatus(): Boolean = pref.statusBiometric
+
+    override fun changeBiometricStatus() {
+        pref.statusBiometric = !pref.statusBiometric
+    }
+
     override fun logOut() {
         pref.pinCode = ""
     }

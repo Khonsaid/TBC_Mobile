@@ -138,6 +138,7 @@ private fun PinCodeContent(
                     .fillMaxWidth()
                     .weight(3f)
                     .align(Alignment.CenterHorizontally),
+                biometricAuthStatus = uiState.value.statusBiometricAuth,
                 onClick = {
                     eventDispatcher(PinCodeContract.UIIntent.ClickNum(it, setPinCode))
                 },
@@ -187,6 +188,7 @@ private fun Preview() {
 @Composable
 private fun BoxNumbers(
     modifier: Modifier,
+    biometricAuthStatus: Boolean,
     biometricSuccess: () -> Unit,
     onClick: (String) -> Unit,
     onClickRemove: () -> Unit,
@@ -250,7 +252,7 @@ private fun BoxNumbers(
                         .fillMaxSize()
                         .weight(1f),
                     onClick = {
-                        if (activity != null) {
+                        if (activity != null && biometricAuthStatus) {
                             biometricAuthenticator.promptBiometricAuth(
                                 title = "Login",
                                 subTitle = "Use your fingerprint",

@@ -7,5 +7,7 @@ interface SettingsUseCase {
     fun changeBalanceDisplayed(): Boolean
     fun getCurrTheme(): String
     fun setCurrTheme(theme: ThemeMode)
+    fun getBiometricStatus(): Boolean
+    fun changeBiometricStatus()
     fun logOut()
 }

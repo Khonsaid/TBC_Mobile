@@ -22,6 +22,7 @@ class SettingsViewModelImpl @Inject constructor(
     override fun onEventDispatcher(uiIntent: SettingsContract.UIIntent) {
         when (uiIntent) {
             is SettingsContract.UIIntent.OpenPrev -> viewModelScope.launch { directions.navigateToPrev() }
+            is SettingsContract.UIIntent.OpenSecurity -> viewModelScope.launch { directions.navigateToSecurity() }
             is SettingsContract.UIIntent.OpenGeneralSettingsScreen -> viewModelScope.launch { directions.navigateToGeneralSettingsScreenIntro() }
             is SettingsContract.UIIntent.Logout -> viewModelScope.launch {
                 sideEffect.send(SettingsContract.SideEffect(showLogoutDialog = false))

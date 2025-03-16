@@ -16,4 +16,5 @@ class PreferenceHelper @Inject constructor(@ApplicationContext context: Context)
     var pinCode: String by strings()
     var isBalanceDisplayed: Boolean by booleans()
     var theme: String by strings(ThemeMode.SYSTEM.value)
+    var statusBiometric: Boolean by booleans()
 }

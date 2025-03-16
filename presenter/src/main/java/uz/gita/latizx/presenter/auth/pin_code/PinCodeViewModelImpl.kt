@@ -8,11 +8,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import uz.gita.latizx.usecase.auth.PinCodeUseCase
+import uz.gita.latizx.usecase.settings.SettingsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class PinCodeViewModelImpl @Inject constructor(
     private val directions: PinCodeContract.Directions,
+    private val settingsUseCase: SettingsUseCase,
     private val pinCodeUseCase: PinCodeUseCase,
 ) : PinCodeContract.PinCodeViewModel, ViewModel() {
 
@@ -20,6 +22,10 @@ class PinCodeViewModelImpl @Inject constructor(
     override val sideEffect = Channel<PinCodeContract.SideEffect>()
     val _sideEffect = sideEffect.receiveAsFlow()
     private val codeArray: Array<String> = arrayOf("", "", "", "")
+
+    init {
+        reduce { it.copy(statusBiometricAuth = settingsUseCase.getBiometricStatus()) }
+    }
 
     override fun onEventDispatcher(uiIntent: PinCodeContract.UIIntent) {
         when (uiIntent) {
@@ -83,6 +89,7 @@ class PinCodeViewModelImpl @Inject constructor(
                     directions.navigateToInto()
                 }
             }
+
             is PinCodeContract.UIIntent.ShowLogoutDialog -> viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLogoutDialog = true)) }
             is PinCodeContract.UIIntent.DismissDialog -> viewModelScope.launch { sideEffect.send(PinCodeContract.SideEffect(showLogoutDialog = false)) }
             is PinCodeContract.UIIntent.OpenSignInScreen -> viewModelScope.launch { directions.navigateToSignIn() }

@@ -12,6 +12,7 @@ import uz.gita.latizx.comman.LocationHelper
 import uz.gita.latizx.entity.local.pref.PreferenceHelper
 import uz.gita.latizx.tbcmobile.navigator.AppNavigatorHandler
 import uz.gita.latizx.tbcmobile.screen.settings.general.GeneralSettingsScreen
+import uz.gita.latizx.tbcmobile.screen.settings.security.SecurityScreen
 import uz.gita.latizx.tbcmobile.screen.splash.SplashScreen
 import uz.gita.latizx.tbcmobile.ui.theme.TBCMobileTheme
 import javax.inject.Inject
