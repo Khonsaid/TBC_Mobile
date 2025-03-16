@@ -1,4 +1,4 @@
-package uz.gita.latizx.presenter.home.settings
+package uz.gita.latizx.presenter.settings.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,6 +22,7 @@ class SettingsViewModelImpl @Inject constructor(
     override fun onEventDispatcher(uiIntent: SettingsContract.UIIntent) {
         when (uiIntent) {
             is SettingsContract.UIIntent.OpenPrev -> viewModelScope.launch { directions.navigateToPrev() }
+            is SettingsContract.UIIntent.OpenGeneralSettingsScreen -> viewModelScope.launch { directions.navigateToGeneralSettingsScreenIntro() }
             is SettingsContract.UIIntent.Logout -> viewModelScope.launch {
                 sideEffect.send(SettingsContract.SideEffect(showLogoutDialog = false))
                 settingsUseCase.logOut()

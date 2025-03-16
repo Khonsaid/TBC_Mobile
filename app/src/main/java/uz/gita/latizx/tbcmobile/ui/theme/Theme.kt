@@ -11,6 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
+import uz.gita.latizx.comman.ThemeMode
+import uz.gita.latizx.entity.local.pref.PreferenceHelper
 
 object AppTheme {
     val colorScheme: ColorScheme
@@ -37,9 +39,20 @@ object AppTheme {
 @Composable
 fun TBCMobileTheme(
     shape: AppShape = AppTheme.shape,
-    isDarkTheme: Boolean = isSystemInDarkTheme(),
+//    isDarkTheme: Boolean = isSystemInDarkTheme(),
+    prefHelper: PreferenceHelper,
     content: @Composable () -> Unit,
 ) {
+
+    // Get the saved theme preference
+    val themeMode = when (prefHelper.theme) {
+        ThemeMode.DARK.value -> true
+        ThemeMode.LIGHT.value -> false
+        else -> isSystemInDarkTheme()
+    }
+
+    val isDarkTheme = themeMode
+
     val colorScheme = when {
         isDarkTheme -> darkColor
         else -> lightColor

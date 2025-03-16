@@ -1,8 +1,9 @@
-package uz.gita.latizx.tbcmobile.screen.main.settings
+package uz.gita.latizx.tbcmobile.screen.settings.settings
 
-import uz.gita.latizx.presenter.home.settings.SettingsContract
+import uz.gita.latizx.presenter.settings.settings.SettingsContract
 import uz.gita.latizx.tbcmobile.navigator.AppNavigator
 import uz.gita.latizx.tbcmobile.screen.auth.intro.IntroScreen
+import uz.gita.latizx.tbcmobile.screen.settings.general.GeneralSettingsScreen
 import javax.inject.Inject
 
 class SettingsDirectionsImpl @Inject constructor(
@@ -15,5 +16,9 @@ class SettingsDirectionsImpl @Inject constructor(
 
     override suspend fun navigateToIntro() {
         appNavigator.replaceAll(IntroScreen())
+    }
+
+    override suspend fun navigateToGeneralSettingsScreenIntro() {
+        appNavigator.navigateTo(GeneralSettingsScreen())
     }
 }

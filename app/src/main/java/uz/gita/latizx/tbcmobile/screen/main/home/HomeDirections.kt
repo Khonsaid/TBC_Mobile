@@ -7,7 +7,7 @@ import uz.gita.latizx.tbcmobile.screen.card.info.CardsInfoScreen
 import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionScreen
 import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyScreen
 import uz.gita.latizx.tbcmobile.screen.main.payment.PaymentsScreen
-import uz.gita.latizx.tbcmobile.screen.main.settings.SettingsScreen
+import uz.gita.latizx.tbcmobile.screen.settings.settings.SettingsScreen
 import uz.gita.latizx.tbcmobile.screen.support.support.SupportScreen
 import uz.gita.latizx.tbcmobile.screen.transfers.recipient.RecipientScreen
 import javax.inject.Inject

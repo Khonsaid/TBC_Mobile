@@ -1,4 +1,4 @@
-package uz.gita.latizx.tbcmobile.screen.main.settings
+package uz.gita.latizx.tbcmobile.screen.settings.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -36,8 +36,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.hilt.getViewModel
-import uz.gita.latizx.presenter.home.settings.SettingsContract
-import uz.gita.latizx.presenter.home.settings.SettingsViewModelImpl
+import uz.gita.latizx.presenter.settings.settings.SettingsContract
+import uz.gita.latizx.presenter.settings.settings.SettingsViewModelImpl
 import uz.gita.latizx.tbcmobile.R
 import uz.gita.latizx.tbcmobile.ui.components.dialog.ConfirmationDialog
 import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
@@ -92,7 +92,9 @@ private fun SettingsScreenContent(
                 .padding(vertical = 24.dp)
         ) {
             ItemSettings(img = R.drawable.ic_notification, text = R.string.inbox_main_title, onClick = {})
-            ItemSettings(img = R.drawable.ic_filter_24_regular, text = R.string.profile_theme_language_title, onClick = {})
+            ItemSettings(img = R.drawable.ic_filter_24_regular, text = R.string.profile_theme_language_title, onClick = {
+                eventDispatcher.invoke(SettingsContract.UIIntent.OpenGeneralSettingsScreen)
+            })
             ItemSettings(img = R.drawable.ic_document_contract_24_regular, text = R.string.contracts_main_title, onClick = {})
             ItemSettings(img = R.drawable.ic_lock_closed_24_regular, text = R.string.profile_security_title, onClick = {})
             ItemSettings(img = R.drawable.ic_menu, text = R.string.profile_other_title, onClick = {})

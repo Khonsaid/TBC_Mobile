@@ -1,4 +1,4 @@
-package uz.gita.latizx.presenter.home.settings
+package uz.gita.latizx.presenter.settings.settings
 
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.StateFlow
@@ -7,6 +7,7 @@ interface SettingsContract {
 
     sealed interface UIIntent {
         data object OpenPrev : UIIntent
+        data object OpenGeneralSettingsScreen : UIIntent
         data object Logout : UIIntent
         data object ShowLogoutDialog : UIIntent
         data object DismissDialog : UIIntent
@@ -25,5 +26,6 @@ interface SettingsContract {
     interface Directions {
         suspend fun navigateToPrev()
         suspend fun navigateToIntro()
+        suspend fun navigateToGeneralSettingsScreenIntro()
     }
 }

@@ -17,7 +17,8 @@ import uz.gita.latizx.presenter.currency.CurrencyContract
 import uz.gita.latizx.presenter.history.transaction.TransactionContract
 import uz.gita.latizx.presenter.history.transaction_detail.TransactionDetailContract
 import uz.gita.latizx.presenter.home.home.HomeContract
-import uz.gita.latizx.presenter.home.settings.SettingsContract
+import uz.gita.latizx.presenter.settings.general.GeneralSettingsContract
+import uz.gita.latizx.presenter.settings.settings.SettingsContract
 import uz.gita.latizx.presenter.splash.SplashContract
 import uz.gita.latizx.presenter.success.SuccessContract
 import uz.gita.latizx.presenter.support.support.SupportContract
@@ -35,7 +36,8 @@ import uz.gita.latizx.tbcmobile.screen.history.transaction.TransactionsDirection
 import uz.gita.latizx.tbcmobile.screen.history.transaction_detail.TransactionDetailDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.main.currency.CurrencyDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.main.home.HomeDirections
-import uz.gita.latizx.tbcmobile.screen.main.settings.SettingsDirectionsImpl
+import uz.gita.latizx.tbcmobile.screen.settings.general.GeneralSettingsDirectionsImpl
+import uz.gita.latizx.tbcmobile.screen.settings.settings.SettingsDirectionsImpl
 import uz.gita.latizx.tbcmobile.screen.splash.SplashDirections
 import uz.gita.latizx.tbcmobile.screen.succes.SuccessDirections
 import uz.gita.latizx.tbcmobile.screen.support.support.SupportDirectionsImpl
@@ -108,4 +110,7 @@ interface DirectionModule {
 
     @Binds
     fun bindSettingsDirections(impl: SettingsDirectionsImpl): SettingsContract.Directions
+
+    @Binds
+    fun bindGeneralSettingsDirections(impl: GeneralSettingsDirectionsImpl): GeneralSettingsContract.Directions
 }
