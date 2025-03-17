@@ -140,8 +140,8 @@ fun ItemCardInfo(
                                 .padding(horizontal = 8.dp)
                         ) {
                             Image(
-                                painter = painterResource(if (index % 2 == 0) uz.gita.latizx.comman.R.drawable.ag_ps_uzpay else uz.gita.latizx.comman.R.drawable.ag_ps_humo),
-                                contentDescription = null
+                                contentDescription = null,
+                                painter = painterResource(if (index % 2 == 0) uz.gita.latizx.comman.R.drawable.ag_ps_humo else uz.gita.latizx.comman.R.drawable.ag_ps_uzpay)
                             )
                         }
                         Column(modifier = Modifier.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {

@@ -57,6 +57,7 @@ private fun FeeScreenContent(
     eventDispatcher: (FeeContract.UIIntent) -> Unit = {},
 ) {
     Scaffold(
+        containerColor = AppTheme.colorScheme.backgroundPrimary,
         topBar = {
             AppTopBar(
                 text = R.string.transfer,
@@ -107,7 +108,7 @@ private fun FeeScreenContent(
                     .padding(vertical = 12.dp),
                 text = stringResource(R.string.transfer_transfer),
                 color = AppTheme.colorScheme.backgroundBrandTertiary,
-                colorText = AppTheme.colorScheme.borderContrastOnWhite,
+                colorText = AppTheme.colorScheme.textOnPrimary,
                 onClick = {
                     eventDispatcher(FeeContract.UIIntent.ClickConfirmation)
                 }

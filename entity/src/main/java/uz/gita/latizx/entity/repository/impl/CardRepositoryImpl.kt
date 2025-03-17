@@ -7,6 +7,7 @@ import uz.gita.latizx.entity.mapper.toData
 import uz.gita.latizx.entity.repository.CardRepository
 import uz.gita.latizx.entity.retrofit.api.CardAPI
 import uz.gita.latizx.entity.retrofit.request.card.AddCardRequest
+import uz.gita.latizx.entity.retrofit.request.card.UpdateCardRequest
 import uz.gita.latizx.entity.utils.handleResponse
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,5 +24,13 @@ class CardRepositoryImpl @Inject constructor(
         handleResponse(cardAPI.getCards()).map { response ->
             response.map { it.toData() }
         }
+    }
+
+    override suspend fun updateCard(data: UpdateCardRequest): Result<Unit> = withContext(Dispatchers.IO) {
+        handleResponse(cardAPI.updateCard(data)).map { }
+    }
+
+    override suspend fun deleteCardById(id: Int): Result<Unit> = withContext(Dispatchers.IO) {
+        handleResponse(cardAPI.deleteCardById(id)).map { }
     }
 }

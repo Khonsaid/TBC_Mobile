@@ -51,20 +51,28 @@ class TransferViewModelImpl @AssistedInject constructor(
                 checkInputSum(uiIntent.sum)
             }
 
+            is TransferContract.UIIntent.HideTextDialog -> viewModelScope.launch { sideEffect.send(TransferContract.SideEffect(showDialog = false)) }
+
             is TransferContract.UIIntent.OpenFeeScreen -> {
-                feeUseCase.invoke(
-                    amount = uiState.value.sum.toInt(),
-                    receiver = recipientData.recipientPan,
-                    senderId = "6"//cardList[0].id.toString()
-                ).onEach { result ->
-                    result.onSuccess { feeData ->
-                        directions.navigateToFee(recipientData, feeData, cardList[cardIndex].id.toString())
-                    }
-                    result.onFailure {
-                        Log.d("TTT", "fail: ${it.message}")
+                if (uiState.value.sum.toInt() < 1000) {
+                    viewModelScope.launch { sideEffect.send(TransferContract.SideEffect(showDialog = true, message = 1)) }
+                } else if(uiState.value.sum.toInt() > cardList[cardIndex].amount){
+                    viewModelScope.launch { sideEffect.send(TransferContract.SideEffect(showDialog = true, message = 2)) }
+                }else {
+                    feeUseCase.invoke(
+                        amount = uiState.value.sum.toInt(),
+                        receiver = recipientData.recipientPan,
+                        senderId = "6"//cardList[0].id.toString()
+                    ).onEach { result ->
+                        result.onSuccess { feeData ->
+                            directions.navigateToFee(recipientData, feeData, cardList[cardIndex].id.toString())
+                        }
+                        result.onFailure {
+                            Log.d("TTT", "fail: ${it.message}")
 //                        sideEffect.send(TransferContract.SideEffect(message = ))
-                    }
-                }.launchIn(viewModelScope)
+                        }
+                    }.launchIn(viewModelScope)
+                }
             }
 
             is TransferContract.UIIntent.ClickRemove -> {
@@ -76,19 +84,16 @@ class TransferViewModelImpl @AssistedInject constructor(
             }
 
             is TransferContract.UIIntent.ShowSelectCardBottomSheet -> {
-                reduce { it.copy(isBottomSheetVisible = true) }
                 reduce { it.copy(cardList = cardList) }
+                viewModelScope.launch { sideEffect.send(TransferContract.SideEffect(isBottomSheetVisible = true)) }
             }
 
-            is TransferContract.UIIntent.HideSelectCardBottomSheet -> reduce {
-                it.copy(isBottomSheetVisible = false)
-            }
+            is TransferContract.UIIntent.HideSelectCardBottomSheet -> viewModelScope.launch { sideEffect.send(TransferContract.SideEffect(isBottomSheetVisible = false)) }
 
             is TransferContract.UIIntent.SelectCard -> {
                 cardIndex = uiIntent.cardIndex
                 reduce { it.copy(balance = cardList[uiIntent.cardIndex].amount.toString()) }
                 reduce { it.copy(name = cardList[uiIntent.cardIndex].name.toString()) }
-                reduce { it.copy(isBottomSheetVisible = false) }
             }
         }
     }
@@ -112,7 +117,6 @@ class TransferViewModelImpl @AssistedInject constructor(
             }
             result.onFailure {
                 reduce { it.copy(showLoading = false) }
-                Log.d("TTT", "getCards: ${it.message}")
 //                viewModelScope.launch { sideEffect.send(TransferContract.SideEffect(it.message)) }
             }
         }.launchIn(viewModelScope)

@@ -77,7 +77,7 @@ private fun HomeScreenContent(
     eventDispatcher: (HomeContract.UiIntent) -> Unit = { },
 ) {
     var animatedBalance by remember { mutableIntStateOf(0) }
-
+    
     LaunchedEffect(uiState.value.balance) {
         val targetBalance = uiState.value.balance.toIntOrNull() ?: 0
         val step = (targetBalance - animatedBalance) / 20  // Animatsiya qadamlar soni

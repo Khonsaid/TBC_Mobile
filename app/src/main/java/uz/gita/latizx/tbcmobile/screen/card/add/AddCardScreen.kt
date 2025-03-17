@@ -72,7 +72,7 @@ class AddCardScreen : Screen {
         }
         if (showDialog) {
             TextDialog(
-                text = dialogMessage,
+                text = "dialogMessage",
             )
         }
         if (uiState.value.showLoading) LoadingDialog()

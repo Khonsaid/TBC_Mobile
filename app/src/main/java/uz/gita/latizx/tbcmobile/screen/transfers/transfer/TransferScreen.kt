@@ -51,6 +51,7 @@ import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 data class TransferScreen(private val recipientPan: String, private val recipientName: String) : Screen {
+
     @OptIn(ExperimentalVoyagerApi::class)
     @Composable
     override fun Content() {
@@ -60,26 +61,60 @@ data class TransferScreen(private val recipientPan: String, private val recipien
             }
         )
         val uiState = viewModel.uiState.collectAsState()
+        lateinit var bottomSheetNavigator: BottomSheetNavigator
 
         BottomSheetNavigator(
             sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         ) {
             TransferScreenContent(uiState = uiState, eventDispatcher = viewModel::onEventDispatcher)
+            bottomSheetNavigator = LocalBottomSheetNavigator.current
         }
         var showDialog by remember { mutableStateOf(false) }
         var dialogMessage by remember { mutableIntStateOf(0) }
-
+        var isBottomSheetVisible by remember { mutableStateOf(false) }
         LaunchedEffect(Unit) {
             viewModel._sideEffect.collect {
                 dialogMessage = it.message
-                showDialog = true
+                showDialog = it.showDialog
+                isBottomSheetVisible = it.isBottomSheetVisible
             }
         }
+        val errorMessage = when (dialogMessage) {
+            1 -> stringResource(
+                R.string.payment_error_minimum_limit,
+                "1%", // %s o‘rniga birinchi parametr
+                "1 000 UZS", // %s o‘rniga ikkinchi parametr
+                ""  // %s o‘rniga uchinchi parametr
+            )
+
+            2 -> stringResource(R.string.card_process_insufficient_balance_with_add_card)
+            else -> ""
+        }
+
         if (showDialog) {
             TextDialog(
-                text = dialogMessage,
+                text = errorMessage,
+                onDismiss = {
+                    viewModel.onEventDispatcher(TransferContract.UIIntent.HideTextDialog)
+                }
             )
         }
+
+        if (isBottomSheetVisible) {
+            val dialog = ChooseCardBottomSheet(uiState.value.cardList)
+            dialog.onSelectCard = { cardIndex ->
+                viewModel.onEventDispatcher(TransferContract.UIIntent.SelectCard(cardIndex = cardIndex))
+                viewModel.onEventDispatcher(TransferContract.UIIntent.HideSelectCardBottomSheet)
+                bottomSheetNavigator.hide()
+            }
+            dialog.onDismissRequest = {
+                bottomSheetNavigator.hide()
+                viewModel.onEventDispatcher(TransferContract.UIIntent.HideSelectCardBottomSheet)
+            }
+            bottomSheetNavigator.show(dialog)
+        }
+        if (bottomSheetNavigator.isVisible) viewModel.onEventDispatcher(TransferContract.UIIntent.HideSelectCardBottomSheet)
+
         if (uiState.value.showLoading) {
             LoadingDialog()
         }
@@ -142,27 +177,11 @@ private fun TransferScreenContent(
                     .padding(vertical = 12.dp),
                 text = stringResource(R.string.components_next),
                 color = AppTheme.colorScheme.backgroundBrandTertiary,
-                colorText = AppTheme.colorScheme.borderContrastOnWhite,
+                colorText = AppTheme.colorScheme.textOnPrimary,
                 onClick = {
                     eventDispatcher(TransferContract.UIIntent.OpenFeeScreen)
                 }
             )
-
-            val bottomSheetNavigator = LocalBottomSheetNavigator.current
-
-            if (uiState.value.isBottomSheetVisible) {
-                val dialog = ChooseCardBottomSheet(uiState.value.cardList)
-                dialog.onSelectCard = { cardIndex ->
-                    eventDispatcher(TransferContract.UIIntent.SelectCard(cardIndex = cardIndex))
-                    bottomSheetNavigator.hide()
-                }
-                dialog.onDismissRequest = {
-                    bottomSheetNavigator.hide()
-                    eventDispatcher(TransferContract.UIIntent.HideSelectCardBottomSheet)
-                }
-                bottomSheetNavigator.show(dialog)
-            }
-            if (bottomSheetNavigator.isVisible) eventDispatcher(TransferContract.UIIntent.HideSelectCardBottomSheet)
         }
     }
 }
@@ -183,7 +202,7 @@ private fun BoxNumbers(
         listOf("1", "2", "3"),
         listOf("4", "5", "6"),
         listOf("7", "8", "9"),
-        listOf(".", "0", "<")
+        listOf("", "0", "<")
     )
 
     Column(
@@ -217,16 +236,18 @@ private fun BoxNumbers(
                                 Icon(
                                     painter = painterResource(R.drawable.ic_chevron_left_24_regular),
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onTertiary
+                                    tint = AppTheme.colorScheme.textPrimary
                                 )
                             }
                         } else {
                             CircleNumberButton(
                                 modifier = Modifier.fillMaxSize(),
                                 text = text,
-                                color = MaterialTheme.colorScheme.onTertiary,
-                                fontSize = MaterialTheme.typography.displaySmall.fontSize,
-                                onClick = { onClick(text) }
+                                color = AppTheme.colorScheme.textPrimary,
+                                fontStyle = AppTheme.typography.titleLarge,
+                                onClick = {
+                                    if (text.isNotEmpty()) onClick(text)
+                                }
                             )
                         }
                     }

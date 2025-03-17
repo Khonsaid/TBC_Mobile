@@ -1,6 +1,5 @@
 package uz.gita.latizx.tbcmobile.screen.main.bottom_sheet
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,6 +29,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import kotlinx.parcelize.IgnoredOnParcel
 import uz.gita.latizx.comman.model.CardsData
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
+import uz.gita.latizx.tbcmobile.utils.toFormatMoney
 
 
 data class ChooseCardBottomSheet(
@@ -64,7 +63,7 @@ private fun ChooseCardBottomSheetContent(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(MaterialTheme.colorScheme.surface)
+            .background(AppTheme.colorScheme.backgroundTertiary)
             .padding(vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -79,10 +78,8 @@ private fun ChooseCardBottomSheetContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp, horizontal = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(vertical = 16.dp),
         ) {
-            Log.d("TTT", "ChooseCardBottomSheetContent: ${cards.size}")
             repeat(cards.size) { index ->
                 Row(
                     modifier = Modifier
@@ -90,35 +87,41 @@ private fun ChooseCardBottomSheetContent(
                         .clickable {
                             onSelectCard(index)
                             onDismissRequest()
-                        },
+                        }
+                        .padding(vertical = 12.dp, horizontal = 12.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.ag_flag_uz),
-                        contentDescription = null
-                    )
+                    Box(
+                        modifier = Modifier
+                            .background(colorResource(R.color.palette_gray_5), shape = AppTheme.shape.small)
+                            .padding(horizontal = 8.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(if (index % 2 == 0) uz.gita.latizx.comman.R.drawable.ag_ps_uzpay else uz.gita.latizx.comman.R.drawable.ag_ps_humo),
+                            contentDescription = null
+                        )
+                    }
                     Column(modifier = Modifier.padding(vertical = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
                             text = cards[index].name,
-                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                            fontWeight = FontWeight.Medium,
+                            style = AppTheme.typography.bodySmall,
+                            color = AppTheme.colorScheme.textPrimary,
                             textAlign = TextAlign.Center
                         )
 
                         Text(
-                            text = "${cards[index].amount} UZS",
+                            text = "${cards[index].amount.toString().toFormatMoney()} UZS",
                             color = colorResource(R.color.palette_green_70),
-                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                            fontWeight = FontWeight.Medium,
+                            style = AppTheme.typography.bodySmall,
                             textAlign = TextAlign.Center
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = "*${cards[index].pan}",
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        fontWeight = FontWeight.Medium,
+                        style = AppTheme.typography.bodySmall,
+                        color = AppTheme.colorScheme.textPrimary,
                         textAlign = TextAlign.Center
                     )
                 }

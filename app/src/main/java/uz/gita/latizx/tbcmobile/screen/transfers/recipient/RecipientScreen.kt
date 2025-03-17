@@ -49,7 +49,7 @@ class RecipientScreen : Screen {
         }
         if (showDialog) {
             TextDialog(
-                text = dialogMessage,
+                text = "dialogMessage",
                 onDismiss = { showDialog = false }
             )
         }

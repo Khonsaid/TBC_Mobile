@@ -51,7 +51,10 @@ import uz.gita.latizx.comman.formatWithSeparator
 import uz.gita.latizx.presenter.card.info.CardsInfoContract
 import uz.gita.latizx.presenter.card.info.CardsInfoViewModelImpl
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.components.animation.LoadingDialog
 import uz.gita.latizx.tbcmobile.ui.components.button.CircleImageButton
+import uz.gita.latizx.tbcmobile.ui.components.dialog.ConfirmationDialog
+import uz.gita.latizx.tbcmobile.ui.components.dialog.EditCardNameDialog
 import uz.gita.latizx.tbcmobile.ui.components.dialog.TextDialog
 import uz.gita.latizx.tbcmobile.ui.components.topbar.AppTopBar
 import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
@@ -65,18 +68,58 @@ class CardsInfoScreen : Screen {
         CardsInfoScreenContent(uiState = uiState, eventDispatcher = viewModel::onEventDispatcher)
 
         var showDialog by remember { mutableStateOf(false) }
+        var showEditCardName by remember { mutableStateOf(false) }
+        var editedCardName by remember { mutableStateOf("") }
         var dialogMessage by remember { mutableIntStateOf(0) }
+        var showDeleteCardDialog by remember { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
             viewModel._sideEffect.collect {
+                showDeleteCardDialog = it.showDeleteCardDialog
                 dialogMessage = it.message
-                showDialog = true
+                showDialog = it.showMessageDialog
+                showEditCardName = it.showEditCardName
+                editedCardName = it.cardName
             }
         }
+        val errorMessage = when (dialogMessage) {
+            1 -> stringResource(R.string.cards_state_card_has_been_deleted)
+
+            2 -> stringResource(R.string.components_server_error)
+            3 -> stringResource(R.string.transfer_template_name_successfully_changed)
+            else -> ""
+        }
+
+        if (showEditCardName) {
+            EditCardNameDialog(
+                text = R.string.cards_edit_card_message,
+                textYesButton = R.string.trusted_devices_untrusted_dialog_keep,
+                textNoButton = R.string.cancel,
+                onClickYes = { viewModel.onEventDispatcher(CardsInfoContract.UIIntent.UpdateCardName(it)) },
+                onDismissRequest = { viewModel.onEventDispatcher(CardsInfoContract.UIIntent.DismissEditCardName) },
+                value = editedCardName
+            )
+        }
+
         if (showDialog) {
             TextDialog(
-                text = dialogMessage,
+                text = errorMessage,
+                onDismiss = {
+                    viewModel.onEventDispatcher(CardsInfoContract.UIIntent.HideTextDialog)
+                }
             )
+        }
+        if (showDeleteCardDialog) {
+            ConfirmationDialog(
+                text = R.string.transfer_do_you_want_to_delete_template,
+                textYesButton = R.string.login_yes,
+                textNoButton = R.string.login_no,
+                onClickYes = { viewModel.onEventDispatcher(CardsInfoContract.UIIntent.DeleteCard) },
+                onDismissRequest = { viewModel.onEventDispatcher(CardsInfoContract.UIIntent.DismissDeleteCardDialog) }
+            )
+        }
+        if (uiState.value.showLoading) {
+            LoadingDialog()
         }
     }
 }
@@ -131,11 +174,12 @@ private fun CardsInfoScreenContent(
                     sum = uiState.value.cards[index].amount.toString().formatWithSeparator(),
                     balanceText = R.string.cards_balance_label,
                     cardLastNumbers = uiState.value.cards[index].pan,
+                    index = index,
                     cardColor = Brush.linearGradient(
                         colors = listOf(colorResource(R.color.palette_cool_gray_50), colorResource(R.color.palette_cool_gray_10)),
                         start = Offset(0f, 0f),
                         end = Offset(1000f, 1000f)
-                    )
+                    ),
                 )
             }
 
@@ -149,8 +193,8 @@ private fun CardsInfoScreenContent(
             ) {
                 repeat(pagerState.pageCount) { iteration ->
                     val color =
-                        if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary
-                        else colorResource(R.color.palette_cyan_90)
+                        if (pagerState.currentPage == iteration) AppTheme.colorScheme.backgroundStatusInfoSecondary
+                        else AppTheme.colorScheme.backgroundStatusInfo
                     Box(
                         modifier = Modifier
                             .padding(6.dp)
@@ -175,12 +219,16 @@ private fun CardsInfoScreenContent(
                 CircleImageButton(
                     img = R.drawable.ic_pencil_edit_24_regular,
                     text = R.string.cards_menu_edit,
-                    onClick = {}
+                    onClick = {
+                        eventDispatcher(CardsInfoContract.UIIntent.ShowEditCardName(pagerState.currentPage))
+                    }
                 )
                 CircleImageButton(
-                    img = R.drawable.ic_transfer_three_dots,
-                    text = R.string.cards_menu_other,
-                    onClick = {}
+                    img = R.drawable.ic_delete,
+                    text = R.string.cards_menu_delete,
+                    onClick = {
+                        eventDispatcher(CardsInfoContract.UIIntent.ShowDeleteCard(uiState.value.cards[pagerState.currentPage].id))
+                    }
                 )
             }
         }
@@ -202,6 +250,7 @@ private fun PageContent(
     cardColor: Brush,
     modifier: Modifier,
     cardLastNumbers: String,
+    index: Int,
     onClick: () -> Unit = {},
 ) {
     ElevatedCard(
@@ -223,7 +272,7 @@ private fun PageContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.3f)
+                        .fillMaxHeight(0.4f)
                         .background(color = colorResource(R.color.white))
                         .padding(12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -268,7 +317,7 @@ private fun PageContent(
                         textAlign = TextAlign.Center
                     )
                     Image(
-                        painter = painterResource(R.drawable.ag_flag_uz),
+                        painter = painterResource(if (index % 2 == 0) uz.gita.latizx.comman.R.drawable.ag_ps_humo else uz.gita.latizx.comman.R.drawable.ag_ps_uzpay),
                         contentDescription = null
                     )
                 }

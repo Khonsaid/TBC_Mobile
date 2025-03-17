@@ -20,9 +20,13 @@ import uz.gita.latizx.usecase.auth.impl.SignUpResendUseCaseImpl
 import uz.gita.latizx.usecase.auth.impl.SignUpUseCaseImpl
 import uz.gita.latizx.usecase.auth.impl.SignUpVerifyUseCaseImpl
 import uz.gita.latizx.usecase.card.AddCardUseCase
+import uz.gita.latizx.usecase.card.DeleteCardByIdUseCase
 import uz.gita.latizx.usecase.card.GetCardsUseCase
+import uz.gita.latizx.usecase.card.UpdateCardUseCase
 import uz.gita.latizx.usecase.card.impl.AddCardUseCaseImpl
+import uz.gita.latizx.usecase.card.impl.DeleteCardByIdUseCaseImpl
 import uz.gita.latizx.usecase.card.impl.GetCardsUseCaseImpl
+import uz.gita.latizx.usecase.card.impl.UpdateCardUseCaseImpl
 import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCase
 import uz.gita.latizx.usecase.exchange_rate.ExchangeRateUseCaseImpl
 import uz.gita.latizx.usecase.home.TotalBalanceUseCase
@@ -104,4 +108,10 @@ interface UseCaseModule {
 
     @[Binds ViewModelScoped]
     fun bindSettingsUseCase(impl: SettingsUseCaseImpl): SettingsUseCase
+
+    @[Binds ViewModelScoped]
+    fun bindUpdateCardUseCase(impl: UpdateCardUseCaseImpl): UpdateCardUseCase
+
+    @[Binds ViewModelScoped]
+    fun bindDeleteCardByIdUseCase(impl: DeleteCardByIdUseCaseImpl): DeleteCardByIdUseCase
 }

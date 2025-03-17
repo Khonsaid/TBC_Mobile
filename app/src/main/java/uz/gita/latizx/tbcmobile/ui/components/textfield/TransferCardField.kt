@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,13 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import uz.gita.latizx.comman.formatWithSeparator
-import uz.gita.latizx.tbcmobile.utils.toFormatCard
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
+import uz.gita.latizx.tbcmobile.utils.toFormatCard
 
 @Composable
 fun TransferCardField(
@@ -48,10 +46,10 @@ fun TransferCardField(
 //                .border(
 //                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
 //                )
-                .clickable { onClick() }
                 .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(12.dp))
                 .background(color = colorResource(R.color.palette_gray_5))
+                .clickable { onClick() }
                 .padding(horizontal = 16.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -61,17 +59,12 @@ fun TransferCardField(
             ) {
                 Text(
                     text = if (hasArrowDown) name else name.uppercase(),
-                    style = TextStyle(
-                        color = MaterialTheme.colorScheme.onTertiary,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    )
+                    style = AppTheme.typography.bodySmall
                 )
                 Text(
                     text = if (hasArrowDown) cardData.formatWithSeparator() + " UZS" else cardData.toFormatCard(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    color = if (hasArrowDown) colorResource(R.color.palette_green_70) else MaterialTheme.colorScheme.onTertiary
+                    style = AppTheme.typography.bodySmall,
+                    color = if (hasArrowDown) colorResource(R.color.palette_green_70) else AppTheme.colorScheme.textPrimary
                 )
             }
             if (hasArrowDown) {

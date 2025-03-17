@@ -14,13 +14,14 @@ import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 @Composable
 fun SuperScriptText(
     normalText: String,
     normalFonSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
     superText: String,
-    color: Color = MaterialTheme.colorScheme.primary,
+    color: Color = AppTheme.colorScheme.iconBrand,
     superTextFontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
     superTextFontWeight: FontWeight = FontWeight.Normal,
     modifier: Modifier = Modifier,

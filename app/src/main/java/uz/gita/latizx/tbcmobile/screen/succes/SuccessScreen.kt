@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi
@@ -84,9 +83,9 @@ private fun SuccessScreenContent(
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
                     text = stringResource(R.string.transfer_transfer_success_message),
-                    color = MaterialTheme.colorScheme.onTertiary,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    fontWeight = FontWeight.Normal
+                    color = AppTheme.colorScheme.textPrimary,
+                    style = AppTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center
                 )
             }
             Column(
@@ -100,15 +99,14 @@ private fun SuccessScreenContent(
 
                 Text(
                     text = uiState.value.recipientName,
-                    color = MaterialTheme.colorScheme.onTertiary,
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    fontWeight = FontWeight.Bold
+                    color = AppTheme.colorScheme.textPrimary,
+                    style = AppTheme.typography.titleSmall
                 )
+                Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = uiState.value.recipientPan.toFormatCard(),
-                    color = MaterialTheme.colorScheme.onTertiary,
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    fontWeight = FontWeight.Normal
+                    color = AppTheme.colorScheme.textPrimary,
+                    style = AppTheme.typography.titleSmall
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -116,7 +114,7 @@ private fun SuccessScreenContent(
                 AppFilledButton(
                     text = stringResource(R.string.cards_transfer_close),
                     color = AppTheme.colorScheme.backgroundBrandTertiary,
-                    colorText = AppTheme.colorScheme.borderContrastOnWhite,
+                    colorText = AppTheme.colorScheme.textOnPrimary,
                     onClick = { eventDispatcher(SuccessContract.SuccessIntent.OpenMoneyTransfersScreen) }
                 )
             }

@@ -13,6 +13,7 @@ interface TransferContract {
         object OpenFeeScreen : UIIntent
         object ClickRemove : UIIntent
         object HideSelectCardBottomSheet : UIIntent
+        object HideTextDialog : UIIntent
         object ShowSelectCardBottomSheet : UIIntent
         data class SelectCard(val cardIndex: Int) : UIIntent
         data class TransferSum(val sum: String) : UIIntent
@@ -25,12 +26,15 @@ interface TransferContract {
         val name: String = "",
         val panRecipient: String = "",
         val nameRecipient: String = "",
-        val isBottomSheetVisible: Boolean = false,
         val cardList: List<CardsData> = emptyList(),
         val showLoading: Boolean = false,
     )
 
-    data class SideEffect(val message: Int)
+    data class SideEffect(
+        val isBottomSheetVisible: Boolean = false,
+        val showDialog: Boolean = false,
+        val message: Int = 0,
+    )
 
     interface TransferViewModel {
         val uiState: StateFlow<UIState>
