@@ -1,5 +1,6 @@
 package uz.gita.latizx.presenter.settings.settings
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,15 @@ class SettingsViewModelImpl @Inject constructor(
     override val uiState = MutableStateFlow<SettingsContract.UIState>(SettingsContract.UIState())
     override val sideEffect = Channel<SettingsContract.SideEffect>()
     val _sideEffect = sideEffect.receiveAsFlow()
+
+    init {
+        getTBCLocation()
+    }
+
+    private fun getTBCLocation() {
+        val locations = settingsUseCase.getLocation()
+        Log.d("TTT", "locations: $locations ")
+    }
 
     override fun onEventDispatcher(uiIntent: SettingsContract.UIIntent) {
         when (uiIntent) {

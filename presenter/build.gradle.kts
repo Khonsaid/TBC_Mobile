@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("kotlin-parcelize")
 }
 
@@ -30,9 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    kapt {
-        correctErrorTypes = true
-    }
+//    kapt {
+//        correctErrorTypes = true
+//    }
 }
 
 dependencies {
@@ -52,7 +53,8 @@ dependencies {
 
     // hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+//    kapt(libs.hilt.compiler)
+    ksp("com.google.dagger:hilt-compiler:2.51.1")
 
     //paging
     implementation(libs.androidx.paging.compose)

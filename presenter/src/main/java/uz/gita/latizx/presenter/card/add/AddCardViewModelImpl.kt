@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import uz.gita.latizx.usecase.card.AddCardUseCase
 import javax.inject.Inject
+
 //import uz.gita.latizx.common.R
 @HiltViewModel
 class AddCardViewModelImpl @Inject constructor(
@@ -24,7 +25,7 @@ class AddCardViewModelImpl @Inject constructor(
     override fun onEventDispatcher(uiIntent: AddCardContract.UIIntent) {
         when (uiIntent) {
             is AddCardContract.UIIntent.AddCard -> {
-                if (checkInputData(uiIntent)){
+                if (checkInputData(uiIntent)) {
                     reduce { it.copy(showLoading = true) }
                     addCardUseCase.invoke(
                         pan = uiIntent.pan,
@@ -39,37 +40,30 @@ class AddCardViewModelImpl @Inject constructor(
                         result.onFailure {
                             reduce { it.copy(showLoading = false) }
                             viewModelScope.launch {
-//                                sideEffect.send(AddCardContract.SideEffect(R.string.component_address_not_found))
+                                sideEffect.send(AddCardContract.SideEffect(showDialog = true, message = 1))
                             }
                         }
                     }.launchIn(viewModelScope)
                 }
             }
 
-            is AddCardContract.UIIntent.ClickExpiredYear -> {
-                reduce { it.copy(listData = yearList) }
-                reduce { it.copy(isBottomSheetVisible = true) }
-            }
-
-            is AddCardContract.UIIntent.ClickExpiredMonth -> {
-                reduce { it.copy(listData = monthList) }
-                reduce { it.copy(isBottomSheetVisible = true) }
-            }
-
+            is AddCardContract.UIIntent.ClickExpiredYear -> reduce { it.copy(listData = yearList, isBottomSheetVisible = true) }
+            is AddCardContract.UIIntent.ClickExpiredMonth -> reduce { it.copy(listData = monthList, isBottomSheetVisible = true) }
             is AddCardContract.UIIntent.HideBottomSheet -> reduce { it.copy(isBottomSheetVisible = false) }
             is AddCardContract.UIIntent.OpenPrevScreen -> viewModelScope.launch { directions.navigateToBack() }
+            is AddCardContract.UIIntent.CloseDialog -> viewModelScope.launch { sideEffect.send(AddCardContract.SideEffect(showDialog = false)) }
         }
     }
 
     private fun checkInputData(card: AddCardContract.UIIntent.AddCard): Boolean {
         return if (card.pan.isEmpty() || card.pan.length != 16) {
             viewModelScope.launch {
-//                sideEffect.send(AddCardContract.SideEffect(R.string.cards_add_enter_card_number))
+                sideEffect.send(AddCardContract.SideEffect(showDialog = true, message = 2))
             }
             false
         } else if (card.expiredMonth.isEmpty() || card.expiredYear.isEmpty()) {
             viewModelScope.launch {
-//                sideEffect.send(AddCardContract.SideEffect(R.string.cards_add_enter_card_date))
+                sideEffect.send(AddCardContract.SideEffect(showDialog = true, message = 3))
             }
             false
         } else {

@@ -1,6 +1,8 @@
 package uz.gita.latizx.usecase.settings
 
+import kotlinx.coroutines.flow.Flow
 import uz.gita.latizx.comman.ThemeMode
+import uz.gita.latizx.comman.model.map.LocationData
 
 interface SettingsUseCase {
     fun isBalanceDisplayed(): Boolean
@@ -10,4 +12,5 @@ interface SettingsUseCase {
     fun getBiometricStatus(): Boolean
     fun changeBiometricStatus()
     fun logOut()
+    fun getLocation(): List<LocationData>
 }

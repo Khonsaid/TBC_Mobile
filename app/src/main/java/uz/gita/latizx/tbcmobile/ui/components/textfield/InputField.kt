@@ -37,7 +37,7 @@ fun InputField(
     Column(modifier = modifier) {
         Text(
             text = label,
-            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+            fontSize =  MaterialTheme.typography.bodySmall.fontSize,
             color = AppTheme.colorScheme.textPrimary
         )
 
@@ -54,12 +54,12 @@ fun InputField(
             placeholder = {
                 Text(
                     text = hint,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    style = AppTheme.typography.bodyMedium,
                     color = AppTheme.colorScheme.textStatusInfo,
                     textAlign = TextAlign.Center
                 )
             },
-            textStyle = TextStyle(textAlign = TextAlign.Start, fontSize = 16.sp),
+            textStyle = TextStyle(textAlign = TextAlign.Start, fontSize = 16.sp, color = AppTheme.colorScheme.textStatusInfo),
             readOnly = readOnly,
             singleLine = true,
             maxLines = 1,

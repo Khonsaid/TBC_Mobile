@@ -5,6 +5,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
+import uz.gita.latizx.comman.model.CardsData
 import uz.gita.latizx.comman.model.HistoryItemsData
 
 interface TransactionContract {
@@ -16,6 +17,7 @@ interface TransactionContract {
     data class SideEffect(val message: Int)
     data class UIState(
         val transactions: Flow<PagingData<HistoryItemsData>> = flow { },
+        val cards: List<CardsData> = emptyList(),
     )
 
     interface TransactionsViewModel {

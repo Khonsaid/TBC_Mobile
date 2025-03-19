@@ -171,6 +171,7 @@
     <string name="card_order_benefits_action_text">Kartaga buyurtma berish</string>
     <string name="card_order_benefits_info_message">Hoziroq buyurtma bering va barcha afzalliklardan zavqlaning.</string>
     <string name="card_order_benefits_info_message_title">Salom Card - kundalik hayotingiz uchun karta!</string>
+    <string name="card_order_benefits_info_title">Salom Card</string>
     <string name="card_order_benefits_pull_up_title">Batafsil</string>
     <string name="card_order_benefits_see_all_details">Batafsil</string>
     <string name="card_order_branch_list">Bo\'limlar ro’yxati</string>
@@ -253,7 +254,10 @@
     <string name="cards_continue">Keyingi</string>
     <string name="cards_details_digital_humo_title">O‘zbek so‘mida Humo virtual kartasidan foydalanish shartlari</string>
     <string name="cards_details_digital_uzcard_title">O‘zbek so‘mida TBC Uzcard virtual kartasidan foydalanish shartlari</string>
-    <string name="cards_details_digital_visa_title">AQSh dollarida virtual Visa kartasidan foydalanish shartlari</string>
+    <string name="cards_details_digital_uzcard">Uzcard virtual kartasi</string>
+    <string name="cards_details_digital_humo">Humo virtual kartasi</string>
+    <string name="cards_details_digital_visa">Visa virtual kartasi</string>
+    <string name="cards_details_digital_visa_title">AQSh dollarida virtual Visa kartasidan foydalaning</string>
     <string name="cards_details_physical_card_title">TBC kartasi shartlarini ko\'rib chiqing</string>
     <string name="cards_details_salom_card_title">Iltimos, Salom card shartlari bilan tanishib chiqing</string>
     <string name="cards_do_you_really_want_to_block_the_card">Ushbu kartani bloklashni tasdiqlaysizmi?</string>
@@ -1104,8 +1108,7 @@
     <string name="enter_password">Parolingizni kiriting</string>
     <string name="intro_title_page_1">100 mln so\'mgacha kredit oling. Javobi 1 minutda chiqadi.</string>
     <string name="intro_title_page_2">Omonatdan daromad oling. 1000 so\'mdan boshlang - millionlarni to\'plang.</string>
-    <string name="intro_title_page_3">Humo kartasi va Visa virtual kartasiga ega bo\'ling - O\'zbekiston va chet elda to\'lovlar qiling.</string>
-    <string name="intro_title_page_4">Chet eldan yuborilgan pullarni so\'mda yoki dollarda kartangizga qabul qiling.</string>
+    <string name="intro_title_page_3">Humo kartasi va Visa virtual kartasiga ega bo\'ling - O\'zbekiston va chet elda to\'lovlar qiling.</string><string name="intro_title_page_4">Chet eldan yuborilgan pullarni so\'mda yoki dollarda kartangizga qabul qiling.</string>
     <string name="intro_title_page_5">Missiyalarni bajaring va TBC Bankdan noyob sovrinlarga ega bo\'ling.</string>
     <string name="invite_friend_active_friends">Taklif etilgan do’stlar: %d</string>
     <string name="invite_friend_cancelled_descreption">Taklif qilinayotgan shaxs uning o‘rniga boshqa taklifdan foydalandi.</string>
@@ -1448,7 +1451,6 @@
     <string name="loan_schedule_total_payment">Jami to’lov uchun</string>
     <string name="loan_take">Kredit olish</string>
     <string name="loan_take_card_alert_message">Diqqat! Agar kreditni to\'lash kunida TBC hisob raqamingiz/kartangizda yetarli mablag\' mavjud bo’lmasa,unda kreditingiz boshqa Bank kartasidan avtomatik tarzda yechiladi.</string>
-    <string name="loan_take_into">Kredit</string>
     <string name="loan_terms_and_conditions_agree">[Umumiy shartlar] bilan tanishdim</string>
     <string name="loan_terms_and_conditions_agree_text">Roziman</string>
     <string name="loan_terms_and_conditions_disagree_text">Rozi emasman</string>
@@ -1536,8 +1538,6 @@
     <string name="my_space_balance">Balans</string>
     <string name="my_space_capital_title" />
     <string name="my_space_car_loan_title">Avtokredit</string>
-    <string name="my_space_card_title">Kartalar</string>
-    <string name="my_space_credit_card_title">Kredit kartasi</string>
     <string name="my_space_deposit_title">Omonatlar</string>
     <string name="my_space_gamification_title">TBC Stars</string>
     <string name="my_space_installments_title">Bo\'lib-Bo\'lib to\'lash</string>

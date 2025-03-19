@@ -1,0 +1,527 @@
+[
+  {
+    "id": 256,
+    "attributes": {
+      "title": "Sergeli tumani, Lutfkor ko‘chasi",
+      "address": "Mo'ljal: Sirg'ali yarmarkasi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.213029,
+          "lng": 69.227918
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:51:59.906Z",
+      "updatedAt": "2024-04-10T17:51:59.909Z",
+      "publishedAt": "2024-04-10T17:51:59.905Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 258,
+    "attributes": {
+      "title": "Toshkent shahri, Yakkasaroy tumani, Shota Rustaveli ko‘chasi, 150-uy.",
+      "address": "Mo'ljal: Janubiy vokzal ro'parasida, Vega savdo markazi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.259835,
+          "lng": 69.223617
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:51:59.943Z",
+      "updatedAt": "2024-04-10T17:51:59.948Z",
+      "publishedAt": "2024-04-10T17:51:59.942Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 260,
+    "attributes": {
+      "title": "Toshkent shahri, Yashnobod tumani, Tuzel-2 massivi",
+      "address": "Mo‘ljal: супермаркет \"Korzinka.uz\"",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.291389,
+          "lng": 69.35875
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:51:59.983Z",
+      "updatedAt": "2024-04-10T17:51:59.986Z",
+      "publishedAt": "2024-04-10T17:51:59.982Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 265,
+    "attributes": {
+      "title": "Olmazor tumani, Forobiy va Universitet koʻchalari chorrahasida.",
+      "address": "Mo'ljal: Beruniy metrosi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.346254,
+          "lng": 69.206202
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:52:00.087Z",
+      "updatedAt": "2024-04-10T17:52:00.091Z",
+      "publishedAt": "2024-04-10T17:52:00.086Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 262,
+    "attributes": {
+      "title": "Shayxontoxur tumani, Qoratosh ko‘chasi 5A.",
+      "address": "Mo'ljal: \"Samarqand Darvoza\" Ko'ngilochar savdo markazi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.316541,
+          "lng": 69.231116
+        }
+      },
+      "description": "10:00 - 21:00",
+      "createdAt": "2024-04-10T17:52:00.019Z",
+      "updatedAt": "2024-04-10T17:52:00.022Z",
+      "publishedAt": "2024-04-10T17:52:00.017Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 257,
+    "attributes": {
+      "title": "Bektemir tumani, Toshkent halqa yo‘li, 17-uy",
+      "address": "Mo'ljal: COMPASS savdo majmuasi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.239219,
+          "lng": 69.328495
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:51:59.923Z",
+      "updatedAt": "2024-04-10T17:51:59.928Z",
+      "publishedAt": "2024-04-10T17:51:59.922Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 259,
+    "attributes": {
+      "title": "Toshkent shahri, Chilonzor tumani, Bunyodkor shoh ko‘chasi, 52-uy",
+      "address": "Mo'ljal:\"Magnum\" supermarketi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.277177,
+          "lng": 69.204963
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:51:59.965Z",
+      "updatedAt": "2024-04-10T17:51:59.969Z",
+      "publishedAt": "2024-04-10T17:51:59.963Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 261,
+    "attributes": {
+      "title": "Toshkent shahri, Yashnobod tumani, Magtimguli ko‘chasi, 134-uy",
+      "address": "Mo'ljal: \"Makro\" supermarketi",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.304047,
+          "lng": 69.322182
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:52:00.001Z",
+      "updatedAt": "2024-04-10T17:52:00.005Z",
+      "publishedAt": "2024-04-10T17:52:00.000Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 263,
+    "attributes": {
+      "title": "Mirzo Ulug‘bek tumani, Buyuk Ipak yo‘li ko‘chasi, 158A",
+      "address": "Mo‘ljal: \"Salom\" restorani",
+      "marker": {
+        "address": "",
+        "geohash": "trd3s9gqqmnn",
+        "coordinates": {
+          "lat": 41.327693,
+          "lng": 69.343289
+        }
+      },
+      "description": "10:00 - 19:00",
+      "createdAt": "2024-04-10T17:52:00.036Z",
+      "updatedAt": "2024-04-10T17:52:00.040Z",
+      "publishedAt": "2024-04-10T17:52:00.035Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 81,
+    "attributes": {
+      "title": "Toshkent shahri, Temur Malik ko'chasi, 3A",
+      "address": "Mo'ljal: \"Chimgan\"savdo markazi ",
+      "marker": {
+        "address": "",
+        "geohash": "tx3760j7526e",
+        "coordinates": {
+          "lat": 41.353056,
+          "lng": 69.353056
+        }
+      },
+      "description": "<p>10:00 - 19:00</p>",
+      "createdAt": "2024-10-28T11:25:06.589Z",
+      "updatedAt": "2024-10-28T11:25:09.527Z",
+      "publishedAt": "2024-10-28T11:25:09.513Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 88,
+    "attributes": {
+      "title": "Yunusobod tumani, Amir Temur ko'chasi, 3",
+      "address": "Mo'ljal: \"Universam\" savdo markazi ",
+      "marker": {
+        "address": "",
+        "geohash": "tx372dn2gdrh",
+        "coordinates": {
+          "lat": 41.363667,
+          "lng": 69.288528
+        }
+      },
+      "description": "<p>10:00 - 19:00</p>",
+      "createdAt": "2024-10-28T11:26:42.725Z",
+      "updatedAt": "2024-10-28T11:26:45.132Z",
+      "publishedAt": "2024-10-28T11:26:45.100Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 98,
+    "attributes": {
+      "title": "Chilonzor tumani, Katartal ko'chasi, 60-uy.",
+      "address": "Mo'ljal: \"Parus\"savdo markazi",
+      "marker": {
+        "address": "",
+        "geohash": "tx34yuvyz2gr",
+        "coordinates": {
+          "lat": 41.291905,
+          "lng": 69.211093
+        }
+      },
+      "description": "<p>10:00 - 19:00</p>",
+      "createdAt": "2024-10-28T11:30:30.911Z",
+      "updatedAt": "2024-10-28T11:30:32.996Z",
+      "publishedAt": "2024-10-28T11:30:32.980Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 105,
+    "attributes": {
+      "title": "Yunusobod tumani, Bogishamol ko'chasi, 260-a uy.",
+      "address": "Mo'ljal: \"Sampi\" savdo markazi",
+      "marker": {
+        "address": "",
+        "geohash": "tx3738rrjw9w",
+        "coordinates": {
+          "lat": 41.35515,
+          "lng": 69.333925
+        }
+      },
+      "description": "<p>10:00 - 19:00</p>",
+      "createdAt": "2024-10-28T11:32:21.546Z",
+      "updatedAt": "2024-10-28T11:32:23.742Z",
+      "publishedAt": "2024-10-28T11:32:23.716Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 117,
+    "attributes": {
+      "title": "Toshkent shahar, Uchtepa tumani, Katta Qani ko‘chasi, 3-uy",
+      "address": "Mo'ljal: Korzinka Depo ichida",
+      "marker": {
+        "address": "",
+        "geohash": "tx34y10dzszv",
+        "coordinates": {
+          "lat": 41.27064,
+          "lng": 69.170941
+        }
+      },
+      "description": "<p>10:00 - 19:00</p>",
+      "createdAt": "2024-10-28T11:34:32.657Z",
+      "updatedAt": "2024-10-28T11:34:35.031Z",
+      "publishedAt": "2024-10-28T11:34:34.999Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": 125,
+    "attributes": {
+      "title": "Yunusobod tumani, 19-kvartal, Yunus Ota ko‘chasi, 15-uy.",
+      "address": "Mo'ljal: Korzinka Sayram ichida",
+      "marker": {
+        "address": "",
+        "geohash": "tx3735wvnpqe",
+        "coordinates": {
+          "lat": 41.372663,
+          "lng": 69.311294
+        }
+      },
+      "description": "<p>10:00 - 19:00</p>",
+      "createdAt": "2024-10-28T11:36:14.472Z",
+      "updatedAt": "2024-10-28T11:36:16.618Z",
+      "publishedAt": "2024-10-28T11:36:16.604Z",
+      "locale": "uz",
+      "city": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "Toshkent shahri",
+            "longitude": "69.279737",
+            "latitude": "41.311151",
+            "metroTab": null,
+            "createdAt": "2024-04-10T17:51:59.876Z",
+            "updatedAt": "2024-04-10T17:51:59.876Z",
+            "publishedAt": "2024-04-10T17:51:59.876Z",
+            "locale": "uz"
+          }
+        }
+      }
+    }
+  }
+]

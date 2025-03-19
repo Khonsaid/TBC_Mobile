@@ -19,4 +19,6 @@ class CardsViewModelImpl @Inject constructor(
             CardsContract.UIIntent.OpenPrevScreen -> viewModelScope.launch { directions.navigateToBack() }
         }
     }
+
+
 }

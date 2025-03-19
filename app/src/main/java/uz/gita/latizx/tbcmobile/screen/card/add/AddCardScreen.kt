@@ -27,7 +27,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,14 +66,18 @@ class AddCardScreen : Screen {
         scope.launch {
             viewModel._sideEffect.collect {
                 dialogMessage = it.message
-                showDialog = true
+                showDialog = it.showDialog
             }
         }
-        if (showDialog) {
-            TextDialog(
-                text = "dialogMessage",
-            )
+
+        val text = when (dialogMessage) {
+            1 -> stringResource(R.string.component_address_not_found)
+            2 -> stringResource(R.string.cards_add_enter_card_number)
+            3 -> stringResource(R.string.cards_add_enter_card_date)
+            else -> ""
         }
+
+        if (showDialog) TextDialog(text = text, onDismiss = { viewModel.onEventDispatcher(AddCardContract.UIIntent.CloseDialog) })
         if (uiState.value.showLoading) LoadingDialog()
     }
 }
@@ -114,7 +117,7 @@ private fun AddCardScreenContent(
                     .height(70.dp)
                     .padding(top = 24.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = colorResource(R.color.color_surface)
+                    containerColor = AppTheme.colorScheme.backgroundTertiary
                 )
             ) {
                 Row(
@@ -124,13 +127,14 @@ private fun AddCardScreenContent(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_card_scan_24_regular),
-                        contentDescription = ""
+                        contentDescription = "",
+                        tint = AppTheme.colorScheme.textPrimary
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                     Text(
                         text = stringResource(R.string.cards_add_scan),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
+                        style = AppTheme.typography.bodyMedium,
+                        color = AppTheme.colorScheme.textPrimary
                     )
                 }
             }
@@ -143,6 +147,7 @@ private fun AddCardScreenContent(
                 Text(
                     text = stringResource(R.string.cards_add_card_validity_period),
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                    color = AppTheme.colorScheme.textPrimary
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)

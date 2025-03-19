@@ -104,22 +104,22 @@ class HomeViewModelImpl @Inject constructor(
 
     private fun homeItems() = listOf(
         HomeItemVertical(
-            R.string.cards_management_digital_card_title,
-            R.string.signing_sign_up_the_last_name_empty,
+            R.string.loan_take_into,
+            R.string.intro_title_page_1,
             R.drawable.ill_credit_card_lg,
             R.color.pfm_gradient_end_color,
             HomeItemVerticalEnum.CARDS
         ),
         HomeItemVertical(
-            R.string.cards_management_digital_card_title,
-            R.string.signing_sign_up_the_last_name_empty,
+            R.string.my_space_card_title,
+            R.string.intro_title_page_3,
             R.drawable.ill_credit_card_lg,
             R.color.palette_yellow_30,
             HomeItemVerticalEnum.CREDITS
         ),
         HomeItemVertical(
-            R.string.cards_management_digital_card_title,
-            R.string.signing_sign_up_the_last_name_empty,
+            R.string.my_space_credit_card_title,
+            R.string.intro_title_page_2,
             R.drawable.ill_credit_card_lg,
             R.color.palette_green_10,
             HomeItemVerticalEnum.CREDIT_CARDS

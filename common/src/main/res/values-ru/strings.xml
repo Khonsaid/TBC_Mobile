@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="loan_take_into">Кредит</string>
+    <string name="intro_title_page_1">Оформите кредит до 100 млн сумов. Ответ по заявке - за минуту.</string>
+    <string name="intro_title_page_2">Зарабатывайте на вкладах. Начните с 1000 сумов - накопите миллионы.</string>
+    <string name="intro_title_page_3">Закажите карту Humo и откройте виртуальную Visa - оплачивайте покупки в Узбекистане и за рубежом.</string>
+    <string name="my_space_card_title">Карты</string>
+    <string name="my_space_credit_card_title">Кредитная карта</string>
 
 </resources>

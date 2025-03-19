@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("kotlin-parcelize")
 }
 
@@ -37,9 +37,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    kapt {
-        correctErrorTypes = true
-    }
+
 }
 
 dependencies {
@@ -53,8 +51,8 @@ dependencies {
 
     // hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
+//    kapt(libs.hilt.compiler)
+    ksp("com.google.dagger:hilt-compiler:2.51.1")
     //Coroutine
     implementation(libs.kotlinx.coroutines.android)
 
@@ -73,7 +71,7 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
-    kapt(libs.androidx.room.compiler)
+    ksp("androidx.room:room-compiler:2.5.0")
 
     //Gson
     implementation(libs.gson)

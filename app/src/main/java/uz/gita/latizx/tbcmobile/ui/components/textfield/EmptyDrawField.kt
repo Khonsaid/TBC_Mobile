@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 
 @Composable
 fun EmptyDrawField(value: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
@@ -32,7 +33,7 @@ fun EmptyDrawField(value: String, modifier: Modifier = Modifier, onClick: () -> 
         Row(
             modifier = Modifier
                 .height(50.dp)
-                .border(border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)), shape = RoundedCornerShape(12.dp))
+                .border(border = BorderStroke(1.dp, AppTheme.colorScheme.borderBrand), shape = RoundedCornerShape(12.dp))
                 .clip(shape = RoundedCornerShape(12.dp))
                 .clickable { onClick() }
                 .fillMaxWidth()
@@ -42,13 +43,13 @@ fun EmptyDrawField(value: String, modifier: Modifier = Modifier, onClick: () -> 
         ) {
             Text(
                 text = value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary
+                style = AppTheme.typography.bodyMedium,
+                color = AppTheme.colorScheme.textStatusInfo
             )
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
                 contentDescription = null,
-                tint = Color.Black
+                tint = AppTheme.colorScheme.backgroundAccentCoolGraySecondary
             )
         }
     }

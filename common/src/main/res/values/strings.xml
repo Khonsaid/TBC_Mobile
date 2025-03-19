@@ -2,5 +2,11 @@
 <resources>
     <string name="cards_management_digital_card_title">TBC</string>
     <string name="signing_sign_up_the_last_name_empty">Familiyangizni kiriting</string>
+    <string name="loan_take_into">Kredit</string>
+    <string name="intro_title_page_1">100 mln so\'mgacha kredit oling. Javobi 1 minutda chiqadi.</string>
+    <string name="intro_title_page_2">Omonatdan daromad oling. 1000 so\'mdan boshlang - millionlarni to\'plang.</string>
+    <string name="intro_title_page_3">Humo kartasi va Visa virtual kartasiga ega bo\'ling - O\'zbekiston va chet elda to\'lovlar qiling.</string>
+    <string name="my_space_card_title">Kartalar</string>
+    <string name="my_space_credit_card_title">Kredit kartasi</string>
 
 </resources>

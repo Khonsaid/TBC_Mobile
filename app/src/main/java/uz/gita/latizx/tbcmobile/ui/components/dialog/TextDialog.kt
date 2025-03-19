@@ -54,7 +54,7 @@ fun TextDialog(
                 )
             }
             LaunchedEffect(Unit) {
-                delay(5000)
+                delay(4000)
                 isVisible = false
                 onDismiss()
             }

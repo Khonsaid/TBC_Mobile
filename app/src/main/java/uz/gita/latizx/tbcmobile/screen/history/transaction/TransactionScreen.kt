@@ -1,5 +1,6 @@
 package uz.gita.latizx.tbcmobile.screen.history.transaction
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -130,10 +131,19 @@ private fun TransactionScreenContent(
             LazyColumn {
                 items(data.itemCount) { post ->
                     val data = data[post]
+
+                    val matchingCard = uiState.value.cards.find { card ->
+                        data?.to?.endsWith(card.pan) == true
+                    }
+
+                    val name = if (matchingCard != null) {
+                        stringResource(R.string.transfer_card_between_own_cards)
+                    } else data?.to.orEmpty()
+
                     data?.let {
                         ItemHistoryTransaction(
-                            name = if (it.from == "9860080808090010") stringResource(R.string.transfer_card_between_own_cards)
-                            else it.to.uppercase(),
+                            name = /*if (it.from == "9860080808090010") stringResource(R.string.transfer_card_between_own_cards)
+                            else */ if (matchingCard != null) name else name.uppercase(),
                             date = it.time.formatToHour(),
                             transferSum = if (it.type == "income") "+${it.amount.toString().formatWithSeparator()}"
                             else "-${it.amount.toString().formatWithSeparator()}",

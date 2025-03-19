@@ -299,7 +299,7 @@
     <string name="cards_continue">Продолжить</string>
     <string name="cards_details_digital_humo_title">Условия использования виртуальной карты Humo в узбекских сумах</string>
     <string name="cards_details_digital_uzcard_title">Условия использования виртуальной карты TBC Uzcard в узбекских сумах</string>
-    <string name="cards_details_digital_visa_title">Условия использования виртуальной карты Visa в долларах США</string>
+    <string name="cards_details_digital_visa_title">Используйте виртуальной карты Visa в долларах США</string>
     <string name="cards_details_physical_card_title">Пожалуйста, ознакомьтесь с тарифами и условиями карты TBC</string>
     <string name="cards_details_salom_card_title">Пожалуйста, ознакомьтесь с условиями Salom card</string>
     <string name="cards_do_you_really_want_to_block_the_card">Вы действительно хотите заблокировать эту карту?</string>
@@ -1170,12 +1170,15 @@
     <string name="installment_your_approved_amount">Подтвержденная сумма\10%s</string>
     <string name="installments_details">Детали рассрочки</string>
     <string name="intro_begin">Вход</string>
+    <string name="cards_details_digital_uzcard">Виртуальная карта Uzcard</string>
+    <string name="cards_details_digital_humo">Виртуальная карта Humo</string>
+    <string name="cards_details_digital_visa">Виртуальная карта Visa</string>
+    <string name="card_order_benefits_info_title">Привет Card</string>
     <string name="intro_choose_your_language">Выберите язык</string>
     <string name="intro_registration">Регистрация</string>
     <string name="intro_title_page_1">Оформите кредит до 100 млн сумов. Ответ по заявке - за минуту.</string>
     <string name="intro_title_page_2">Зарабатывайте на вкладах. Начните с 1000 сумов - накопите миллионы.</string>
-    <string name="intro_title_page_3">Закажите карту Humo и откройте виртуальную Visa - оплачивайте покупки в Узбекистане и за рубежом.</string>
-    <string name="intro_title_page_4">Принимайте международные переводы в сумах или долларах прямо на карту.</string>
+    <string name="intro_title_page_3">Закажите карту Humo и откройте виртуальную Visa - оплачивайте покупки в Узбекистане и за рубежом.</string>    <string name="intro_title_page_4">Принимайте международные переводы в сумах или долларах прямо на карту.</string>
     <string name="intro_title_page_5">Выполняйте миссии и получайте уникальные призы от TBC Bank.</string>
     <string name="invite_friend_active_friends">Приглашенные друзья: %d</string>
     <string name="invite_friend_cancelled_descreption">Приглашенный вместо этого использовал другое предложение.</string>
@@ -1519,7 +1522,6 @@
     <string name="loan_schedule_total_payment">Всего к оплате</string>
     <string name="loan_take">Получить кредит</string>
     <string name="loan_take_card_alert_message">Внимание! Если в день погашения кредита на счету/карте TBC не будет достаточно средств, то задолженность спишется с другой Вашей карты.</string>
-    <string name="loan_take_into">Кредит</string>
     <string name="loan_terms_and_conditions_agree">Ознакомился с [общими условиями]</string>
     <string name="loan_terms_and_conditions_agree_text">Принимаю</string>
     <string name="loan_terms_and_conditions_disagree_text">Не согласен</string>
@@ -1609,8 +1611,6 @@
     <string name="my_space_balance">Баланс</string>
     <string name="my_space_capital_title" />
     <string name="my_space_car_loan_title">Автокредит</string>
-    <string name="my_space_card_title">Карты</string>
-    <string name="my_space_credit_card_title">Кредитная карта</string>
     <string name="my_space_deposit_title">Вклады</string>
     <string name="my_space_gamification_title">TBC Stars</string>
     <string name="my_space_installments_title">Рассрочка</string>

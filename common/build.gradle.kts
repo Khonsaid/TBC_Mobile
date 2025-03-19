@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    id ("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -40,6 +41,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     //Gson
     implementation(libs.gson)
+    implementation(libs.kotlinx.serialization.json)
 
     //paging
     implementation(libs.androidx.paging.compose)

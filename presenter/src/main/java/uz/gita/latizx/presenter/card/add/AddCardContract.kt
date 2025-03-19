@@ -10,6 +10,7 @@ interface AddCardContract {
         data object ClickExpiredMonth : UIIntent
         data object ClickExpiredYear : UIIntent
         data object HideBottomSheet : UIIntent
+        data object CloseDialog : UIIntent
         data class AddCard(
             val pan: String,
             val expiredYear: String,
@@ -22,10 +23,12 @@ interface AddCardContract {
         val listData: List<String> = emptyList(),
         val isBottomSheetVisible: Boolean = false,
         val showLoading: Boolean = false,
-        val message: Int = 0,
     )
 
-    data class SideEffect(val message: Int)
+    data class SideEffect(
+        val showDialog: Boolean = false,
+        val message: Int = -1,
+    )
 
     interface AddCardViewModel {
         val uiState: StateFlow<UIState>

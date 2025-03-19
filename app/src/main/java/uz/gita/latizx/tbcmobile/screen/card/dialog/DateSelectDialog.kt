@@ -28,6 +28,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import uz.gita.latizx.tbcmobile.R
+import uz.gita.latizx.tbcmobile.ui.theme.AppTheme
 import kotlin.math.absoluteValue
 
 @Parcelize
@@ -56,20 +57,20 @@ private fun DateSelectBottomSheet(
     var currentIndex = pagerState.currentPage
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().background(color = AppTheme.colorScheme.backgroundTertiary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(AppTheme.colorScheme.backgroundBrandTertiary)
                 .clickable { onDismissRequest(list[currentIndex]) },
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = stringResource(R.string.components_confirm),
-                color = MaterialTheme.colorScheme.onTertiary,
+                color = AppTheme.colorScheme.textPrimary,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
         }
@@ -107,7 +108,7 @@ private fun DateSelectBottomSheet(
                     },
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.Medium,
-                color = Color.Black,
+                color = AppTheme.colorScheme.textPrimary,
                 textAlign = TextAlign.Center
             )
         }
