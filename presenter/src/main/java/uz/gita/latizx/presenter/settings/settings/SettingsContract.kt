@@ -7,6 +7,7 @@ interface SettingsContract {
 
     sealed interface UIIntent {
         data object OpenPrev : UIIntent
+        data object OpenMap : UIIntent
         data object OpenSecurity : UIIntent
         data object OpenGeneralSettingsScreen : UIIntent
         data object Logout : UIIntent
@@ -26,6 +27,7 @@ interface SettingsContract {
 
     interface Directions {
         suspend fun navigateToPrev()
+        suspend fun navigateToMap()
         suspend fun navigateToIntro()
         suspend fun navigateToSecurity()
         suspend fun navigateToGeneralSettingsScreenIntro()

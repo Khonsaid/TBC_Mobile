@@ -20,18 +20,10 @@ class SettingsViewModelImpl @Inject constructor(
     override val sideEffect = Channel<SettingsContract.SideEffect>()
     val _sideEffect = sideEffect.receiveAsFlow()
 
-    init {
-        getTBCLocation()
-    }
-
-    private fun getTBCLocation() {
-        val locations = settingsUseCase.getLocation()
-        Log.d("TTT", "locations: $locations ")
-    }
-
     override fun onEventDispatcher(uiIntent: SettingsContract.UIIntent) {
         when (uiIntent) {
             is SettingsContract.UIIntent.OpenPrev -> viewModelScope.launch { directions.navigateToPrev() }
+            is SettingsContract.UIIntent.OpenMap -> viewModelScope.launch { directions.navigateToMap() }
             is SettingsContract.UIIntent.OpenSecurity -> viewModelScope.launch { directions.navigateToSecurity() }
             is SettingsContract.UIIntent.OpenGeneralSettingsScreen -> viewModelScope.launch { directions.navigateToGeneralSettingsScreenIntro() }
             is SettingsContract.UIIntent.Logout -> viewModelScope.launch {

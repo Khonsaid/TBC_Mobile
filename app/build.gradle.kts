@@ -82,6 +82,22 @@ dependencies {
     //pdf
     implementation("com.itextpdf:itextg:5.5.10")
 
+
+    // Map
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.maps.android:android-maps-utils:3.7.0")
+
+    // Google Maps Compose library
+    val mapsComposeVersion = "4.4.1"
+    implementation("com.google.maps.android:maps-compose:$mapsComposeVersion")
+    // Google Maps Compose utility library
+    implementation("com.google.maps.android:maps-compose-utils:$mapsComposeVersion")
+    // Google Maps Compose widgets library
+    implementation("com.google.maps.android:maps-compose-widgets:$mapsComposeVersion")
+
+    implementation("com.google.accompanist:accompanist-permissions:0.37.0")
+    
     //coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

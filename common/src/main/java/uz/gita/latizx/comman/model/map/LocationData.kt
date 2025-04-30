@@ -15,7 +15,6 @@ data class LocationAttributes(
     val address: String,
     val marker: Marker,
     val description: String,
-    @SerialName("city") val cityWrapper: CityWrapper
 )
 
 @Serializable
@@ -30,20 +29,3 @@ data class Coordinates(
     val lng: Double
 )
 
-@Serializable
-data class CityWrapper(
-    val data: CityData
-)
-
-@Serializable
-data class CityData(
-    val id: Int,
-    val attributes: CityAttributes
-)
-
-@Serializable
-data class CityAttributes(
-    val name: String,
-    val longitude: String,
-    val latitude: String
-)

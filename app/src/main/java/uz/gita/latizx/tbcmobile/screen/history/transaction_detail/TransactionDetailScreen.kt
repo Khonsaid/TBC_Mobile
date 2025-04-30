@@ -161,7 +161,7 @@ private fun TransactionDetailScreenContent(
                 modifier = Modifier
                     .size(56.dp)
                     .background(color = AppTheme.colorScheme.backgroundAccentCoolGray, shape = AppTheme.shape.large)
-                    .clickable(indication = ripple(bounded = true),
+                    .clickable(indication = ripple(bounded = true, radius = 30.dp),
                         interactionSource = remember { MutableInteractionSource() }
                     ) {
                         context.generateAndSharePdf(uiState.value.historyData)

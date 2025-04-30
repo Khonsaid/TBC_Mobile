@@ -71,7 +71,7 @@ class AddCardViewModelImpl @Inject constructor(
         }
     }
 
-    private fun reduce(block: (AddCardContract.UIState) -> AddCardContract.UIState) {
+    private inline fun reduce(block: (AddCardContract.UIState) -> AddCardContract.UIState) {
         val old = uiState.value
         val new = block(old)
         uiState.value = new

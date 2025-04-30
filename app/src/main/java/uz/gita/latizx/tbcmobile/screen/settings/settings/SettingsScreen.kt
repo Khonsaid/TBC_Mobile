@@ -100,7 +100,9 @@ private fun SettingsScreenContent(
             ItemSettings(img = R.drawable.ic_lock_closed_24_regular, text = R.string.profile_security_title, onClick = {
                 eventDispatcher.invoke(SettingsContract.UIIntent.OpenSecurity)
             })
-            ItemSettings(img = R.drawable.ic_menu, text = R.string.profile_other_title, onClick = {})
+            ItemSettings(img = R.drawable.ic_map_pin_24_regular, text = R.string.profile_other_title, onClick = {
+                eventDispatcher.invoke(SettingsContract.UIIntent.OpenMap)
+            })
             Spacer(Modifier.weight(1f))
             ElevatedCard(
                 modifier = Modifier
